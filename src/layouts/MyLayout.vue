@@ -3,25 +3,47 @@
     <q-layout view="hHh Lpr lff" style="height: 300px">
       <q-header elevated class="bg-white text-primary">
         <q-toolbar>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+          <!--@click="drawer = !drawer"-->
+          <q-btn v-if="!$q.platform.is.mobile" flat round @click="miniState = !miniState" dense icon="menu" />
+          <q-btn v-if="$q.platform.is.mobile" flat round @click="drawer = !drawer" dense icon="menu" />
           <q-toolbar-title>SCD</q-toolbar-title>
+          <q-tabs>
+            <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir"
+              icon="eva-cloud-upload-outline" />
+            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario" icon="img:https://picsum.photos/200" rounded no-caps>
+              <q-list link>
+                <q-item clickable>
+                  <q-item-section>Mi Perfil</q-item-section>
+                </q-item>
+
+                <q-item clickable>
+                  <q-item-section>Cerrar Sesión</q-item-section>
+                </q-item>
+              </q-list>
+            </q-btn-dropdown>
+          </q-tabs>
         </q-toolbar>
       </q-header>
 
-      <q-drawer
-        v-model="drawer"
-        show-if-above
-
-        :mini="!drawer || miniState"
-        @click.capture="drawerClick"
-
-        :width="200"
-        :breakpoint="500"
-        bordered
-        content-class=""
-      >
+      <q-drawer v-model="drawer" show-if-above :mini="!drawer || miniState" @click.capture="drawerClick" :width="200"
+        :breakpoint="500" bordered content-class="">
         <q-scroll-area class="fit">
-          <q-list padding>
+          <q-list padding dense>
+            <q-item v-if="!miniState">
+              <q-item-section class="items-center">
+                <q-avatar>
+                  <img src="https://picsum.photos/200">
+                </q-avatar>
+                <div v-if="!miniState" class="text-center">
+                  <p class="q-py-xs">Nombre Docente <br>  Informática</p>
+                  <q-chip color="secondary" dense text-color="white" class="q-py-xs">
+                    50P
+                  </q-chip>
+                </div>
+              </q-item-section>
+            </q-item>
+
+            <q-separator inset />
 
             <q-item-label header>Menu</q-item-label>
             <q-item to="/" clickable v-ripple exact>
@@ -93,6 +115,20 @@
                 Administradores
               </q-item-section>
             </q-item>
+
+            <q-item>
+              <q-item-section>
+                <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
+                  icon="eva-download-outline" />
+              </q-item-section>
+            </q-item>
+
+            <q-item>
+              <q-item-section>
+                <q-btn rounded no-caps size="sm" color="primary" label="Subir Documentos"
+                  icon="eva-cloud-upload-outline" />
+              </q-item-section>
+            </q-item>
           </q-list>
         </q-scroll-area>
 
@@ -101,16 +137,9 @@
           so that user can switch back
           to mini-mode
         -->
-        <div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
-          <q-btn
-            dense
-            round
-            unelevated
-            color="accent"
-            icon="chevron_left"
-            @click="miniState = true"
-          />
-        </div>
+        <!--<div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
+          <q-btn dense round unelevated color="accent" icon="chevron_left" @click="miniState = true" />
+        </div>-->
       </q-drawer>
 
       <q-page-container>
@@ -137,8 +166,7 @@ export default {
       // if in "mini" state and user
       // click on drawer, we switch it to "normal" mode
       if (this.miniState) {
-        this.miniState = false
-
+        this.miniState = !this.miniState
         // notice we have registered an event with capture flag;
         // we need to stop further propagation as this click is
         // intended for switching drawer to "normal" mode only
