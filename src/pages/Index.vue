@@ -1,6 +1,23 @@
 <template>
-  <q-page class="flex flex-center">
-    <p>Hola</p>
+  <q-page class="">
+    <div class="row">
+      <div class="col-2">
+        <q-card class="my-card">
+          <q-card-section>
+            <div class="q-pa-md q-gutter-sm">
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-2">
+        <q-card class="my-card">
+          <q-card-section>
+            <div class="q-pa-md q-gutter-sm">
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -9,6 +26,13 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  components: {
+  },
+  data () {
+    return {
+      alert: false
+    }
+  }
 }
 </script>

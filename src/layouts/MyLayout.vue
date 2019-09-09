@@ -108,7 +108,7 @@
 
             <q-item to="/administradores" clickable v-ripple exact>
               <q-item-section avatar>
-                <q-icon name="eva-award-outline" />
+                <q-icon name="eva-shield-outline" />
               </q-item-section>
 
               <q-item-section>
@@ -119,7 +119,7 @@
             <q-item>
               <q-item-section>
                 <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
-                  icon="eva-download-outline" />
+                  icon="eva-download-outline" @click="alert()"/>
               </q-item-section>
             </q-item>
 
@@ -141,7 +141,6 @@
           <q-btn dense round unelevated color="accent" icon="chevron_left" @click="miniState = true" />
         </div>-->
       </q-drawer>
-
       <q-page-container>
         <router-view />
       </q-page-container>
@@ -151,9 +150,13 @@
 
 <script>
 import { openURL } from 'quasar'
+import Modal from 'components/Dialog'
 
 export default {
   name: 'MyLayout',
+  components: {
+    // Dialog
+  },
   data () {
     return {
       drawer: false,
@@ -172,6 +175,11 @@ export default {
         // intended for switching drawer to "normal" mode only
         e.stopPropagation()
       }
+    },
+    alert () {
+      this.$q.dialog({
+        component: Modal
+      })
     }
   }
 }
