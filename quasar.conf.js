@@ -58,7 +58,15 @@ module.exports = function (ctx) {
         'QCardActions',
         'QChip',
         'QDialog',
-        'QUploader'
+        'QUploader',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QForm',
+        'QInput',
+        'QDate',
+        'QPopupProxy'
       ],
 
       directives: [
