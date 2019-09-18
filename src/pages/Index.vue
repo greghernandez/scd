@@ -1,22 +1,24 @@
 <template>
   <q-page class="">
+    <!--Sección de bienvenida-->
+    <div>
+      <h5 class="q-mt-md q-mb-md">Hola Nombre docente!</h5>
+    </div>
+    <!--Sección cartas informativas-->
     <div class="row">
-      <div class="col-2">
-        <q-card class="my-card">
+      <div class="col-md-2" v-for="n in 6" :key="n">
+        <q-card class="my-card card-info">
           <q-card-section>
-            <div class="q-pa-md q-gutter-sm">
+            <div class="">
+              5
             </div>
           </q-card-section>
         </q-card>
       </div>
-      <div class="col-2">
-        <q-card class="my-card">
-          <q-card-section>
-            <div class="q-pa-md q-gutter-sm">
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
+    </div>
+    <!--Sección de avisos-->
+    <div>
+      Avisos
     </div>
   </q-page>
 </template>
