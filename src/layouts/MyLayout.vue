@@ -37,7 +37,7 @@
                 <div v-if="!miniState" class="text-center">
                   <p class="q-py-xs">Nombre Docente <br>  Informática</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
-                    50P
+                    50 P
                   </q-chip>
                 </div>
               </q-item-section>
@@ -76,7 +76,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/rubros" clickable v-ripple exact>
+            <!--<q-item to="/rubros" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-book-outline" />
               </q-item-section>
@@ -84,7 +84,7 @@
               <q-item-section>
                 Rubros
               </q-item-section>
-            </q-item>
+            </q-item>-->
 
             <q-item to="/avisos" clickable v-ripple exact>
               <q-item-section avatar>
@@ -96,7 +96,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/docentes" clickable v-ripple exact>
+            <q-item to="/docentes0" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-people-outline" />
               </q-item-section>
