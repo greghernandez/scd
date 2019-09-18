@@ -51,15 +51,14 @@
                       outlined
                       type="file"
                     />
+                    <q-card-actions align="right">
+                      <q-btn class="my-btn" unelevated rounded outline label="Cancel" color="primary" dense v-close-popup @click="onCancelClick()" no-caps />
+                      <q-btn class="my-btn" unelevated rounded label="Guardar Aviso" color="primary" dense v-close-popup @click="onOKClick()" no-caps/>
+                     </q-card-actions>
                   </q-form>
               </div>
           </template>
         </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn rounded outline label="Cancel" color="primary" dense v-close-popup @click="onCancelClick()" no-caps />
-        <q-btn rounded label="Guardar Aviso" color="primary" dense v-close-popup @click="onOKClick()" no-caps/>
-      </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
