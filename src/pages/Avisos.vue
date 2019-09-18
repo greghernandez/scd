@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <h3>Avisos</h3>
+      <h3 class="q-mt-md q-mb-md">Avisos</h3>
     </div>
     <div>
-      <q-btn unelevated rounded dense color="primary" label="Crear aviso" no-caps @click="crearAviso()"/>
+      <q-btn class="my-btn" unelevated rounded dense color="primary" label="Crear aviso" no-caps @click="crearAviso()"/>
     </div>
     <div class="q-mt-lg">
       <TablaAvisos />
@@ -22,6 +22,7 @@ export default {
     TablaAvisos
   },
   methods: {
+    // Muestra el Modal para crear avisos
     crearAviso () {
       this.$q.dialog({
         component: ModalCrearAviso
