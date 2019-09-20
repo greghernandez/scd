@@ -6,19 +6,13 @@
     </div>
     <!--Sección cartas informativas-->
     <div class="row">
-      <div class="col-md-2" v-for="n in 6" :key="n">
-        <q-card class="my-card card-info">
-          <q-card-section>
-            <div class="">
-              5
-            </div>
-          </q-card-section>
-        </q-card>
+      <div class="col-md-2 card-info" v-for="n in 2" :key="n">
+        <InfoCard/>
       </div>
     </div>
     <!--Sección de avisos-->
     <div>
-      Avisos
+      <BoardAvisos/>
     </div>
   </q-page>
 </template>
@@ -27,9 +21,14 @@
 </style>
 
 <script>
+import InfoCard from 'components/inicio/InfoCard'
+import BoardAvisos from 'components/inicio/BoardAvisos'
+
 export default {
   name: 'PageIndex',
   components: {
+    InfoCard,
+    BoardAvisos
   },
   data () {
     return {
