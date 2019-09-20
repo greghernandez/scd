@@ -2,7 +2,7 @@
   <div>
     <q-card class="my-card my-shadow">
       <q-table
-        :data="countries"
+        :data="notices"
         :columns="columns"
         row-key="Titulo"
         :filter="search"
@@ -24,13 +24,13 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="Titulo">
-              {{ props.row.name}}
+              {{ props.row.title}}
             </q-td>
             <q-td key="Estado">
-              {{ props.row.name}}
+              {{ props.row.status}}
             </q-td>
             <q-td key="Fecha">
-              {{ props.row.name}}
+              {{ props.row.fromDate}}
             </q-td>
             <q-td key="Editar">
               <q-btn
@@ -86,11 +86,13 @@ export default {
   components: {
   },
   apollo: {
-    countries: gql`query {
-        countries{
-            code,
-            name,
-            emoji
+    notices: gql`query{
+      notices(page: 0, perPage: 0)
+        {
+          title
+          status
+          fromDate
+          link
         }
     }`
   },
@@ -106,7 +108,7 @@ export default {
         { name: 'Eliminar', align: 'center', label: '', field: 'code' },
         { name: 'Ver', align: 'center', label: '', field: 'code' }
       ],
-      countries: []
+      notices: []
     }
   },
   methods: {
