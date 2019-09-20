@@ -29,12 +29,7 @@
             </div>
             <div class="row">
               <div class="col-md-4 col-sm-6 col-xs-12 rubro-card" v-for="n in 7" :key="n">
-                <q-card class="my-card rubro-content">
-                  <q-card-section class="">
-                    <q-avatar color="secondary" text-color="white">01</q-avatar>
-                    Estudios Especiales
-                  </q-card-section>
-                </q-card>
+                <RubroCard />
               </div>
             </div>
           </div>
@@ -48,8 +43,13 @@
 </style>
 
 <script>
+import RubroCard from 'components/documentos/RubroCard'
+
 export default {
   name: 'PageDocumento',
+  components: {
+    RubroCard
+  },
   data () {
     return {
       search: undefined
