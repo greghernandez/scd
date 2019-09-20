@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'axios',
-      'vue-apollo'
+      'vue-apollo',
+      'vue-glide'
     ],
 
     css: [
