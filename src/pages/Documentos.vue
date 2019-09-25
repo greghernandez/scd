@@ -4,7 +4,7 @@
       <q-card class="my-card q-mt-md q-mb-md padding-card">
         <q-card-section>
           <div>
-            <h3 class="q-mt-md q-mb-md">Rubros</h3>
+            <h4 class="q-mt-md q-mb-md">Rubros</h4>
           </div>
           <div>
             <q-input class="search q-my-xs" rounded outlined dense v-model="search" label="Buscar rubros" type="search">
@@ -15,7 +15,7 @@
           </div>
           <div>
             <div class="q-mt-md q-mb-md">
-              <q-breadcrumbs style="font-size: 20px">
+              <q-breadcrumbs style="font-size: 16px">
                 <template v-slot:separator>
                   <q-icon
                     size="1.5em"
