@@ -4,8 +4,8 @@
       <div class="col full-with">
         <q-avatar color="secondary" text-color="white">01</q-avatar>
       </div>
-      <div class="q-ml-sm q-mb-none" style="height: 100%">
-        <p>Estudios Especiales</p>
+      <div class="q-ml-sm" style="height: 100%">
+        <p class="q-my-none">Estudios Especiales</p>
       </div>
     </q-card-section>
   </q-card>
