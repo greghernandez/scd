@@ -70,7 +70,8 @@ module.exports = function (ctx) {
         'QPopupProxy',
         'QBreadcrumbs',
         'QBreadcrumbsEl',
-        'QImg'
+        'QImg',
+        'QMenu'
       ],
 
       directives: [
