@@ -8,9 +8,21 @@
           <q-btn v-if="$q.platform.is.mobile" flat round @click="drawer = !drawer" dense icon="menu" />
           <q-toolbar-title>SCD</q-toolbar-title>
           <q-tabs>
-            <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir"
-              icon="eva-cloud-upload-outline" />
-            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario" icon="img:https://picsum.photos/200" rounded no-caps>
+            <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir" icon="ion-share-alt">
+              <q-popup-proxy>
+                <q-banner>
+                  <template v-slot:action>
+                    <!-- <q-icon name="eva-link-outline" color="primary" /> -->
+                  </template>
+                  <div class="row">
+                    <q-input rounded outlined dense value="www.google.com"/>
+                    <q-btn round color="primary" icon="eva-copy-outline" />
+                  </div>
+                </q-banner>
+              </q-popup-proxy>
+            </q-btn>
+            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario"
+              icon="img:https://picsum.photos/200" rounded no-caps>
               <q-list link>
                 <q-item clickable>
                   <q-item-section>Mi Perfil</q-item-section>
@@ -19,6 +31,7 @@
                 <q-item clickable>
                   <q-item-section>Cerrar Sesión</q-item-section>
                 </q-item>
+
               </q-list>
             </q-btn-dropdown>
           </q-tabs>
@@ -35,7 +48,7 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-py-xs">Nombre Docente <br>  Informática</p>
+                  <p class="q-py-xs">Nombre Docente <br> Informática</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
@@ -119,7 +132,7 @@
             <q-item>
               <q-item-section>
                 <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
-                  icon="eva-download-outline" @click="alert()"/>
+                  icon="eva-download-outline" @click="alert()" />
               </q-item-section>
             </q-item>
 
