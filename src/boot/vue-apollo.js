@@ -7,7 +7,7 @@ import VueApollo from 'vue-apollo'
 const httpLink = createHttpLink({
   // You should use an absolute URL here
   //  uri: 'https://countries.trevorblades.com/'
-  uri: 'http://148.220.210.52:4000/'
+  uri: 'http://148.220.209.251:4000/graphql'
 })
 
 // Cache implementation
