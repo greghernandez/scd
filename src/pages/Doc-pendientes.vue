@@ -2,7 +2,7 @@
   <div>
     <h4 class="q-mb-sm">Documentos pendientes</h4>
     <div>
-      <q-input class="search search-input q-my-xs" rounded outlined dense v-model="search"
+      <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
         placeholder="Buscar categorías" type="search">
         <template v-slot:append>
           <q-icon name="search" />
