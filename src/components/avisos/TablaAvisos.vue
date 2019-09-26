@@ -14,7 +14,7 @@
         flat
       >
         <template v-slot:top="props">
-          <q-input class="search q-my-xs" rounded outlined dense v-model="search" label="Buscar aviso" type="search">
+          <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar aviso" type="search">
             <template v-slot:append>
               <!--<q-avatar color="primary" text-color="white" size="30px" icon="eva-search"></q-avatar>-->
               <q-icon name="search" />
