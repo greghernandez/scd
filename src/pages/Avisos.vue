@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h3 class="q-mt-md q-mb-md">Avisos</h3>
+      <h4 class="q-mt-md q-mb-md">Avisos</h4>
     </div>
     <div>
       <q-btn class="my-btn" unelevated rounded dense color="primary" label="Crear aviso" no-caps @click="crearAviso()"/>
