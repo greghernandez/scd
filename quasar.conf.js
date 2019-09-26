@@ -71,7 +71,8 @@ module.exports = function (ctx) {
         'QBreadcrumbs',
         'QBreadcrumbsEl',
         'QImg',
-        'QMenu'
+        'QMenu',
+        'QBanner'
       ],
 
       directives: [
