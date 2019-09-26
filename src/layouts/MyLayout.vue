@@ -96,7 +96,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/docentes0" clickable v-ripple exact>
+            <q-item to="/docentes" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-people-outline" />
               </q-item-section>
