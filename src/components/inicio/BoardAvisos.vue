@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card-outlined flat">
+  <q-card flat class="my-card-outlined flat">
     <q-card-section>
       <div class="row ">
         <q-icon name="eva-alert-triangle-outline" />
@@ -9,12 +9,19 @@
       <div>
         <q-card v-for="n in 7" :key="n" class="my-card q-my-sm">
           <q-card-secction>
-            <div>
+            <div class="row">
+              <div class="col">
+                <q-img src="https://picsum.photos/200" class="notice-img" spinner-color="white" style="height: 150px; max-width: 150px"/>
+              </div>
+              <div class="column">
+                <div class="col">Nueva convocatoria</div>
+                <div class="col">Fecha</div>
+                <div class="col">
+                  Contenido
+                  <q-btn outline rounded dense color="primary" label="Ver más" no-caps />
+                </div>
+              </div>
             </div>
-            <div>Titulo</div>
-            <div>Fecha</div>
-            <div>Contenido</div>
-            <q-btn outline rounded dense color="primary" label="Ver más" no-caps />
           </q-card-secction>
         </q-card>
       </div>
