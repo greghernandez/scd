@@ -39,7 +39,14 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-edit-outline"
-              />
+              >
+                <q-tooltip
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Editar aviso
+                </q-tooltip>
+              </q-btn>
             </q-td>
             <q-td key="Ocultar">
               <q-btn
@@ -49,7 +56,14 @@
                 size="sm"
                 icon="eva-eye-off-outline"
                 @click="habilitarAviso()"
-              />
+              >
+                <q-tooltip
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Habilitar aviso
+                </q-tooltip>
+              </q-btn>
             </q-td>
             <q-td key="Eliminar">
               <q-btn
@@ -59,7 +73,14 @@
                 size="sm"
                 icon="eva-trash-outline"
                 @click="eliminarAviso()"
-              />
+              >
+                <q-tooltip
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Eliminar aviso
+                </q-tooltip>
+              </q-btn>
             </q-td>
             <q-td key="Ver">
               <q-btn
@@ -68,7 +89,14 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-link"
-              />
+              >
+                <q-tooltip
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Ver convocatoria
+                </q-tooltip>
+              </q-btn>
             </q-td>
           </q-tr>
         </template>
