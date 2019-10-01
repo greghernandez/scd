@@ -8,15 +8,25 @@
           <q-btn v-if="$q.platform.is.mobile" flat round @click="drawer = !drawer" dense icon="menu" />
           <q-toolbar-title>SCD</q-toolbar-title>
           <q-tabs>
-            <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir" icon="ion-share-alt">
+            <q-btn rounded outline no-caps size="md" color="primary" label="Compartir" icon="ion-share-alt">
               <q-popup-proxy>
                 <q-banner>
                   <template v-slot:action>
                     <!-- <q-icon name="eva-link-outline" color="primary" /> -->
                   </template>
                   <div class="row">
-                    <q-input rounded outlined dense value="www.google.com"/>
-                    <q-btn round color="primary" icon="eva-copy-outline" />
+                    <p class="q-my-none">Este es tu link para compartir</p>
+                  </div>
+                  <div class="row">
+                    <q-input dense value="www.google.com"/>
+                    <q-btn flat round icon="eva-copy-outline" >
+                      <q-tooltip
+                        transition-show="rotate"
+                        transition-hide="rotate"
+                      >
+                        Copiar el enlace para compartir
+                    </q-tooltip>
+                    </q-btn>
                   </div>
                 </q-banner>
               </q-popup-proxy>
@@ -48,7 +58,7 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-py-xs">Nombre Docente <br> Informática</p>
+                  <p class="q-my-none">Nombre Docente <br> Informática</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
@@ -132,14 +142,14 @@
             <q-item>
               <q-item-section>
                 <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
-                  icon="eva-download-outline" @click="alert()" />
+                  icon="eva-download-outline" @click="descargarCV()" />
               </q-item-section>
             </q-item>
 
             <q-item>
               <q-item-section>
                 <q-btn rounded no-caps size="sm" color="primary" label="Subir Documentos"
-                  icon="eva-cloud-upload-outline" />
+                  icon="eva-cloud-upload-outline" @click="subirDocumentos()"/>
               </q-item-section>
             </q-item>
           </q-list>
@@ -164,6 +174,7 @@
 <script>
 import { openURL } from 'quasar'
 import Modal from 'components/Dialog'
+import SubirDocumentos from 'components/documentos/subirDocumentos'
 
 export default {
   name: 'MyLayout',
@@ -189,9 +200,23 @@ export default {
         e.stopPropagation()
       }
     },
-    alert () {
+    descargarCV () {
       this.$q.dialog({
-        component: Modal
+        component: Modal,
+        title: 'Descargar',
+        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
+        btn: 'Eliminar Aviso',
+        btnColor: 'negative'
+      })
+    },
+    subirDocumentos () {
+      this.$q.dialog({
+        component: SubirDocumentos,
+        title: 'Carga de archivos X',
+        btn: 'Eliminar Aviso',
+        unelevated: true,
+        rounded: true,
+        btnColor: 'primary'
       })
     }
   }
