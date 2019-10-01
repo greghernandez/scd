@@ -14,6 +14,13 @@
         flat
       >
         <template v-slot:top="props">
+          <div class="q-mx-md">
+            <h5>Docentes</h5>
+          </div>
+          <div class="q-mx-md">
+            <q-btn rounded color="primary" icon="eva-shield-outline" label="Ver administradores" no-caps/>
+          </div>
+          <q-space />
           <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar docentes" type="search">
             <template v-slot:append>
               <!--<q-avatar color="primary" text-color="white" size="30px" icon="eva-search"></q-avatar>-->
@@ -38,7 +45,15 @@
                 size="sm"
                 icon="eva-shield-outline"
                 @click="habilitarAviso()"
-              />
+              >
+                <q-tooltip
+                  content-class="bg-indigo"
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Hacer administrador
+                </q-tooltip>
+              </q-btn>
             </q-td>
           </q-tr>
         </template>
