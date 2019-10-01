@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-card class="my-card">
+    <q-card class="doc-card">
       <q-card-section class="q-py-xs q-px-md">
         <div class="row justify-between items-center content-center">
             <div class="column">
