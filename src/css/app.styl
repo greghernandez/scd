@@ -3,22 +3,18 @@ body
   background-color: #F6F5FA
   color: $gray-primary
 
-//colores
-.bg-primary{
+// colores de fondo
+.bg-primary
   background-color: $primary
-}
-.bg-secondary{
+.bg-secondary
   background-color: $secundary
-}
-.bg-red{
+.bg-red
   background-color: $negative
-}
-.bg-info{
+.bg-info
   background-color: $info
-}
-.bg-warining{
+.bg-warining
   background-color: $warning
-}
+
 // Cards
 .my-card
   border-radius: 15px !important
@@ -36,10 +32,12 @@ body
   -webkit-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
   -moz-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
   box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
-.my-card-outlined
+.notices-card
   border: 1.2px solid #707070
   border-radius: 15px !important
   background-color: transparent
+  max-height: 450px
+  overflow-x: auto
 .rubro-card
   box-sizing: border-box
   padding: 10px 10px 10px 0px
@@ -66,21 +64,24 @@ body
 .doc-label
     box-sizing: border-box
     padding: 20px 20px 5px 0px
-    
+.login-card
+  width: 25%
 // Buttons
 button img
-    border-radius: 100% !important
-    border: solid 2px $primary
+  border-radius: 100% !important
+  border: solid 2px $primary
 .my-btn
-    width: 130px
+  width: 130px
 .btn-editar:hover
-    background-color: $warning !important
+  background-color: $warning !important
 .btn-habilitar:hover
-    background-color: $primary !important
+  background-color: $primary !important
 .btn-eliminar:hover
-    background-color: $negative !important
+  background-color: $negative !important
 .btn-link:hover
-    background-color: $info !important
+  background-color: $info !important
+.btn-login
+  width: 80%
 // Avatar
 .secondary-spc
     background-color: #DBE1F5
@@ -106,5 +107,31 @@ button img
 .notice-img
     border-radius: 10px
 
+.logo-uaq
+  width: 100px
+  height: 100px
+.logo-cd
+  width: 35px
+  height: 35px
+
 .filepond--root
-  height: 300px;
+  height: 300px
+
+#boardavisos::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    box-sizing: border-box
+    margin: 30px
+}
+
+#boardavisos::-webkit-scrollbar
+{
+    width: 10px;
+}
+
+#boardavisos::-webkit-scrollbar-thumb
+  border-radius: 10px
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+  background-color: #555
