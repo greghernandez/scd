@@ -6,13 +6,16 @@
     </div>
     <!--Sección cartas informativas-->
     <div class="row">
-      <div class="col-md-2 card-info" v-for="n in 2" :key="n">
-        <InfoCard/>
+      <div class="col-md-2 col-xs-6 card-info">
+        <InfoCard />
+      </div>
+      <div class="col-md-2 col-xs-6 card-info">
+        <cardDocsPen />
       </div>
     </div>
     <!--Sección de avisos-->
-    <div>
-      <BoardAvisos/>
+    <div class="q-mb-xl">
+      <BoardAvisos />
     </div>
   </q-page>
 </template>
@@ -22,13 +25,15 @@
 
 <script>
 import InfoCard from 'components/inicio/InfoCard'
+import CardDocsPen from 'components/inicio/cardDocsPendientes'
 import BoardAvisos from 'components/inicio/BoardAvisos'
 
 export default {
   name: 'PageIndex',
   components: {
     InfoCard,
-    BoardAvisos
+    BoardAvisos,
+    CardDocsPen
   },
   data () {
     return {
