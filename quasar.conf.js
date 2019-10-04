@@ -8,7 +8,8 @@ module.exports = function (ctx) {
     boot: [
       'axios',
       'vue-apollo',
-      'vue-glide'
+      'vue-glide',
+      'vue-clipboard'
     ],
 
     css: [

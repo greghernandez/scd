@@ -18,8 +18,8 @@
                     <p class="q-my-none">Este es tu link para compartir</p>
                   </div>
                   <div class="row">
-                    <q-input dense value="www.google.com"/>
-                    <q-btn flat round icon="eva-copy-outline" >
+                    <q-input id="link" dense v-model="linkPerfil"/>
+                    <q-btn flat round icon="eva-copy-outline" v-clipboard:copy="linkPerfil" v-clipboard:success="onCopy">
                       <q-tooltip
                         transition-show="rotate"
                         transition-hide="rotate"
@@ -184,7 +184,8 @@ export default {
   data () {
     return {
       drawer: false,
-      miniState: false
+      miniState: false,
+      linkPerfil: 'Mensaje'
     }
   },
   methods: {
@@ -217,6 +218,12 @@ export default {
         unelevated: true,
         rounded: true,
         btnColor: 'primary'
+      })
+    },
+    onCopy: function () {
+      this.$q.notify({
+        message: 'Se compio el link para compartir',
+        position: 'top-right'
       })
     }
   }
