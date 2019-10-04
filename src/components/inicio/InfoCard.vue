@@ -1,6 +1,6 @@
 <template>
   <q-card class="my-card info-content">
-    <q-card-section>
+    <q-card-section class="absolute-center">
       <div class="text-center">
         <div>
           <q-avatar class="secondary-spc" size="lg" text-color="secondary" icon="eva-file-outline" />
