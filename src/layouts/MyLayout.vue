@@ -222,7 +222,7 @@ export default {
     },
     onCopy: function () {
       this.$q.notify({
-        message: 'Se compio el link para compartir',
+        message: 'Se copio el link para compartir',
         position: 'top-right'
       })
     }
