@@ -14,6 +14,13 @@
         flat
       >
         <template v-slot:top="props">
+          <div class="q-mx-md">
+            <h5>Docentes</h5>
+          </div>
+          <div class="q-mx-md">
+            <q-btn rounded color="primary" icon="eva-shield-outline" label="Ver administradores" no-caps/>
+          </div>
+          <q-space />
           <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar docentes" type="search">
             <template v-slot:append>
               <!--<q-avatar color="primary" text-color="white" size="30px" icon="eva-search"></q-avatar>-->
@@ -29,34 +36,24 @@
             <q-td key="Clave">
               {{ props.row.clave}}
             </q-td>
-            <q-td key="verDocente">
+            <q-td key="verDocente" align="center">
               <q-btn
+                flat
                 class="btn-habilitar"
                 round
                 color="grey-14"
                 size="sm"
-                icon="eva-eye-outline"
+                icon="eva-shield-outline"
                 @click="habilitarAviso()"
-              />
-            </q-td>
-            <q-td key="habilitarDocente">
-              <q-btn
-                class="btn-editar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-lock-outline"
-              />
-            </q-td>
-            <q-td key="Eliminar">
-              <q-btn
-                class="btn-eliminar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-trash-outline"
-                @click="eliminarDocente()"
-              />
+              >
+                <q-tooltip
+                  content-class="bg-indigo"
+                  transition-show="rotate"
+                  transition-hide="rotate"
+                >
+                  Hacer administrador
+                </q-tooltip>
+              </q-btn>
             </q-td>
           </q-tr>
         </template>
@@ -70,7 +67,7 @@ import gql from 'graphql-tag'
 import Alert from 'components/Alert.vue'
 
 export default {
-  name: 'TablaAvisos',
+  name: 'TablaAdministradores',
   components: {
   },
   apollo: {
@@ -84,25 +81,23 @@ export default {
   },
   data () {
     return {
-      search: '',
+      search: undefined,
       columns: [
         { name: 'Nombre', label: 'Nombre', field: 'nombre', align: 'left', sortable: true, required: true },
         { name: 'Clave', align: 'left', label: 'Clave', field: 'clave', sortable: true },
-        { name: 'Ocultar/Habilitar', align: 'center', label: '', field: 'code' },
-        { name: 'Eliminar', align: 'center', label: '', field: 'code' },
-        { name: 'Ver', align: 'center', label: '', field: 'code' }
+        { name: 'Administrador', align: 'center', label: 'Administrador' }
       ],
       users: []
     }
   },
   methods: {
   // Muestra el Alert para eliminar
-    eliminarDocente () {
+    eliminarAviso () {
       this.$q.dialog({
         component: Alert,
         title: 'Eliminar',
-        message: '¿Esta seguro de que desea eliminar permanentemente este docente?',
-        btn: 'Eliminar Ddocente',
+        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
+        btn: 'Eliminar Aviso',
         btnColor: 'negative'
       })
     }

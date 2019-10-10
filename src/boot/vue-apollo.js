@@ -6,12 +6,8 @@ import VueApollo from 'vue-apollo'
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-<<<<<<< Updated upstream
-  uri: 'https://countries.trevorblades.com/'
-=======
   //  uri: 'https://countries.trevorblades.com/'
-  uri: 'http://148.220.209.7:4000/graphql'
->>>>>>> Stashed changes
+  uri: 'http://148.220.209.251:4000/graphql'
 })
 
 // Cache implementation

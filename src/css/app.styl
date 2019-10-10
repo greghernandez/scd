@@ -1,15 +1,109 @@
 // app global css
 body
-    background-color #F6F5FA
+  background-color: #F6F5FA
+  color: $gray-primary
 
+// colores de fondo
+.bg-primary
+  background-color: $primary
+.bg-secondary
+  background-color: $secundary
+.bg-red
+  background-color: $negative
+.bg-info
+  background-color: $info
+.bg-warining
+  background-color: $warning
+  
+// Cards
 .my-card
-    border-radius 13px !important
-
-<<<<<<< Updated upstream
+  border-radius: 15px !important
+  transition: .4s
+.my-card:hover
+  transition: .3s
+  -webkit-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+  -moz-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+  box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+.doc-card
+  border-radius: 8px !important
+  transition: .4s
+.doc-card:hover
+  transition: .3s
+  -webkit-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+  -moz-box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+  box-shadow: 2px 7px 25px 2px rgba(0,0,0,0.20)
+.notices-card
+  border: 1.2px solid #707070
+  border-radius: 15px !important
+  background-color: transparent
+  max-height: 450px
+  overflow-x: auto
+.rubro-card
+  box-sizing: border-box
+  padding: 10px 10px 10px 0px
+.rubro-content
+  background-color: $gray-contrast !important
+  height: 160px
+.padding-card
+  box-sizing: border-box
+  padding: 20px
+.padding-card-sm
+  box-sizing: border-box
+  padding: 0px 15px 0px 15px
+.card-info
+  box-sizing: border-box
+  padding: 0px 20px 20px 0px
+.info-content
+    height: 150px
+.card-cat
+    margin: 20px 0px 20px 0px
+// Modal
+.my-modal
+    width: 90% !important
+    height: auto !important
+.doc-label
+    box-sizing: border-box
+    padding: 20px 20px 5px 0px
+.login-card
+  width: 100%
+// Buttons
 button img
-    border-radius 100% !important
-    border solid 2px $primary
-=======
+  border-radius: 100% !important
+  border: solid 2px $primary
+.my-btn
+  width: 130px
+.btn-editar:hover
+  background-color: $warning !important
+.btn-habilitar:hover
+  background-color: $primary !important
+.btn-eliminar:hover
+  background-color: $negative !important
+.btn-link:hover
+  background-color: $info !important
+.btn-login
+  width: 80%
+// Avatar
+.secondary-spc
+    background-color: #DBE1F5
+
+// text
+.txt-card-points
+    font-size: .8em !important
+
+//input
+.search
+    width: 208px
+    border-radius: 30px
+// undefined
+.my-shadow
+    transition: .3s
+    -webkit-box-shadow: 2px 7px 25px -8px rgba(0,0,0,0.36)
+    -moz-box-shadow: 2px 7px 25px -8px rgba(0,0,0,0.36)
+    box-shadow: 2px 7px 25px -8px rgba(0,0,0,0.36)
+
+.bg-gray-secondary
+    background-color: $gray-secondary
+
 // Media
 .notice-img
   border-radius: 10px
@@ -20,7 +114,8 @@ button img
   width: 35px
   height: 35px
 
-// file Uploader
+.filepond--root
+  height: 300px
 
 #boardavisos::-webkit-scrollbar-track
 {
@@ -35,8 +130,8 @@ button img
 {
     width: 10px;
 }
->>>>>>> Stashed changes
 
-.my-modal
-    width 80% !important
-    height 50% !important
+#boardavisos::-webkit-scrollbar-thumb
+  border-radius: 10px
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+  background-color: #555

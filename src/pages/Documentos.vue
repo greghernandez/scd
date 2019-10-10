@@ -1,12 +1,11 @@
 <template>
   <q-page class="">
-<<<<<<< Updated upstream
     <q-card class="my-card">
       <q-card-section>
         Rubros
       </q-card-section>
     </q-card>
-=======
+
     <div>
       <q-card class="my-card q-mt-md q-mb-md padding-card">
         <q-card-section>
@@ -43,7 +42,6 @@
         </q-card-section>
       </q-card>
     </div>
->>>>>>> Stashed changes
   </q-page>
 </template>
 
@@ -51,10 +49,9 @@
 </style>
 
 <script>
+import RubroCard from 'components/documentos/RubroCard'
+
 export default {
-<<<<<<< Updated upstream
-  name: 'PageDocumento'
-=======
   name: 'PageDocumento',
   components: {
     RubroCard
@@ -67,6 +64,5 @@ export default {
       search: undefined
     }
   }
->>>>>>> Stashed changes
 }
 </script>

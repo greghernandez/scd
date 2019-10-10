@@ -8,9 +8,31 @@
           <q-btn v-if="$q.platform.is.mobile" flat round @click="drawer = !drawer" dense icon="menu" />
           <q-toolbar-title>SCD</q-toolbar-title>
           <q-tabs>
-            <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir"
-              icon="eva-cloud-upload-outline" />
-            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario" icon="img:https://picsum.photos/200" rounded no-caps>
+            <q-btn rounded outline no-caps size="md" color="primary" label="Compartir" icon="ion-share-alt">
+              <q-popup-proxy>
+                <q-banner>
+                  <template v-slot:action>
+                    <!-- <q-icon name="eva-link-outline" color="primary" /> -->
+                  </template>
+                  <div class="row">
+                    <p class="q-my-none">Este es tu link para compartir</p>
+                  </div>
+                  <div class="row">
+                    <q-input id="link" dense v-model="linkPerfil"/>
+                    <q-btn flat round icon="eva-copy-outline" v-clipboard:copy="linkPerfil" v-clipboard:success="onCopy">
+                      <q-tooltip
+                        transition-show="rotate"
+                        transition-hide="rotate"
+                      >
+                        Copiar el enlace para compartir
+                    </q-tooltip>
+                    </q-btn>
+                  </div>
+                </q-banner>
+              </q-popup-proxy>
+            </q-btn>
+            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario"
+              icon="img:https://picsum.photos/200" rounded no-caps>
               <q-list link>
                 <q-item clickable>
                   <q-item-section>Mi Perfil</q-item-section>
@@ -19,6 +41,7 @@
                 <q-item clickable>
                   <q-item-section>Cerrar Sesión</q-item-section>
                 </q-item>
+
               </q-list>
             </q-btn-dropdown>
           </q-tabs>
@@ -35,9 +58,9 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-py-xs">Nombre Docente <br>  Informática</p>
+                  <p class="q-my-none">Nombre Docente <br> Informática</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
-                    50P
+                    50 P
                   </q-chip>
                 </div>
               </q-item-section>
@@ -76,7 +99,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/rubros" clickable v-ripple exact>
+            <!--<q-item to="/rubros" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-book-outline" />
               </q-item-section>
@@ -84,7 +107,7 @@
               <q-item-section>
                 Rubros
               </q-item-section>
-            </q-item>
+            </q-item>-->
 
             <q-item to="/avisos" clickable v-ripple exact>
               <q-item-section avatar>
@@ -119,14 +142,14 @@
             <q-item>
               <q-item-section>
                 <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
-                  icon="eva-download-outline" @click="alert()"/>
+                  icon="eva-download-outline" @click="descargarCV()" />
               </q-item-section>
             </q-item>
 
             <q-item>
               <q-item-section>
                 <q-btn rounded no-caps size="sm" color="primary" label="Subir Documentos"
-                  icon="eva-cloud-upload-outline" />
+                  icon="eva-cloud-upload-outline" @click="subirDocumentos()"/>
               </q-item-section>
             </q-item>
           </q-list>
@@ -151,6 +174,7 @@
 <script>
 import { openURL } from 'quasar'
 import Modal from 'components/Dialog'
+import SubirDocumentos from 'components/documentos/subirDocumentos'
 
 export default {
   name: 'MyLayout',
@@ -160,7 +184,8 @@ export default {
   data () {
     return {
       drawer: false,
-      miniState: false
+      miniState: false,
+      linkPerfil: 'Mensaje'
     }
   },
   methods: {
@@ -176,9 +201,29 @@ export default {
         e.stopPropagation()
       }
     },
-    alert () {
+    descargarCV () {
       this.$q.dialog({
-        component: Modal
+        component: Modal,
+        title: 'Descargar',
+        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
+        btn: 'Eliminar Aviso',
+        btnColor: 'negative'
+      })
+    },
+    subirDocumentos () {
+      this.$q.dialog({
+        component: SubirDocumentos,
+        title: 'Carga de archivos X',
+        btn: 'Eliminar Aviso',
+        unelevated: true,
+        rounded: true,
+        btnColor: 'primary'
+      })
+    },
+    onCopy: function () {
+      this.$q.notify({
+        message: 'Se copio el link para compartir',
+        position: 'top-right'
       })
     }
   }

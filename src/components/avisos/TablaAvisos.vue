@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h5>{{search}}</h5>
     <q-card class="my-card my-shadow">
       <q-table
         :data="notices"
         :columns="columns"
-        row-key="name"
+        row-key="Titulo"
         :filter="search"
         binary-state-sort
         no-data-label="No hay datos disponibles"
@@ -127,7 +126,7 @@ export default {
   },
   data () {
     return {
-      search: '',
+      search: undefined,
       columns: [
         { name: 'Titulo', label: 'Titulo', field: 'name', align: 'left', sortable: true, required: true },
         { name: 'Estado', align: 'left', label: 'Estado', field: 'calories', sortable: true },

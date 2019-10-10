@@ -7,7 +7,9 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'axios',
-      'vue-apollo'
+      'vue-apollo',
+      'vue-glide',
+      'vue-clipboard'
     ],
 
     css: [
@@ -58,7 +60,24 @@ module.exports = function (ctx) {
         'QCardActions',
         'QChip',
         'QDialog',
-        'QUploader'
+        'QUploader',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QForm',
+        'QInput',
+        'QDate',
+        'QPopupProxy',
+        'QBreadcrumbs',
+        'QBreadcrumbsEl',
+        'QImg',
+        'QMenu',
+        'QBanner',
+        'QTooltip',
+        'QSpace',
+        'QBadge',
+        'QCheckbox'
       ],
 
       directives: [
