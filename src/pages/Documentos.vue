@@ -1,11 +1,5 @@
 <template>
   <q-page class="">
-    <q-card class="my-card">
-      <q-card-section>
-        Rubros
-      </q-card-section>
-    </q-card>
-
     <div>
       <q-card class="my-card q-mt-md q-mb-md padding-card">
         <q-card-section>
