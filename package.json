@@ -7,6 +7,7 @@
   "author": "Nadie-co",
   "private": true,
   "scripts": {
+    "deploy": "quasar build"
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
   },
