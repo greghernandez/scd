@@ -34,7 +34,7 @@
             <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario"
               icon="img:https://picsum.photos/200" rounded no-caps>
               <q-list link>
-                <q-item clickable>
+                <q-item clickable to="/mi-perfil">
                   <q-item-section>Mi Perfil</q-item-section>
                 </q-item>
 
