@@ -7,12 +7,80 @@
         </div>
       </q-card-section>
 
-        <q-card-section>
-          {{ message }}
-        </q-card-section>
+      <q-card-section>
+        <div>
+          Rubros
+        </div>
+        <q-list>
+
+          <q-expansion-item group="somegroup" icon="eva-book-outline" label="First" header-class="text-primary">
+            <q-card>
+              <q-card-section>
+                contenido
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+
+          <q-separator />
+
+          <q-expansion-item group="somegroup" icon="eva-book-outline" label="Trabajos de investigación" header-class="text-primary">
+            <q-card>
+              <q-card-section>
+                <q-expansion-item switch-toggle-side dense-toggle label="Articulos cientificos publicados en revistas">
+                  <q-card>
+                    <q-card-section>
+                      <q-item tag="label" v-ripple>
+                        <q-item-section side top>
+                          <q-checkbox v-model="check1" />
+                        </q-item-section>
+
+                        <q-item-section>
+                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
+                        </q-item-section>
+                      </q-item>
+
+                      <q-separator />
+
+                      <q-item tag="label" v-ripple>
+                        <q-item-section side top>
+                          <q-checkbox v-model="check2" />
+                        </q-item-section>
+
+                        <q-item-section>
+                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
+                        </q-item-section>
+                      </q-item>
+
+                      <q-separator />
+
+                      <q-item tag="label" v-ripple>
+                        <q-item-section side top>
+                          <q-checkbox v-model="check3" />
+                        </q-item-section>
+
+                        <q-item-section>
+                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
+                        </q-item-section>
+                      </q-item>
+
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+
+          <q-separator />
+
+        </q-list>
+
+        <q-separator />
+
+      </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn rounded unelevated outline dense label="Cancelar" color="" v-close-popup @click="onCancelClick()" no-caps />
+        <q-btn rounded unelevated outline dense label="Cancelar" color="" v-close-popup @click="onCancelClick()"
+          no-caps />
         <q-btn rounded unelevated dense label="Mover aquí" color="primary" v-close-popup @click="onOKClick()" no-caps />
       </q-card-actions>
     </q-card>

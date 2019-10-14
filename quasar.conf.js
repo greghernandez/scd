@@ -77,7 +77,8 @@ module.exports = function (ctx) {
         'QTooltip',
         'QSpace',
         'QBadge',
-        'QCheckbox'
+        'QCheckbox',
+        'QExpansionItem'
       ],
 
       directives: [
