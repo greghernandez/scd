@@ -26,7 +26,7 @@
                       <q-item-section>Descargar</q-item-section>
                     </q-item>
                     <q-item clickable>
-                      <q-item-section>Eliminar</q-item-section>
+                      <q-item-section @click="eliminar()">Eliminar</q-item-section>
                     </q-item>
                   </q-list>
                 </q-menu>
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import Modal from 'components/documentos/modalMover'
+import ModalMover from 'components/documentos/modalMover'
+import ModalEliminar from 'components/documentos/modalEliminar'
 
 export default {
   name: 'DocLabel',
@@ -54,8 +55,14 @@ export default {
   methods: {
     mover () {
       this.$q.dialog({
-        component: Modal,
+        component: ModalMover,
         title: 'Mover'
+      })
+    },
+    eliminar () {
+      this.$q.dialog({
+        component: ModalEliminar,
+        title: 'Eliminar documento'
       })
     }
   }
