@@ -8,7 +8,7 @@ import { typeDefs } from '../services/graphql/resolvers'
 const httpLink = createHttpLink({
   // You should use an absolute URL here
   //  uri: 'https://countries.trevorblades.com/'
-  uri: 'http://148.220.210.76:4000/graphql'
+  uri: 'http://148.220.213.155:4000/graphql'
 })
 
 // Cache implementation
@@ -18,8 +18,7 @@ const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
-  typeDefs,
-  resolvers: {}
+  typeDefs
 })
 
 const apolloProvider = new VueApollo({
