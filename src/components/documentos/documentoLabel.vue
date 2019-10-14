@@ -20,7 +20,7 @@
                       <q-item-section>Abrir</q-item-section>
                     </q-item>
                     <q-item clickable>
-                      <q-item-section>Mover a</q-item-section>
+                      <q-item-section @click="mover()" >Mover a</q-item-section>
                     </q-item>
                     <q-item clickable>
                       <q-item-section>Descargar</q-item-section>
@@ -39,7 +39,25 @@
 </template>
 
 <script>
+import Modal from 'components/documentos/modalMover'
+
 export default {
-  name: 'DocLabel'
+  name: 'DocLabel',
+  components: {
+
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    mover () {
+      this.$q.dialog({
+        component: Modal,
+        title: 'Mover'
+      })
+    }
+  }
 }
 </script>
