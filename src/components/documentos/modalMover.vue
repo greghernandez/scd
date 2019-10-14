@@ -26,7 +26,7 @@
           <q-expansion-item group="somegroup" icon="eva-book-outline" label="Trabajos de investigación" header-class="text-primary">
             <q-card>
               <q-card-section>
-                <q-expansion-item switch-toggle-side dense-toggle label="Articulos cientificos publicados en revistas">
+                <q-expansion-item switch-toggle-side label="Articulos cientificos publicados en revistas">
                   <q-card>
                     <q-card-section>
                       <q-item tag="label" v-ripple>
