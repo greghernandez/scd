@@ -1,11 +1,31 @@
+const isAuth = localStorage.getItem('scd-at') || false
 
 const routes = [
-  { path: '/login', component: () => import('pages/login.vue') },
+  {
+    path: '/login',
+    component: () => import('pages/login.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuth) {
+        next('/')
+      } else {
+        next()
+      }
+    }
+  },
   {
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
+    beforeEnter: (to, from, next) => {
+      if (!isAuth) {
+        next({
+          path: '/login'
+        })
+      } else {
+        next()
+      }
+    },
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('pages/Index.vue'), name: 'home' },
       { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
       { path: 'perfil', component: () => import('pages/PerfilVisitante.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
