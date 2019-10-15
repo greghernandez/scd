@@ -11,7 +11,7 @@
 
         <q-card-section class="full-width q-px-xl">
           <q-form @submit="login" class="q-gutter-xs">
-            <q-input dense rounded outlined class="" v-model="claveEmpleado" label="Clave de empleado" lazy-rules
+            <q-input dense rounded outlined  v-model="claveEmpleado" label="Clave de empleado" lazy-rules
               :rules="[ val => val && val.length > 0 || 'Completa el campo']">
               <template v-slot:prepend>
                 <q-icon name="eva-person-outline" />
@@ -42,12 +42,17 @@
           Centro de desarrollo 2019
         </q-card-section>
       </q-card>
+
+      <!--<div v-for="(item, index) in loginData" :key="index">
+        <p>{{item.token}}</p>
+        <p>{{ item.message  }}</p>
+      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-// import { login } from '/services/index.js'
+import { loginQuery } from '../services/graphql/index'
 
 export default {
   name: 'PageLogin',
@@ -55,10 +60,25 @@ export default {
     return {
       claveEmpleado: undefined,
       password: undefined,
-      recordarme: false
+      recordarme: false,
+      loginData: undefined
     }
   },
   methods: {
+    login () {
+      this.loginData = this.$apollo.query({
+        query: loginQuery,
+        variables: {
+          clave: this.claveEmpleado,
+          password: this.password
+        }
+      })
+      this.loginData.then(
+        res => { localStorage.setItem('scd-at', res.data.login.token) })
+        .catch(
+          err => console.log(err)
+        )
+    }
   }
 }
 </script>
