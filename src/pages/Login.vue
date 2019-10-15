@@ -74,7 +74,10 @@ export default {
         }
       })
       this.loginData.then(
-        res => { localStorage.setItem('scd-at', res.data.login.token) })
+        res => {
+          localStorage.setItem('scd-at', res.data.login.token)
+          window.location.href = '/'
+        })
         .catch(
           err => console.log(err)
         )

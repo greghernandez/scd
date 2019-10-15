@@ -25,7 +25,7 @@ const routes = [
       }
     },
     children: [
-      { path: '', component: () => import('pages/Index.vue'), name: 'home' },
+      { path: '', component: () => import('pages/Index.vue') },
       { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
       { path: 'perfil', component: () => import('pages/PerfilVisitante.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
