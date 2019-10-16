@@ -252,7 +252,6 @@ export default {
     })
     this.userData.then(
       res => {
-        console.log(res.data.user.name)
         this.name = res.data.user.name
         this.adscription = res.data.user.adscription.name
       })
