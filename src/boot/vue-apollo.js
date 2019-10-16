@@ -3,7 +3,6 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink } from 'apollo-link'
 import VueApollo from 'vue-apollo'
-import { typeDefs } from '../services/graphql/resolvers'
 
 const AUTH_TOKEN = 'scd-at'
 
@@ -34,8 +33,7 @@ const cache = new InMemoryCache()
 // Create the apollo client
 const apolloClient = new ApolloClient({
   link,
-  cache,
-  typeDefs
+  cache
 })
 
 const apolloProvider = new VueApollo({

@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { loginQuery } from '../services/graphql/index'
+import { loginQuery } from '../services/graphql/queries'
 
 export default {
   name: 'PageLogin',
