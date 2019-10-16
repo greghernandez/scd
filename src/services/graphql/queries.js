@@ -10,21 +10,48 @@ export const loginQuery = gql`query Login($clave: String!, $password: String!){
       }
     }
 `
-
-// Notices Query
-export const noticesQuery = gql`
-  {
-    notices @client {
-      title
-      body
-      status
-      link
-      imgLnk
-      fromDate
-      toDate
-      createdBy
-      createdAt
-      updatedAt
+// Name and Adscription toolbar
+export const userQueryTolbar = gql`query User($id: ID!){
+  user(id: $id){
+      name
+      adscription{
+        name
+      }  
     }
   }
+`
+// Name and Adscription perfil
+export const userQueryPerfil = gql`query User($id: ID!){
+  user(id: $id){
+      name
+      adscription{
+        name
+      }
+      clave
+    }
+  }
+`
+// Notices Query
+export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
+  notices(page: $page, perPage: $perPage){
+    title
+    body
+    link
+    imgLnk
+    fromDate
+    toDate
+  }
+}
+`
+// Notices Query
+export const noticesQueryAdmin = gql`query Notices($page: Int!, $perPage: Int!){
+  notices(page: $page, perPage: $perPage){
+    title
+    link
+    fromDate
+    toDate
+    status
+    createdBy
+  }
+}
 `
