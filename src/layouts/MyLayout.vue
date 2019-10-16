@@ -58,7 +58,7 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-my-none">Nombre Docente <br> Informática</p>
+                  <p class="q-my-none">{{ name }}<br>{{ adscription }}</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
@@ -175,6 +175,7 @@
 import { openURL } from 'quasar'
 import Modal from 'components/Dialog'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
+import { userQueryToolbar } from '../services/graphql/queries'
 
 export default {
   name: 'MyLayout',
@@ -185,7 +186,10 @@ export default {
     return {
       drawer: false,
       miniState: false,
-      linkPerfil: 'Mensaje'
+      linkPerfil: 'Mensaje',
+      userData: undefined,
+      name: undefined,
+      adscription: undefined
     }
   },
   methods: {
@@ -226,6 +230,25 @@ export default {
         position: 'top-right'
       })
     }
+  },
+  mounted () {
+    // Decode token
+    const token = localStorage.getItem('scd-at') || null
+    var playload = JSON.parse(atob(token.split('.')[1]))
+
+    // Graphql query
+    this.userData = this.$apollo.query({
+      query: userQueryToolbar,
+      variables: {
+        id: playload.userId
+      }
+    })
+    this.userData.then(
+      res => {
+        console.log(res.data.user.name)
+        this.name = res.data.user.name
+        this.adscription = res.data.user.adscription.name
+      })
   }
 }
 </script>
