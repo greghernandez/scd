@@ -11,6 +11,12 @@
 
         <q-card-section class="full-width q-px-xl">
           <q-form @submit="login" class="q-gutter-xs">
+            <div v-if="error">
+              <q-banner inline-actions class="text-white bg-red-7">
+                {{ errMsg }}
+              </q-banner>
+            </div>
+
             <q-input dense rounded outlined  v-model="claveEmpleado" label="Clave de empleado" lazy-rules
               :rules="[ val => val && val.length > 0 || 'Completa el campo']">
               <template v-slot:prepend>
@@ -25,9 +31,9 @@
               </template>
             </q-input>
 
-            <div class="float-left q-mb-sm">
+            <!--<div class="float-left q-mb-sm">
               <q-checkbox v-model="recordarme" label="Recordarme" />
-            </div>
+            </div>-->
 
             <div>
               <q-btn rounded class="btn-login" label="Entrar" type="submit" color="primary" no-caps />
@@ -61,7 +67,9 @@ export default {
       claveEmpleado: undefined,
       password: undefined,
       recordarme: false,
-      loginData: undefined
+      loginData: undefined,
+      error: false,
+      errMsg: undefined
     }
   },
   methods: {
@@ -76,11 +84,16 @@ export default {
       this.loginData.then(
         res => {
           localStorage.setItem('scd-at', res.data.login.token)
-          window.location.href = '/'
+          // window.location.href = '/'
+          console.log(res.data)
         })
         .catch(
-          err => console.log(err)
-        )
+          err => {
+            console.log(err.message)
+            // console.log(err)
+            this.error = true
+            this.errMsg = err
+          })
     }
   }
 }
