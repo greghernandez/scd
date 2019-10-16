@@ -90,7 +90,7 @@ export default {
         .catch(
           err => {
             console.log(err.message)
-            // console.log(err)
+            console.log(err)
             this.error = true
             this.errMsg = err
           })
