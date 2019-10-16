@@ -38,7 +38,7 @@
                   <q-item-section>Mi Perfil</q-item-section>
                 </q-item>
 
-                <q-item clickable>
+                <q-item @click="logout()" clickable>
                   <q-item-section>Cerrar Sesión</q-item-section>
                 </q-item>
 
@@ -214,6 +214,7 @@ export default {
         btnColor: 'negative'
       })
     },
+    // Subir documentos
     subirDocumentos () {
       this.$q.dialog({
         component: SubirDocumentos,
@@ -224,11 +225,17 @@ export default {
         btnColor: 'primary'
       })
     },
+    // Copiar link de perfil
     onCopy: function () {
       this.$q.notify({
         message: 'Se copio el link para compartir',
         position: 'top-right'
       })
+    },
+    // Cerrar Sesión
+    logout: function () {
+      localStorage.removeItem('scd-at')
+      window.location.href = '/login'
     }
   },
   mounted () {
