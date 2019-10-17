@@ -85,3 +85,11 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
   }
 }
 `
+// get Permission(Admin)
+export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
+  permission(id: $id){
+    _id
+    rank
+  }
+}
+`
