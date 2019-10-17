@@ -22,7 +22,7 @@
                     />
                     <q-input
                       outlined
-                      v-model="description"
+                      v-model="body"
                       type="textarea"
                       label="Descripción del aviso"
                       lazy-rules
@@ -76,6 +76,9 @@ export default {
     }
   },
   methods: {
+    createNotice () {
+      // Mutation
+    },
     // following method is REQUIRED
     // (don't change its name --> "show")
     show () {
