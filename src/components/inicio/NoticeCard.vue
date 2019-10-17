@@ -6,13 +6,11 @@
     <div class="col-md-10 col-sm-12">
       <div class="column q-mx-lg q-my-md">
         <div class="col text-weight-bolder">
-          <h5 class="q-my-none">Nueva convocatoria</h5>
+          <h5 class="q-my-none">{{ title }}</h5>
         </div>
-        <div class="col text-gray">11/09/2001</div>
+        <div class="col text-gray">{{ fromDate }}</div>
         <div class="col text-weight-medium">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          {{ body }}
         </div>
         <div class="col">
           <q-btn outline rounded dense color="primary" label="Ver más" no-caps />
@@ -24,6 +22,11 @@
 
 <script>
 export default {
-  name: 'AvisoCard'
+  name: 'AvisoCard',
+  props: {
+    title: String,
+    body: String,
+    fromDate: Number
+  }
 }
 </script>
