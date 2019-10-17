@@ -84,7 +84,7 @@ export default {
       this.loginData.then(
         res => {
           localStorage.setItem('scd-at', res.data.login.token)
-          // window.location.href = '/'
+          window.location.href = '/'
           console.log(res.data)
         })
         .catch(
