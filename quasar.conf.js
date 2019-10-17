@@ -79,7 +79,8 @@ module.exports = function (ctx) {
         'QBadge',
         'QCheckbox',
         'QExpansionItem',
-        'QInfiniteScroll'
+        'QInfiniteScroll',
+        'QSpinnerDots'
       ],
 
       directives: [
