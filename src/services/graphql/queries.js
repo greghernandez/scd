@@ -20,7 +20,7 @@ export const userQueryToolbar = gql`query User($id: ID!){
     }
   }
 `
-// Name and Adscription perfil
+// Name, Adscription, clave perfil
 export const userQueryPerfil = gql`query User($id: ID!){
   user(id: $id){
       name
@@ -43,7 +43,7 @@ export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
   }
 }
 `
-// Notices Query
+// Notices Query Admin
 export const noticesQueryAdmin = gql`query Notices($page: Int!, $perPage: Int!){
   notices(page: $page, perPage: $perPage){
     title
@@ -52,6 +52,36 @@ export const noticesQueryAdmin = gql`query Notices($page: Int!, $perPage: Int!){
     toDate
     status
     createdBy
+  }
+}
+`
+// Users Query Admin
+export const docentesQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!){
+  users(page: $page, perPage: $perPage){
+    clave
+    status
+    name
+  }
+}
+`
+// Users Query Admin
+export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!){
+  users(page: $page, perPage: $perPage){
+    clave
+    status
+    name
+    permissions{
+      _id
+      rank
+    }
+  }
+}
+`
+// Categoias Root(Documentos)
+export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPage: Int!){
+  categories(page: 0, perPage: 0){
+    clave
+    title
   }
 }
 `
