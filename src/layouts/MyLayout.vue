@@ -38,7 +38,7 @@
                   <q-item-section>Mi Perfil</q-item-section>
                 </q-item>
 
-                <q-item clickable>
+                <q-item @click="logout()" clickable>
                   <q-item-section>Cerrar Sesión</q-item-section>
                 </q-item>
 
@@ -58,7 +58,7 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-my-none">Nombre Docente <br> Informática</p>
+                  <p class="q-my-none">{{ name }}<br>{{ adscription }}</p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
@@ -175,6 +175,7 @@
 import { openURL } from 'quasar'
 import Modal from 'components/Dialog'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
+import { userQueryToolbar } from '../services/graphql/queries'
 
 export default {
   name: 'MyLayout',
@@ -185,7 +186,10 @@ export default {
     return {
       drawer: false,
       miniState: false,
-      linkPerfil: 'Mensaje'
+      linkPerfil: 'Mensaje',
+      userData: undefined,
+      name: undefined,
+      adscription: undefined
     }
   },
   methods: {
@@ -210,6 +214,7 @@ export default {
         btnColor: 'negative'
       })
     },
+    // Subir documentos
     subirDocumentos () {
       this.$q.dialog({
         component: SubirDocumentos,
@@ -220,12 +225,36 @@ export default {
         btnColor: 'primary'
       })
     },
+    // Copiar link de perfil
     onCopy: function () {
       this.$q.notify({
         message: 'Se copio el link para compartir',
         position: 'top-right'
       })
+    },
+    // Cerrar Sesión
+    logout: function () {
+      localStorage.removeItem('scd-at')
+      window.location.href = '/login'
     }
+  },
+  mounted () {
+    // Decode token
+    const token = localStorage.getItem('scd-at') || null
+    var playload = JSON.parse(atob(token.split('.')[1]))
+
+    // Graphql query
+    this.userData = this.$apollo.query({
+      query: userQueryToolbar,
+      variables: {
+        id: playload.userId
+      }
+    })
+    this.userData.then(
+      res => {
+        this.name = res.data.user.name
+        this.adscription = res.data.user.adscription.name
+      })
   }
 }
 </script>
