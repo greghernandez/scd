@@ -176,6 +176,7 @@ import { openURL } from 'quasar'
 import Modal from 'components/Dialog'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
 import { userQueryToolbar } from '../services/graphql/queries'
+import { apolloClient } from '../boot/vue-apollo'
 
 export default {
   name: 'MyLayout',
@@ -235,7 +236,7 @@ export default {
     // Cerrar Sesión
     logout: function () {
       localStorage.removeItem('scd-at')
-      window.location.href = '/login'
+      window.location.href = 'login'
     }
   },
   mounted () {
@@ -244,17 +245,22 @@ export default {
     var playload = JSON.parse(atob(token.split('.')[1]))
 
     // Graphql query
-    this.userData = this.$apollo.query({
+    apolloClient.query({
       query: userQueryToolbar,
       variables: {
         id: playload.userId
       }
     })
-    this.userData.then(
-      res => {
-        this.name = res.data.user.name
-        this.adscription = res.data.user.adscription.name
-      })
+      .then(
+        res => {
+          this.name = res.data.user.name
+          this.adscription = res.data.user.adscription.name
+        })
+      .catch(
+        err => {
+          alert(err.message)
+        }
+      )
   }
 }
 </script>
