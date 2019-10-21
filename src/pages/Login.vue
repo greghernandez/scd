@@ -59,6 +59,7 @@
 
 <script>
 import { loginQuery } from '../services/graphql/queries'
+import { apolloClient } from '../boot/vue-apollo'
 
 export default {
   name: 'PageLogin',
@@ -74,7 +75,7 @@ export default {
   },
   methods: {
     login () {
-      this.loginData = this.$apollo.query({
+      this.loginData = apolloClient.query({
         query: loginQuery,
         variables: {
           clave: this.claveEmpleado,

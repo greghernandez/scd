@@ -108,13 +108,15 @@
 <script>
 import gql from 'graphql-tag'
 import AlertAviso from './Alert.vue'
+import { apolloClient } from '../../boot/vue-apollo'
 
 export default {
   name: 'TablaAvisos',
   components: {
   },
-  apollo: {
-    notices: gql`query{
+  mounted() {
+    apolloClient.query({
+      query: gql`query{
       notices(page: 0, perPage: 0)
         {
           title
@@ -122,7 +124,14 @@ export default {
           fromDate
           link
         }
-    }`
+      }`
+    })
+      .then(res => {
+        this.notices = res.data.notices
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   data () {
     return {

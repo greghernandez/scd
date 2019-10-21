@@ -1,21 +1,16 @@
-import { ApolloClient } from 'apollo-client'
-import { createHttpLink } from 'apollo-link-http'
+import { ApolloClient, ApolloLink } from 'apollo-boost'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { ApolloLink } from 'apollo-link'
-import VueApollo from 'vue-apollo'
+import { HttpLink } from 'apollo-link-http'
+import { onError } from 'apollo-link-error'
+// import VueApollo from 'vue-apollo'
 
 const AUTH_TOKEN = 'scd-at'
-
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  //  uri: 'https://countries.trevorblades.com/'
-  uri: 'http://148.220.209.221:4000/graphql'
-})
-
-// Middleware
 const token = localStorage.getItem(AUTH_TOKEN) || null
-const authMiddleware = new ApolloLink((operation, forward) => {
+const httpLink = new HttpLink({
+  // You should use an absolute URL here
+  uri: 'http://148.220.210.148:4000/graphql'
+})
+const authLink = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
     headers: {
@@ -25,22 +20,25 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation)
 })
 
-const link = authMiddleware.concat(httpLink)
+const errorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message))
+})
 
-// Cache implementation
 const cache = new InMemoryCache()
 
-// Create the apollo client
-const apolloClient = new ApolloClient({
-  link,
-  cache
+export const apolloClient = new ApolloClient({
+  cache,
+  link: ApolloLink.from([errorLink, authLink, httpLink])
 })
 
-const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
-})
+// const apolloProvider = new VueApollo({
+//   // clients: {
+//   //   a: client
+//   // }
+//   defaultClient: client
+// })
 
-export default ({ app, Vue }) => {
-  Vue.use(VueApollo)
-  app.apolloProvider = apolloProvider
-}
+// export default ({ app, Vue }) => {
+//   Vue.use(VueApollo)
+//   app.apolloProvider = apolloProvider
+// }
