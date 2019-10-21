@@ -52,32 +52,6 @@
                 type="file"
               />
               <q-card-actions align="right">
-<!--                <ApolloMutation-->
-<!--                  :mutation="gql => gql`-->
-<!--                    mutation CreateNotice($input: InputNotice!) {-->
-<!--                      createNotice(input: $input) {-->
-<!--                        _id-->
-<!--                      }-->
-<!--                    }-->
-<!--                  `"-->
-<!--                  :variables="{-->
-<!--                    input: {-->
-<!--                      title: body.title,-->
-<!--                      body: body.description,-->
-<!--                      status: 1,-->
-<!--                      link: body.link,-->
-<!--                      imgLink: 'src',-->
-<!--                      fromDate: body.fromDate,-->
-<!--                      toDate: body.fromDate,-->
-<!--                      createdBy: 'yo'-->
-<!--                    }-->
-<!--                  }"-->
-<!--                >-->
-<!--                  <template v-slot="{ mutate, loading, error }">-->
-<!--                    <button :disabled="loading" @click="mutate()">Click me</button>-->
-<!--                    <p v-if="error">An error occurred: {{ error }}</p>-->
-<!--                  </template>-->
-<!--                </ApolloMutation>-->
                 <q-btn class="my-btn" unelevated rounded outline label="Cancelar" color="primary" dense v-close-popup
                        @click="onCancelClick()" no-caps/>
                 <q-btn class="my-btn" unelevated rounded label="Guardar Aviso" color="primary" dense v-close-popup
@@ -108,22 +82,29 @@ export default {
   },
   methods: {
     createNotice () {
+      // read user token
+      const token = localStorage.getItem('scd-at') || null
+      var playload = JSON.parse(atob(token.split('.')[1]))
+
       apolloClient.mutate({
         mutation: noticeCreateMutation,
         variables: {
           input: {
-            title: 'this.title',
-            body: 'this.description',
+            title: this.title,
+            body: this.description,
             status: 1,
-            link: 'this.link',
+            link: this.link,
             imgLnk: 'src',
             fromDate: 11111111111,
             toDate: 99999999999,
-            createdBy: '5dadf9dfd0cd0a1031b3652e'
+            createdBy: playload.userId
           }
         }
       })
-        .then(data => console.log(data))
+        .then(
+          data => {
+            console.log(data)
+          })
         .catch(error => console.error(error))
     },
     // following method is REQUIRED
