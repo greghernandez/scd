@@ -39,6 +39,7 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-edit-outline"
+                @click="editarAviso()"
               >
                 <q-tooltip
                   transition-show="rotate"
@@ -72,7 +73,7 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-trash-outline"
-                @click="eliminarAviso()"
+                @click="eliminarAviso(props.row._id)"
               >
                 <q-tooltip
                   transition-show="rotate"
@@ -108,17 +109,20 @@
 <script>
 import gql from 'graphql-tag'
 import AlertAviso from './Alert.vue'
+import ModalEditarAviso from 'components/avisos/EditarAviso'
 import { apolloClient } from '../../boot/vue-apollo'
+import { noticeDeleteMutation } from '../../services/graphql/mutations'
 
 export default {
   name: 'TablaAvisos',
   components: {
   },
-  mounted() {
+  mounted () {
     apolloClient.query({
       query: gql`query{
       notices(page: 0, perPage: 0)
         {
+          _id
           title
           status
           fromDate
@@ -149,16 +153,35 @@ export default {
     }
   },
   methods: {
+    // Muestra Modal para editar una noticia
+    editarAviso (id) {
+      this.$q.dialog({
+        component: ModalEditarAviso
+      })
+    },
+
     // Muestra el Alert para eliminar
-    eliminarAviso () {
+    eliminarAviso (id) {
+      alert(id)
       this.$q.dialog({
         component: AlertAviso,
         title: 'Eliminar',
         message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
         btn: 'Eliminar Aviso',
         btnColor: 'negative'
+      }).onOk(() => {
+        apolloClient.mutate({
+          mutation: noticeDeleteMutation,
+          variables: {
+            input: {
+              id: id
+            }
+          }
+        })
       })
     },
+
+    // Muestra Alert para habilitar aviso
     habilitarAviso () {
       this.$q.dialog({
         component: AlertAviso,
