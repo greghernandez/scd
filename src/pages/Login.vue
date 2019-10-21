@@ -86,7 +86,6 @@ export default {
         res => {
           localStorage.setItem('scd-at', res.data.login.token)
           window.location.href = '/'
-          console.log(res.data)
         })
         .catch(
           err => {
