@@ -173,9 +173,7 @@ export default {
         apolloClient.mutate({
           mutation: noticeDeleteMutation,
           variables: {
-            input: {
-              id: id
-            }
+            id: id
           }
         })
       })
