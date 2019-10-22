@@ -4,6 +4,10 @@ import gql from 'graphql-tag'
 export const noticeCreateMutation = gql`mutation CreateNotice($input: InputNotice!) {
     createNotice(input: $input) {
         _id
+        title
+        status
+        fromDate
+        link
     }
 }
 `
