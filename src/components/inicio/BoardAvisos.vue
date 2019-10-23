@@ -23,6 +23,7 @@
 <script>
 import NoticeCard from './NoticeCard'
 import { noticesQuery } from '../../services/graphql/queries'
+import { apolloClient } from '../../boot/vue-apollo'
 
 export default {
   name: 'BoardAvisos',
@@ -38,19 +39,19 @@ export default {
   methods: {
     onLoad (index, done) {
       setTimeout(() => {
-        this.noticesData = this.$apollo.query({
+        apolloClient.query({
           query: noticesQuery,
           variables: {
             page: 0,
             perPage: 3
           }
         })
-        this.noticesData.then(
-          res => {
-            this.noticesData = res.data.notices
-            console.log('------------')
-            done(true)
-          }, 2000)
+          .then(
+            res => {
+              this.noticesData = res.data.notices
+              console.log('------------')
+              done(true)
+            }, 2000)
       })
     }
     /* onLoad (index, done) {

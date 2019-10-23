@@ -12,6 +12,7 @@
         rows-per-page-label="Campos por página"
         :dense="$q.screen.lt.md"
         flat
+        @newNotice = "newNotice"
       >
         <template v-slot:top="props">
           <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar aviso" type="search">
@@ -39,6 +40,7 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-edit-outline"
+                @click="editarAviso()"
               >
                 <q-tooltip
                   transition-show="rotate"
@@ -72,7 +74,7 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-trash-outline"
-                @click="eliminarAviso()"
+                @click="eliminarAviso(props.row._id)"
               >
                 <q-tooltip
                   transition-show="rotate"
@@ -108,7 +110,9 @@
 <script>
 import gql from 'graphql-tag'
 import AlertAviso from './Alert.vue'
+import ModalEditarAviso from 'components/avisos/EditarAviso'
 import { apolloClient } from '../../boot/vue-apollo'
+import { noticeDeleteMutation } from '../../services/graphql/mutations'
 
 export default {
   name: 'TablaAvisos',
@@ -119,6 +123,7 @@ export default {
       query: gql`query{
       notices(page: 0, perPage: 0)
         {
+          _id
           title
           status
           fromDate
@@ -149,16 +154,35 @@ export default {
     }
   },
   methods: {
-    // Muestra el Alert para eliminar
-    eliminarAviso () {
+    // Muestra Modal para editar una noticia
+    editarAviso (id) {
+      this.$q.dialog({
+        component: ModalEditarAviso
+      })
+    },
+    newNotice (item) {
+      alert(item)
+      this.notices.push(item)
+    },
+    // Muest ra el Alert para eliminar
+    eliminarAviso (id) {
       this.$q.dialog({
         component: AlertAviso,
         title: 'Eliminar',
         message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
         btn: 'Eliminar Aviso',
         btnColor: 'negative'
+      }).onOk(() => {
+        apolloClient.mutate({
+          mutation: noticeDeleteMutation,
+          variables: {
+            id: id
+          }
+        })
       })
     },
+
+    // Muestra Alert para habilitar aviso
     habilitarAviso () {
       this.$q.dialog({
         component: AlertAviso,

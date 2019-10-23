@@ -17,6 +17,7 @@
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-link-error": "^1.1.12",
     "apollo-link-http": "^1.5.16",
+    "apollo-upload-client": "^11.0.0",
     "axios": "^0.18.1",
     "clipboard": "^2.0.4",
     "filepond": "^4.7.2",

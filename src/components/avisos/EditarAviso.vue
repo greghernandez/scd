@@ -46,12 +46,11 @@
                   </q-icon>
                 </template>
               </q-input>
-              <!-- <q-input
+              <q-input
                 @input="val => { file = val[0] }"
                 outlined
                 type="file"
-              /> -->
-              <input type="file" :v-model="file" @change="loadPhoto($event.target.files[0])">
+              />
               <q-card-actions align="right">
                 <q-btn class="my-btn" unelevated rounded outline label="Cancelar" color="primary" dense v-close-popup
                        @click="onCancelClick()" no-caps/>
@@ -69,7 +68,6 @@
 <script>
 import { apolloClient } from '../../boot/vue-apollo'
 import { noticeCreateMutation } from '../../services/graphql/mutations'
-
 export default {
   name: 'ModalCrearAviso',
   data () {
@@ -78,17 +76,12 @@ export default {
       description: '',
       link: '',
       fromDate: '',
-      file: undefined,
       confirm: false,
       newNotice: undefined
     }
   },
   methods: {
-    loadPhoto (file) {
-      this.file = file
-    },
     createNotice () {
-      console.log(this.file)
       // read user token
       const token = localStorage.getItem('scd-at') || null
       var playload = JSON.parse(atob(token.split('.')[1]))
@@ -96,24 +89,21 @@ export default {
       apolloClient.mutate({
         mutation: noticeCreateMutation,
         variables: {
-          file: this.file,
           input: {
             title: this.title,
             body: this.description,
             status: 1,
             link: this.link,
+            imgLnk: 'src',
             fromDate: 11111111111,
             toDate: 99999999999,
             createdBy: playload.userId
           }
-        },
-        context: {
-          hasUpload: true
         }
       })
         .then(
-          res => {
-            this.$emit('newNotice', res.data.createNotice)
+          data => {
+            console.log(data)
           })
         .catch(error => console.error(error))
     },

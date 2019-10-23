@@ -1,10 +1,13 @@
 // La cofiguración de apollo se encuentran la carpeta src/boot
 import gql from 'graphql-tag'
 // notice Mutation CREATE
-export const noticeCreateMutation = gql`mutation CreateNotice($input: InputNotice!) {
-    createNotice(input: $input) 
-    {
+export const noticeCreateMutation = gql`mutation CreateNotice($file: Upload!, $input: InputNotice!) {
+    createNotice(file: $file, input: $input) {
         _id
+        title
+        status
+        fromDate
+        link
     }
 }
 `
