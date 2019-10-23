@@ -12,6 +12,7 @@
         rows-per-page-label="Campos por página"
         :dense="$q.screen.lt.md"
         flat
+        @newNotice = "newNotice"
       >
         <template v-slot:top="props">
           <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar aviso" type="search">
@@ -159,10 +160,12 @@ export default {
         component: ModalEditarAviso
       })
     },
-
-    // Muestra el Alert para eliminar
+    newNotice (item) {
+      alert(item)
+      this.notices.push(item)
+    },
+    // Muest ra el Alert para eliminar
     eliminarAviso (id) {
-      alert(id)
       this.$q.dialog({
         component: AlertAviso,
         title: 'Eliminar',
