@@ -114,7 +114,7 @@ export default {
   name: 'TablaAvisos',
   components: {
   },
-  mounted() {
+  mounted () {
     apolloClient.query({
       query: gql`query{
       notices(page: 0, perPage: 0)

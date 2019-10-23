@@ -2,24 +2,15 @@
 import gql from 'graphql-tag'
 // notice Mutation CREATE
 export const noticeCreateMutation = gql`mutation CreateNotice($input: InputNotice!) {
-    createNotice(input: $input) {
+    createNotice(input: $input) 
+    {
         _id
     }
 }
 `
 // notice Mutation Update
-export const noticeUpdateMutation = gql`mutation UpdateNotice($title: String!, $body: String!, $status: Int!, 
-                                                              $link: String!, $imgLnk: String!, $fromDate: Float!, 
-                                                              $toDate: Float!, $createdBy: ID!){
-  updateNotice(
-    title: $title
-    body: $body
-    status: $status
-    link: $link
-    imgLnk: $imgLnk
-    fromDate: $fromDate
-    toDate: $toDate
-    createdBy: $createdBy)
+export const noticeUpdateMutation = gql`mutation UpdateNotice($input: UpdateNotice){
+  updateNotice(input: $input)
   {
     _id
   }
@@ -56,8 +47,8 @@ export const userUpdateMutation = gql`mutation UpdateUser($userId: ID!, $status:
   }
 }
 `
-// User Mutation Delete
-export const userDeleteMutation = gql`mutation DeleteUser($userId: ID!, $permissionId: ID!, $action: Int!){
+// User Mutation UpdateRole
+export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($userId: ID!, $permissionId: ID!, $action: Int!){
   updateUserRole( userId: $userId, permissionId: $permissionId, action: $action){
     _id
     name

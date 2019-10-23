@@ -43,6 +43,18 @@ export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
   }
 }
 `
+// Notice Query
+export const noticeQuery = gql`query Notice($id: ID!){
+  notice(id: $id){
+    title
+    body
+    link
+    imgLnk
+    fromDate
+    toDate
+  }
+}
+`
 // Notices Query Admin
 export const noticesQueryAdmin = gql`query Notices($page: Int!, $perPage: Int!){
   notices(page: $page, perPage: $perPage){
@@ -85,6 +97,18 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
   }
 }
 `
+// Categoias (Documentos)
+export const categoriesQuery = gql`query Categories($page: Int!, $perPage: Int!){
+  categories(page: 0, perPage: 0){
+    title
+    clave
+    children{
+      value
+    }
+  }
+}
+`
+
 // get Permission(Admin)
 export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
   permission(id: $id){
