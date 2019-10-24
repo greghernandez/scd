@@ -19,27 +19,30 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
 import DocLabel from 'components/documentos/documentoLabel'
+import { apolloClient } from '../boot/vue-apollo'
+import { documentsTartaro } from '../services/graphql/queries'
+import { payload } from '../services/user'
 
 export default {
   name: 'PageDocPendientes',
   components: {
     DocLabel
   },
-  apollo: {
-    countries: gql`query {
-        countries{
-            code,
-            name,
-            emoji
-        }
-    }`
-  },
   data () {
     return {
-      countries: []
+      search: undefined
     }
+  },
+  mounted () {
+    apolloClient.query({
+      query: documentsTartaro,
+      variables: {
+        userid: payload,
+        page: 0,
+        perPage: 0
+      }
+    })
   }
 }
 </script>
