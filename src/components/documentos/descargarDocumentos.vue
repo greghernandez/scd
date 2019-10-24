@@ -8,20 +8,33 @@
       </q-card-section>
 
       <q-card-section>
-        <q-tree class="col-12 col-sm-6"
-          :nodes="simple"
-          node-key="label"
-          tick-strategy="leaf"
-          :selected.sync="selected"
-          :ticked.sync="ticked"
-          :expanded.sync="expanded" />
+        <div class="row">
+          <div class="column justify-center flex-center">
+            <q-tree class="col-6 col-sm-12"
+              :nodes="simple"
+              node-key="label"
+              tick-strategy="leaf"
+              ref="tree"
+              :selected.sync="selected"
+              :ticked.sync="ticked"
+              :expanded.sync="expanded" />
+          </div>
 
+          <q-separator vertical/>
+
+          <div class="column justify-center flex-center">
+            <div class="col-6 col-sm-12 q-gutter-y-md">
+              <q-btn rounded label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="seleccionados()"/><br>
+              <q-btn rounded label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps /><br>
+              <q-btn rounded label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
+            </div>
+          </div>
+        </div>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn rounded unelevated outline dense label="Cancelar" color="" v-close-popup @click="onCancelClick()"
+        <q-btn rounded unelevated outline label="Cancelar" color="" v-close-popup @click="onCancelClick()"
           no-caps />
-        <q-btn rounded unelevated dense label="Descargar" color="primary" v-close-popup @click="onOKClick()" no-caps />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -43,22 +56,53 @@ export default {
             {
               label: 'Good food',
               children: [
-                { label: 'Quality ingredients' },
-                { label: 'Good recipe' }
-              ]
-            },
-            {
-              label: 'Good service (disabled node)',
-              children: [
-                { label: 'Prompt attention' },
-                { label: 'Professional waiter' }
+                { label: 'Quality ingredients',
+                  id: 23
+                },
+                { label: 'Good recipe',
+                  id: 23123
+                }
               ]
             },
             {
               label: 'Pleasant surroundings',
               children: [
-                { label: 'Happy atmosphere' },
-                { label: 'Good table presentation' },
+                { label: 'Happy atmosphere',
+                  id: 1,
+                  xd: 'qwerty'
+                },
+                { label: 'Good table presentation',
+                  id: 2
+                },
+                { label: 'Pleasing decor' }
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Rubro 505',
+          children: [
+            {
+              label: 'Good food',
+              children: [
+                { label: 'Quality ingredients',
+                  id: 23
+                },
+                { label: 'Good recipe',
+                  id: 23123
+                }
+              ]
+            },
+            {
+              label: 'Pleasant surroundings',
+              children: [
+                { label: 'Happy atmosphere',
+                  id: 1,
+                  xd: 'qwerty'
+                },
+                { label: 'Good table presentation',
+                  id: 2
+                },
                 { label: 'Pleasing decor' }
               ]
             }
@@ -71,6 +115,13 @@ export default {
     title: String
   },
   methods: {
+    seleccionados () {
+      const treeNodes = this.$refs.tree.getTickedNodes()
+      const ids = treeNodes.map(e => {
+        return e.id
+      })
+      console.log(ids)
+    },
     show () {
       this.$refs.dialog.show()
     },
