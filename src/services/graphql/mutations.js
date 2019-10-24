@@ -58,3 +58,16 @@ export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($userId: ID!, 
   }
 }
 `
+
+export const multipleUpload = gql`
+    mutation MultipleUpload($files: [Upload!]!, $input: InputDocument!) {
+        multipleUpload(files: $files, input: $input) {
+            _id
+            fileName
+            fileId
+            mimetype
+            size
+            path
+        }
+    }
+`

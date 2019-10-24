@@ -12,7 +12,6 @@
         rows-per-page-label="Campos por página"
         :dense="$q.screen.lt.md"
         flat
-        @newNotice = "newNotice"
       >
         <template v-slot:top="props">
           <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar aviso" type="search">
@@ -22,7 +21,7 @@
             </template>
           </q-input>
         </template>
-        <template v-slot:body="props">
+        <template v-slot:body="props" @newNotice = "newNotice">
           <q-tr :props="props">
             <q-td key="Titulo">
               {{ props.row.title}}
@@ -160,9 +159,8 @@ export default {
         component: ModalEditarAviso
       })
     },
-    newNotice (item) {
-      alert(item)
-      this.notices.push(item)
+    newNotice (e) {
+      this.notices.push(e)
     },
     // Muest ra el Alert para eliminar
     eliminarAviso (id) {
