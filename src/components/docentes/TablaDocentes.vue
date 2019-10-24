@@ -2,7 +2,7 @@
   <div>
     <q-card class="my-card my-shadow">
       <q-table
-        :data="users"
+        :data="docentesData"
         :columns="columns"
         row-key="Nombre"
         :filter="search"
@@ -66,21 +66,13 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
 import Alert from 'components/Alert.vue'
+import { apolloClient } from '../../boot/vue-apollo'
+import { docentesQueryAdmin } from '../../services/graphql/queries'
 
 export default {
   name: 'TablaAvisos',
   components: {
-  },
-  apollo: {
-    users: gql`query {
-      users(page: 0, perPage: 0){
-        name
-        clave
-        status
-      }
-    }`
   },
   data () {
     return {
@@ -92,8 +84,21 @@ export default {
         { name: 'Eliminar', align: 'center', label: '', field: 'code' },
         { name: 'Ver', align: 'center', label: '', field: 'code' }
       ],
-      users: []
+      docentesData: []
     }
+  },
+  mounted () {
+    apolloClient.query({
+      query: docentesQueryAdmin,
+      variables: {
+        page: 0,
+        perPage: 0
+      }
+    })
+      .then(
+        res => {
+          this.docentesData = res.data.users
+        })
   },
   methods: {
   // Muestra el Alert para eliminar
