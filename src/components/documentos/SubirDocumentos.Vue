@@ -39,6 +39,10 @@ import 'filepond/dist/filepond.min.css'
 
 // Create component
 const FilePond = vueFilePond(FilePondPluginFileValidateType)
+// imports needed to comunicate with the API
+import { apolloClient } from '../../boot/vue-apollo'
+import { multipleUpload } from '../../services/graphql/mutations'
+import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -71,8 +75,27 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
-      console.log('Ok')
-      this.$emit('ok')
+      const pondFiles = this.$refs.pond.getFiles()
+      const files = pondFiles.map(e => {
+        return e.file
+      })
+      // console.log(files)
+      apolloClient.mutate({
+        mutation: multipleUpload,
+        variables: {
+          files: files,
+          input: {
+            category: '5db0cad2c7baf510c480a7e0',
+            owner: payload.userId
+          }
+        },
+        context: {
+          hasUpload: true
+        }
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+      // this.$emit('ok')
       this.hide()
     },
     onCancelClick () {

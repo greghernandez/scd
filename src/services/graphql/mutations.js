@@ -68,3 +68,16 @@ export const userDeleteMutation = gql`mutation DeleteUser($userId: ID!, $permiss
   }
 }
 `
+
+export const multipleUpload = gql`
+    mutation MultipleUpload($files: [Upload!]!, $input: InputDocument!) {
+        multipleUpload(files: $files, input: $input) {
+            _id
+            fileName
+            fileId
+            mimetype
+            size
+            path
+        }
+    }
+`
