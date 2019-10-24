@@ -173,8 +173,9 @@
 
 <script>
 import { openURL } from 'quasar'
-import Modal from 'components/Dialog'
+// import Modal from 'components/Dialog'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
+import descargarDocumentos from 'components/documentos/descargarDocumentos'
 import { userQueryToolbar } from '../services/graphql/queries'
 import { apolloClient } from '../boot/vue-apollo'
 
@@ -208,10 +209,8 @@ export default {
     },
     descargarCV () {
       this.$q.dialog({
-        component: Modal,
-        title: 'Descargar',
-        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
-        btn: 'Eliminar Aviso',
+        component: descargarDocumentos,
+        title: 'Descargar del rubro ',
         btnColor: 'negative'
       })
     },
@@ -220,7 +219,6 @@ export default {
       this.$q.dialog({
         component: SubirDocumentos,
         title: 'Carga de archivos X',
-        btn: 'Eliminar Aviso',
         unelevated: true,
         rounded: true,
         btnColor: 'primary'

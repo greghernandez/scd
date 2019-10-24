@@ -88,7 +88,6 @@ export default {
       this.file = file
     },
     createNotice () {
-      console.log(this.file)
       // read user token
       const token = localStorage.getItem('scd-at') || null
       var playload = JSON.parse(atob(token.split('.')[1]))
@@ -113,6 +112,7 @@ export default {
       })
         .then(
           res => {
+            // console.log(res.data.createNotice)
             this.$emit('newNotice', res.data.createNotice)
           })
         .catch(error => console.error(error))
