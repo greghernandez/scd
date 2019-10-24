@@ -117,8 +117,8 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
 }
 `
 // get Documents in Tàrtaro
-export const documentsTartaro = gql`query documentsInTartaro($userId: ID!, $page: Int!, $perPage: Int!){
-  documents(user: $userId, page: 0, perPage: 0, category: "5db0cad2c7baf510c480a7e0"){
+export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument){
+  documents(search: $search){
     _id
     fileName
     createdAt
