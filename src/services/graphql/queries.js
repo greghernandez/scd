@@ -37,7 +37,6 @@ export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
     title
     body
     link
-    imgLnk
     fromDate
     toDate
   }
@@ -91,7 +90,7 @@ export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPag
 `
 // Categoias Root(Documentos)
 export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPage: Int!){
-  categories(page: 0, perPage: 0){
+  categories(page: $page, perPage: $perPage){
     clave
     title
   }
@@ -114,6 +113,16 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
   permission(id: $id){
     _id
     rank
+  }
+}
+`
+// get Documents in Tàrtaro
+export const documentsTartaro = gql`query documentsInTartaro($userId: ID!, $page: Int!, $perPage: Int!){
+  documents(user: $userId, page: 0, perPage: 0, category: "5db0cad2c7baf510c480a7e0"){
+    _id
+    fileName
+    createdAt
+    path
   }
 }
 `
