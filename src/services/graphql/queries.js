@@ -89,7 +89,7 @@ export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPag
 }
 `
 // Categoias Root(Documentos)
-export const categoriesQueryRoot = gql`query CategoriesRoot(page: Int!, perPage: Int!, $type: Int!){
+export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPage: Int!, $type: Int!){
   categories(page: $page, perPage: $perPage, type: $type){
     title
     clave
@@ -97,13 +97,13 @@ export const categoriesQueryRoot = gql`query CategoriesRoot(page: Int!, perPage:
 }
 `
 // Categoia (Documento)
-export const categoryQuery = gql`query Categories($type: Int!, $uid: String!){
+export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
   category(type: $type, uid: $uid){
     clave
     title
     children{
       clave
-      vlue
+      value
       title
       
     }
