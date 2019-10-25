@@ -21,7 +21,7 @@
                   <q-icon size="1.5em" name="chevron_right " color="#575757" />
                 </template>
                 <q-breadcrumbs-el label="Rubros" to="/documentos" />
-                <q-breadcrumbs-el label="Rubro 100" />
+                <q-breadcrumbs-el :label="'Rubro ' + this.$route.params.id" />
               </q-breadcrumbs>
             </div>
             <div>
@@ -53,6 +53,7 @@ export default {
     [Glide.name]: Glide,
     [GlideSlide.name]: GlideSlide,
     CatCard
+    // rubro: this.$route.params.id
   },
   data () {
     return {
