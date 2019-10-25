@@ -77,6 +77,11 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  methods: {
+    link (id) {
+      alert(id)
+    }
   }
 }
 </script>
