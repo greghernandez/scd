@@ -28,8 +28,8 @@
               </q-breadcrumbs>
             </div>
             <div class="row">
-              <div class="col-md-4 col-sm-6 col-xs-12 rubro-card" v-for="n in 7" :key="n">
-                <RubroCard rubro="Estudios especiales" />
+              <div class="col-md-4 col-sm-6 col-xs-12 rubro-card" v-for="(rubro, index) in categoriesData" :key="index">
+                <RubroCard :clave="rubro.clave" :rubro="rubro.title" />
               </div>
             </div>
           </div>
@@ -44,6 +44,8 @@
 
 <script>
 import RubroCard from 'components/documentos/RubroCard'
+import { apolloClient } from '../boot/vue-apollo'
+import { categoriesQueryRoot } from '../services/graphql/queries'
 
 export default {
   name: 'PageDocumento',
@@ -55,8 +57,26 @@ export default {
   },
   data () {
     return {
-      search: undefined
+      search: undefined,
+      categoriesData: []
     }
+  },
+  mounted () {
+    apolloClient.query({
+      query: categoriesQueryRoot,
+      variables: {
+        type: 1,
+        page: 0,
+        perPage: 0
+      }
+    })
+      .then(res => {
+        this.categoriesData = res.data.categories
+        console.log(this.categoriesData)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
