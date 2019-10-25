@@ -11,8 +11,8 @@
     </div>
 
     <div class="row">
-      <div class="col-md-3 col-xs-6 doc-label" v-for="n in 20" :key="n">
-        <DocLabel/>
+      <div class="col-md-3 col-xs-6 doc-label" v-for="(documents, index) in pendingDocs" :key="index">
+        <DocLabel :fileName="documents.fileName" :createdAt="documents.createdAt" />
       </div>
     </div>
   </div>
@@ -31,18 +31,30 @@ export default {
   },
   data () {
     return {
-      search: undefined
+      search: undefined,
+      pendingDocs: []
     }
   },
   mounted () {
+    console.log(payload.userId)
     apolloClient.query({
       query: documentsTartaro,
       variables: {
-        userid: payload,
-        page: 0,
-        perPage: 0
+        search: {
+          user: '5dadf9dfd0cd0a1031b3652e',
+          page: 0,
+          perPage: 0,
+          category: '5db0cad2c7baf510c480a7e0'
+        }
       }
     })
+      .then(res => {
+        this.pendingDocs = res.data.documents
+        console.log(this.pendingDocs)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

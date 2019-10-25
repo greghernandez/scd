@@ -9,8 +9,8 @@
               </div>
             </div>
             <div class="column text-caption">
-              <div class="col-6 text-weight-bold">Nombre de documento</div>
-              <div class="col-6">11/09/2001</div>
+              <div class="col-6 text-weight-bold">{{ fileName }}</div>
+              <div class="col-6">{{ createdAt }}</div>
             </div>
             <div class="column">
               <q-btn round flat icon="eva-more-vertical-outline">
@@ -51,6 +51,10 @@ export default {
     return {
 
     }
+  },
+  props: {
+    fileName: String,
+    createdAt: Number
   },
   methods: {
     mover () {
