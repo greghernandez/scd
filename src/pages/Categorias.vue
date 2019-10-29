@@ -21,14 +21,17 @@
                   <q-icon size="1.5em" name="chevron_right " color="#575757" />
                 </template>
                 <q-breadcrumbs-el label="Rubros" to="/documentos" />
-                <q-breadcrumbs-el label="Rubro 100" />
+                <q-breadcrumbs-el :label="'Rubro ' + this.$route.params.id" />
               </q-breadcrumbs>
             </div>
             <div>
+              <div v-for="(category, index) in categoryData" :key="index">
+                <p>{{category.clave}}</p>
+              </div>
               <!-- slider -->
               <vue-glide type="" :swipeThreshold="100" :dragThreshold="200" :touchRatio="1">
-                <vue-glide-slide v-for="n in 3" :key="n">
-                  <CatCard :number="n" />
+                <vue-glide-slide v-for="(category, index) in categoryData" :key="index">
+                  <CatCard :clave="category.clave" :title="category.title" />
                 </vue-glide-slide>
                 <template slot="control">
                   <q-btn class="absolute-left" round data-glide-dir="<" icon="eva-chevron-left" />
@@ -46,6 +49,8 @@
 <script>
 import { Glide, GlideSlide } from 'vue-glide-js'
 import CatCard from 'components/documentos/categoriaCard'
+import { apolloClient } from '../boot/vue-apollo'
+import { categoryQuery } from '../services/graphql/queries'
 
 export default {
   name: 'PageCategorias',
@@ -53,11 +58,29 @@ export default {
     [Glide.name]: Glide,
     [GlideSlide.name]: GlideSlide,
     CatCard
+    // rubro: this.$route.params.id
   },
   data () {
     return {
-      search: undefined
+      search: undefined,
+      categoryData: []
     }
+  },
+  mounted () {
+    apolloClient.query({
+      query: categoryQuery,
+      variables: {
+        type: 2,
+        uid: this.$route.params.id
+      }
+    })
+      .then(res => {
+        this.categoryData = res.data.category.children
+        console.log(this.categoryData)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   props: {
     number: undefined

@@ -97,13 +97,13 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
 }
 `
 // Categoia (Documento)
-export const categoryQuery = gql`query Categories($type: Int!, $uid: String!){
+export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
   category(type: $type, uid: $uid){
     clave
     title
     children{
       clave
-      vlue
+      value
       title
       
     }
@@ -120,7 +120,7 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
 }
 `
 // get Documents in Tàrtaro
-export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument){
+export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument!){
   documents(search: $search){
     _id
     fileName

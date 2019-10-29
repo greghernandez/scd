@@ -12,7 +12,7 @@ const token = localStorage.getItem(AUTH_TOKEN) || null
 //   uri: 'http://192.168.43.43:4000/graphql'
 // })
 
-const uploadLink = createUploadLink({ uri: 'http://192.168.43.43:4000/graphql' })
+const uploadLink = createUploadLink({ uri: 'http://148.220.211.0:4000/graphql' })
 const authLink = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({

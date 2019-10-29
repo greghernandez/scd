@@ -8,8 +8,8 @@
       </q-card-section>
 
       <q-card-section>
-        <div class="row">
-          <div class="column justify-center flex-center">
+        <div class="row justify-center items-center content-center">
+          <div class="column">
             <q-tree class="col-6 col-sm-12"
               :nodes="simple"
               node-key="label"
@@ -66,16 +66,7 @@ export default {
             },
             {
               label: 'Pleasant surroundings',
-              children: [
-                { label: 'Happy atmosphere',
-                  id: 1,
-                  xd: 'qwerty'
-                },
-                { label: 'Good table presentation',
-                  id: 2
-                },
-                { label: 'Pleasing decor' }
-              ]
+              children: []
             }
           ]
         },
