@@ -25,11 +25,15 @@
               </q-breadcrumbs>
             </div>
             <div>
-              <div v-for="(category, index) in categoryData" :key="index">
-                <p>{{category.clave}}</p>
-              </div>
+              <vueper-slides class="no-shadow" :visible-slides="2" :arrows-outside="false" slide-multiple :slide-ratio="1/5" :dragging-distance="20" :breakpoints="{ 800: { visibleSlides: 2 } }">
+                <vueper-slide v-for="(category, index) in categoryData" :key="index" >
+                  <div slot="slideContent">
+                    <CatCard :clave="category.clave" :title="category.title" />
+                  </div>
+                </vueper-slide>
+              </vueper-slides>
               <!-- slider -->
-              <vue-glide type="" :swipeThreshold="100" :dragThreshold="200" :touchRatio="1">
+              <!-- <vue-glide type="" :swipeThreshold="100" :dragThreshold="200" :touchRatio="1">
                 <vue-glide-slide v-for="(category, index) in categoryData" :key="index">
                   <CatCard :clave="category.clave" :title="category.title" />
                 </vue-glide-slide>
@@ -37,7 +41,7 @@
                   <q-btn class="absolute-left" round data-glide-dir="<" icon="eva-chevron-left" />
                   <q-btn class="absolute-right" round data-glide-dir=">" icon="eva-chevron-right" />
                 </template>
-              </vue-glide>
+              </vue-glide> -->
             </div>
           </div>
         </q-card-section>
@@ -48,15 +52,21 @@
 
 <script>
 import { Glide, GlideSlide } from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
 import CatCard from 'components/documentos/categoriaCard'
 import { apolloClient } from '../boot/vue-apollo'
 import { categoryQuery } from '../services/graphql/queries'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+// Since v. 1.6.0, you need to include Vueper Slides CSS file for default styles.
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: 'PageCategorias',
   components: {
     [Glide.name]: Glide,
     [GlideSlide.name]: GlideSlide,
+    VueperSlides,
+    VueperSlide,
     CatCard
     // rubro: this.$route.params.id
   },
@@ -67,6 +77,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$route.params.id)
     apolloClient.query({
       query: categoryQuery,
       variables: {
