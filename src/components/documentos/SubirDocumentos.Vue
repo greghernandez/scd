@@ -42,7 +42,7 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType)
 // imports needed to comunicate with the API
 import { apolloClient } from '../../boot/vue-apollo'
 import { multipleUpload } from '../../services/graphql/mutations'
-import { payload } from '../../services/user'
+// import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -85,8 +85,9 @@ export default {
         variables: {
           files: files,
           input: {
-            category: '5db0cad2c7baf510c480a7e0',
-            owner: payload.userId
+            category: '5db33a924dc61d2260e5c507',
+            // owner: payload.userId
+            owner: '5da4dca3377d68341c67575d'
           }
         },
         context: {

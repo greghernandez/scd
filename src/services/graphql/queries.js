@@ -93,3 +93,44 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
   }
 }
 `
+<<<<<<< Updated upstream
+=======
+// get Documents in Tàrtaro
+export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument!){
+  documents(search: $search){
+    _id
+    fileName
+    createdAt
+    path
+  }
+}
+`
+
+export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
+    getTree(cat: $cat, user: $user) {
+        _id
+        label
+        type
+        children {
+            _id
+            label
+            type
+            children {
+                _id
+                label
+                type
+                children {
+                    _id
+                    label
+                    type
+                    children {
+                        _id
+                        label
+                        type
+                    }
+                }
+            }
+        }
+    }
+}`
+>>>>>>> Stashed changes

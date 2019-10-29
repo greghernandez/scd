@@ -3,6 +3,7 @@ import { createUploadLink } from 'apollo-upload-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 // import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
+import { host } from '../../enviroment.dev'
 // import VueApollo from 'vue-apollo'
 
 const AUTH_TOKEN = 'scd-at'
@@ -12,7 +13,11 @@ const token = localStorage.getItem(AUTH_TOKEN) || null
 //   uri: 'http://192.168.43.43:4000/graphql'
 // })
 
+<<<<<<< Updated upstream
 const uploadLink = createUploadLink({ uri: 'http://192.168.43.43:4000/graphql' })
+=======
+const uploadLink = createUploadLink({ uri: host })
+>>>>>>> Stashed changes
 const authLink = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
