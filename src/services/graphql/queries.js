@@ -89,7 +89,7 @@ export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPag
 }
 `
 // Categoias Root(Documentos)
-export const categoriesQueryRoot = gql`query CategoriesRoot(page: Int!, perPage: Int!, $type: Int!){
+export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPage: Int!, $type: Int!){
   categories(page: $page, perPage: $perPage, type: $type){
     title
     clave

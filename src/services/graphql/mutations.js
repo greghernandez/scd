@@ -58,7 +58,7 @@ export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($userId: ID!, 
   }
 }
 `
-
+// User Mutation UpdateMultipleFiles
 export const multipleUpload = gql`
     mutation MultipleUpload($files: [Upload!]!, $input: InputDocument!) {
         multipleUpload(files: $files, input: $input) {
@@ -71,3 +71,4 @@ export const multipleUpload = gql`
         }
     }
 `
+// Delete
