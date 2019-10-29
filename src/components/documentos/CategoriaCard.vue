@@ -4,10 +4,10 @@
       <q-card-section class="row justify-center items-center content-center">
         <div class="row justify-center flex-center">
           <div class="col-2 full-with">
-            <q-avatar color="secondary" text-color="white">{{ number }}</q-avatar>
+            <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
           </div>
           <div class="col-8 q-ml-sm" style="height: 100%">
-            <p class="q-my-none text-weight-bold">Curso de formación didáctico pedagógico</p>
+            <p class="q-my-none text-weight-bold">{{ title }}</p>
           </div>
         </div>
       </q-card-section>
@@ -47,7 +47,8 @@
 export default {
   name: 'CatCard',
   props: {
-    number: undefined
+    clave: String,
+    title: String
   }
 }
 </script>
