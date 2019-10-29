@@ -41,6 +41,9 @@
 </template>
 
 <script>
+import { apolloClient } from '../../boot/vue-apollo'
+import { treeQuery } from '../../services/graphql/queries'
+
 export default {
   name: 'AlertAvisos',
   data () {
@@ -49,57 +52,7 @@ export default {
       selected: 'Pleasant surroundings',
       ticked: [],
       expanded: [],
-      simple: [
-        {
-          label: 'Satisfied customers',
-          children: [
-            {
-              label: 'Good food',
-              children: [
-                { label: 'Quality ingredients',
-                  id: 23
-                },
-                { label: 'Good recipe',
-                  id: 23123
-                }
-              ]
-            },
-            {
-              label: 'Pleasant surroundings',
-              children: []
-            }
-          ]
-        },
-        {
-          label: 'Rubro 505',
-          children: [
-            {
-              label: 'Good food',
-              children: [
-                { label: 'Quality ingredients',
-                  id: 23
-                },
-                { label: 'Good recipe',
-                  id: 23123
-                }
-              ]
-            },
-            {
-              label: 'Pleasant surroundings',
-              children: [
-                { label: 'Happy atmosphere',
-                  id: 1,
-                  xd: 'qwerty'
-                },
-                { label: 'Good table presentation',
-                  id: 2
-                },
-                { label: 'Pleasing decor' }
-              ]
-            }
-          ]
-        }
-      ]
+      simple: []
     }
   },
   props: {
@@ -132,7 +85,26 @@ export default {
     onCancelClick () {
       console.log('Cancel')
       this.hide()
+    },
+    getTree () {
+      apolloClient.query({
+        query: treeQuery,
+        variables: {
+          cat: '5db33a684dc61d2260e5c505',
+          user: '5da4dca3377d68341c67575d'
+        }
+      })
+        .then(res => {
+          this.simple.push(res.data.getTree)
+          console.log(this.simple)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
+  },
+  mounted () {
+    this.getTree()
   }
 }
 </script>

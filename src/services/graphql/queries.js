@@ -119,6 +119,7 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
   }
 }
 `
+
 // get Documents in Tàrtaro
 export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument!){
   documents(search: $search){
@@ -129,3 +130,31 @@ export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocu
   }
 }
 `
+
+export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
+    getTree(cat: $cat, user: $user) {
+        _id
+        label
+        type
+        children {
+            _id
+            label
+            type
+            children {
+                _id
+                label
+                type
+                children {
+                    _id
+                    label
+                    type
+                    children {
+                        _id
+                        label
+                        type
+                    }
+                }
+            }
+        }
+    }
+}`
