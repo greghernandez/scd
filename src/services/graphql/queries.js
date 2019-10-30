@@ -129,3 +129,30 @@ export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocu
   }
 }
 `
+export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
+    getTree(cat: $cat, user: $user) {
+        _id
+        label
+        type
+        children {
+            _id
+            label
+            type
+            children {
+                _id
+                label
+                type
+                children {
+                    _id
+                    label
+                    type
+                    children {
+                        _id
+                        label
+                        type
+                    }
+                }
+            }
+        }
+    }
+}`
