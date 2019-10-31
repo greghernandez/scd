@@ -26,7 +26,6 @@
     </q-card>
   </q-dialog>
 </template>
-
 <script>
 // Import FilePond
 import vueFilePond from 'vue-filepond'
