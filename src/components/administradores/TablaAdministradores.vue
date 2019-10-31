@@ -31,29 +31,13 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="Nombre">
-              {{ props.row.name}}
+              {{ props.row.name }}
             </q-td>
             <q-td key="Clave">
-              {{ props.row.clave}}
+              {{ props.row.clave }}
             </q-td>
             <q-td key="verDocente" align="center">
-              <q-btn
-                flat
-                class="btn-habilitar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-shield-outline"
-                @click="habilitarAviso()"
-              >
-                <q-tooltip
-                  content-class="bg-indigo"
-                  transition-show="rotate"
-                  transition-hide="rotate"
-                >
-                  Hacer administrador
-                </q-tooltip>
-              </q-btn>
+              <BtnAdministradores :rango="props.row.permissions" />
             </q-td>
           </q-tr>
         </template>
@@ -65,12 +49,14 @@
 <script>
 import gql from 'graphql-tag'
 import Alert from 'components/Alert.vue'
+import BtnAdministradores from 'components/administradores/actions/hacerAdministrador'
 import { apolloClient } from '../../boot/vue-apollo'
 import { docentesQueryAdmin } from '../../services/graphql/queries'
 
 export default {
   name: 'TablaAdministradores',
   components: {
+    BtnAdministradores
   },
   apollo: {
     users: gql`query {
@@ -103,7 +89,7 @@ export default {
       .then(
         res => {
           this.docentesData = res.data.users
-          console.log(res.data.users)
+          console.log(this.docentesData)
         })
   },
   methods: {
