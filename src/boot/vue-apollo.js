@@ -14,7 +14,6 @@ const token = localStorage.getItem(AUTH_TOKEN) || null
 // })
 
 const uploadLink = createUploadLink({ uri: host })
-
 const authLink = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
