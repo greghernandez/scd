@@ -72,15 +72,6 @@ export const docentesQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!
     clave
     status
     name
-  }
-}
-`
-// Users Query Admin
-export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!){
-  users(page: $page, perPage: $perPage){
-    clave
-    status
-    name
     permissions{
       _id
       rank
@@ -96,6 +87,7 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
   }
 }
 `
+
 // Categoia (Documento)
 export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
   category(type: $type, uid: $uid){
