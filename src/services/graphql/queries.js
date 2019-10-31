@@ -72,15 +72,6 @@ export const docentesQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!
     clave
     status
     name
-  }
-}
-`
-// Users Query Admin
-export const administradoresQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!){
-  users(page: $page, perPage: $perPage){
-    clave
-    status
-    name
     permissions{
       _id
       rank
@@ -96,6 +87,7 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
   }
 }
 `
+
 // Categoia (Documento)
 export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
   category(type: $type, uid: $uid){
@@ -119,7 +111,6 @@ export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
   }
 }
 `
-
 // get Documents in Tàrtaro
 export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocument!){
   documents(search: $search){
@@ -130,7 +121,6 @@ export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocu
   }
 }
 `
-
 export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
     getTree(cat: $cat, user: $user) {
         _id
