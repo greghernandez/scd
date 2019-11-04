@@ -1,12 +1,12 @@
 <template>
   <div class="column justify-center flex-center">
-    <q-card class="my-card card-cat rubro-content">
+    <q-card class="my-card card-cat cat-card">
       <q-card-section class="row justify-center items-center content-center">
         <div class="row justify-center flex-center">
           <div class="col-2 full-with">
             <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
           </div>
-          <div class="col-8 q-ml-sm" style="height: 100%">
+          <div class="col-8 q-ml-sm rubro-title" style="height: 100%">
             <p class="q-my-none text-weight-bold">{{ title }}</p>
           </div>
         </div>
