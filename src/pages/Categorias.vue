@@ -25,13 +25,11 @@
               </q-breadcrumbs>
             </div>
             <div>
-              <vueper-slides class="no-shadow" :visible-slides="2" :arrows-outside="false" slide-multiple :slide-ratio="1/5" :dragging-distance="20" :breakpoints="{ 800: { visibleSlides: 2 } }">
-                <vueper-slide v-for="(category, index) in categoryData" :key="index" >
-                  <div slot="slideContent">
-                    <CatCard :clave="category.clave" :title="category.title" />
-                  </div>
-                </vueper-slide>
-              </vueper-slides>
+              <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel" paginationActiveColor="#4A4FF1">
+                <slide v-for="(category, index) in categoryData" :key="index">
+                  <CatCard :clave="category.clave" :title="category.title" />
+                </slide>
+              </carousel>
               <!-- slider -->
               <!-- <vue-glide type="" :swipeThreshold="100" :dragThreshold="200" :touchRatio="1">
                 <vue-glide-slide v-for="(category, index) in categoryData" :key="index">
@@ -51,29 +49,34 @@
 </template>
 
 <script>
-import { Glide, GlideSlide } from 'vue-glide-js'
-import 'vue-glide-js/dist/vue-glide.css'
+// import { Glide, GlideSlide } from 'vue-glide-js'
+// import 'vue-glide-js/dist/vue-glide.css'
 import CatCard from 'components/documentos/categoriaCard'
 import { apolloClient } from '../boot/vue-apollo'
 import { categoryQuery } from '../services/graphql/queries'
-import { VueperSlides, VueperSlide } from 'vueperslides'
+// import { VueperSlides, VueperSlide } from 'vueperslides'
 // Since v. 1.6.0, you need to include Vueper Slides CSS file for default styles.
-import 'vueperslides/dist/vueperslides.css'
+// import 'vueperslides/dist/vueperslides.css'
+import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   name: 'PageCategorias',
   components: {
-    [Glide.name]: Glide,
-    [GlideSlide.name]: GlideSlide,
-    VueperSlides,
-    VueperSlide,
+    // [Glide.name]: Glide,
+    // [GlideSlide.name]: GlideSlide,
+    // VueperSlides,
+    // VueperSlide,
+    Carousel,
+    Slide,
     CatCard
     // rubro: this.$route.params.id
   },
   data () {
     return {
       search: undefined,
-      categoryData: []
+      categoryData: [],
+      nextLabel: "<img src='/assets/images/chevron-right.png' />",
+      prevLabel: "<img src='/assets/images/chevron-left.png' />"
     }
   },
   mounted () {
