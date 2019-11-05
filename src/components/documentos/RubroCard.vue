@@ -23,8 +23,7 @@ export default {
   },
   methods: {
     seleccionada (clave) {
-      let rubroLink = 'documentos/categorias/' + clave
-      this.$router.push(rubroLink)
+      this.$router.push({ name: 'categorias', params: { id: clave } })
     }
   }
 }
