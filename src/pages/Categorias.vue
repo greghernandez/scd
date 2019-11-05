@@ -75,8 +75,8 @@ export default {
     return {
       search: undefined,
       categoryData: [],
-      nextLabel: "<img src='/assets/images/chevron-right.png' />",
-      prevLabel: "<img src='/assets/images/chevron-left.png' />"
+      nextLabel: "<img src='/assets/arrow-forward.png' class='carousel-img' />",
+      prevLabel: "<img src='/assets/arrow-back.png' class='carousel-img' />"
     }
   },
   mounted () {
