@@ -58,7 +58,7 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-my-none">{{ name }}<br>{{ adscription }}</p>
+                  <p class="q-my-none text-subtitle2">{{ name }}<br><span class="text-caption">{{ adscription }}</span></p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
