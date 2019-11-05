@@ -24,7 +24,7 @@
                 <q-breadcrumbs-el :label="'Rubro ' + this.$route.params.id" />
               </q-breadcrumbs>
             </div>
-            <div>
+            <div class="q-pa-md">
               <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel" paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in categoryData" :key="index">
                   <CatCard :clave="category.clave" :title="category.title" />
