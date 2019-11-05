@@ -51,8 +51,8 @@ export const userUpdateMutation = gql`mutation UpdateUser($userId: ID!, $status:
 }
 `
 // User Mutation UpdateRole
-export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($userId: ID!, $permissionId: ID!, $action: Int!){
-  updateUserRole( userId: $userId, permissionId: $permissionId, action: $action){
+export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($input: UpdateUserRole!){
+  updateUserRole(input: $input){
     _id
     name
   }
