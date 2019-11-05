@@ -104,8 +104,8 @@ export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
 `
 
 // get Permission(Admin)
-export const permissionQueryAdmin = gql`query permissionAdmin($id: ID!){
-  permission(id: $id){
+export const permissionQueryAdmin = gql`query permissionAdmin($page: Int!, $perPage: Int!){
+  permissions(page: $page, perPage: $perPage){
     _id
     rank
   }
