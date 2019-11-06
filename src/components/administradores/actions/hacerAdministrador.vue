@@ -58,7 +58,8 @@ export default {
       propBtn: '',
       propBtnColor: '',
       propPermition: null,
-      propAction: null
+      propAction: null,
+      propNotify: ''
     }
   },
   props: {
@@ -87,6 +88,7 @@ export default {
         this.propBtnColor = 'negative'
         this.propPermition = 1
         this.propAction = 2
+        this.propNotify = 'Se quitaron los permisos correctamente'
       } else {
         this.propTitle = 'Hacer Administrador'
         this.propMessage = '¿Esta seguro de que desea convertir este usuario en administrador?'
@@ -94,6 +96,7 @@ export default {
         this.propBtnColor = 'primary'
         this.propPermition = 1
         this.propAction = 1
+        this.propNotify = 'Se agregaron correctamente los permisos'
       }
       this.$q.dialog({
         component: AlertAviso,
@@ -116,10 +119,20 @@ export default {
           res => {
             console.log(res.data)
             this.isAdmin = !this.isAdmin
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-alert-triangle-outline',
+              message: this.propNotify
+            })
           }
         ).catch(
           err => {
             console.log(err)
+            this.$q.notify({
+              color: 'negative',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrio un error, intentalo de nuevo'
+            })
           }
         )
       })
