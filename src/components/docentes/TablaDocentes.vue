@@ -35,7 +35,9 @@
             <q-td key="habilitarDocente">
               <BtnCandado :status="props.row.status" :userId="props.row._id" />
             </q-td>
+            <q-td key="Eliminar">
               <BtnEliminar :clave="props.row.clave" />
+            </q-td>
           </q-tr>
         </template>
       </q-table>
