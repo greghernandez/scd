@@ -41,7 +41,7 @@ export default {
       query: documentsTartaro,
       variables: {
         search: {
-          user: '5dadf9dfd0cd0a1031b3652e',
+          user: payload.userId,
           page: 0,
           perPage: 0,
           category: '5db0cad2c7baf510c480a7e0'
