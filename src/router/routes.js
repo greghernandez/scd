@@ -27,7 +27,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
-      { path: 'perfil', component: () => import('pages/PerfilVisitante.vue') },
+      { path: 'docente/:clave', name: 'docente', component: () => import('pages/PerfilDocente.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
       { path: 'documentos/categorias/:id', name: 'categorias', component: () => import('pages/Categorias.vue') },
       { path: 'documentos-pendientes', component: () => import('pages/Doc-pendientes.vue') },

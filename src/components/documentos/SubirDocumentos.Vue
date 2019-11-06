@@ -8,15 +8,9 @@
       </q-card-section>
 
       <q-card-section>
-        <file-pond
-        name="test"
-        ref="pond"
-        class-name="my-pond"
-        label-idle="Arrastra los documentos aquí..."
-        allow-multiple="true"
-        instantUpload="false"
-        accepted-file-types="application/pdf"
-        v-on:init="handleFilePondInit"/>
+        <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Arrastra los documentos aquí..."
+          allow-multiple="true" instantUpload="false" accepted-file-types="application/pdf"
+          v-on:init="handleFilePondInit" />
       </q-card-section>
 
       <q-card-actions align="right">
@@ -26,6 +20,7 @@
     </q-card>
   </q-dialog>
 </template>
+
 <script>
 // Import FilePond
 import vueFilePond from 'vue-filepond'
@@ -41,7 +36,7 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType)
 // imports needed to comunicate with the API
 import { apolloClient } from '../../boot/vue-apollo'
 import { multipleUpload } from '../../services/graphql/mutations'
-// import { payload } from '../../services/user'
+import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -85,8 +80,7 @@ export default {
           files: files,
           input: {
             category: '5db33a924dc61d2260e5c507',
-            // owner: payload.userId
-            owner: '5da4dca3377d68341c67575d'
+            owner: payload.userId
           }
         },
         context: {

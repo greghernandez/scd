@@ -69,6 +69,7 @@ export const noticesQueryAdmin = gql`query Notices($page: Int!, $perPage: Int!){
 // Users Query Admin
 export const docentesQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!){
   users(page: $page, perPage: $perPage){
+    _id
     clave
     status
     name
