@@ -71,4 +71,25 @@ export const multipleUpload = gql`
         }
     }
 `
-// Delete
+// User Mutation MoveDocument
+export const MOVE_DOCUMENT = gql`mutation MoveDocument($doc: ID!, $cat: ID!){
+  moveDocument(doc: $doc, cat: $cat){
+    _id
+  }
+}
+`
+// User DeleteDocument
+export const DELETE_DOCUMENT = gql`mutation DeleteDocument($id: ID!){
+  deleteDocument(id: $id){
+    _id
+  }
+}
+`
+// User DeletDocuments
+export const DELETE_DOCUMENTS = gql`mutation DeleteDocuments($ids: [ID!]!){
+  deleteDocuments(ids: $ids){
+    deletedCount
+    errors
+  }
+}
+`
