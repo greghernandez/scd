@@ -54,7 +54,7 @@
           <q-list padding dense>
             <q-item v-if="!miniState">
               <q-item-section class="items-center">
-                <q-avatar>
+                <q-avatar class="avatar-img">
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
