@@ -10,6 +10,7 @@
 <script>
 import { apolloClient } from '../../../boot/vue-apollo'
 import { userUpdateMutation } from '../../../services/graphql/mutations'
+import AlertAviso from '../../Alert'
 
 export default {
   name: 'BtnCandado',
@@ -17,7 +18,11 @@ export default {
     return {
       icon: '',
       newStatus: '',
-      tooltipMsg: ''
+      tooltipMsg: '',
+      propTitle: '',
+      propMessage: '',
+      propBtn: '',
+      propBtnColor: ''
     }
   },
   props: {
@@ -39,42 +44,58 @@ export default {
         this.icon = 'eva-lock-outline'
         this.newStatus = 'Inactivo'
         this.tooltipMsg = 'Desactivar usuario'
+        this.propTitle = 'Desactivar Docente'
+        this.propMessage = '¿Esta seguro de deshabilitar este usuario?'
+        this.propBtn = 'Deshabilitar'
+        this.propBtnColor = 'negative'
       } else if (status === 'Inactivo') {
         this.icon = 'eva-person-done-outline'
         this.newStatus = 'Activo'
         this.tooltipMsg = 'Activar usuario'
+        this.propTitle = 'Activar Docente'
+        this.propMessage = '¿Esta seguro de de habilitar este usuario?'
+        this.propBtn = 'Activar'
+        this.propBtnColor = 'primary'
       }
     },
     cambiarStatus () {
       console.log(this.userId)
       console.log(this.status)
-      apolloClient.mutate({
-        mutation: userUpdateMutation,
-        variables: {
-          userId: this.userId,
-          status: this.newStatus
-        }
+      this.$q.dialog({
+        component: AlertAviso,
+        title: this.propTitle,
+        message: this.propMessage,
+        btn: this.propBtn,
+        btnColor: this.propBtnColor
+      }).onOk(() => {
+        apolloClient.mutate({
+          mutation: userUpdateMutation,
+          variables: {
+            userId: this.userId,
+            status: this.newStatus
+          }
+        })
+          .then(
+            res => {
+              console.log(res.data)
+              this.verificarStatus(this.newStatus)
+              this.$q.notify({
+                color: 'positive',
+                icon: 'eva-checkmark-circle-outline',
+                message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
+              })
+            }
+          ).catch(
+            err => {
+              console.log(err.data)
+              this.$q.notify({
+                color: 'negative',
+                icon: 'eva-alert-triangle-outline',
+                message: 'Ocurrio un error intentalo de nuevo'
+              })
+            }
+          )
       })
-        .then(
-          res => {
-            console.log(res.data)
-            this.verificarStatus(this.newStatus)
-            this.$q.notify({
-              color: 'positive',
-              icon: 'eva-checkmark-circle-outline',
-              message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
-            })
-          }
-        ).catch(
-          err => {
-            console.log(err.data)
-            this.$q.notify({
-              color: 'negative',
-              icon: 'eva-alert-triangle-outline',
-              message: 'Ocurrio un error intentalo de nuevo'
-            })
-          }
-        )
     }
   }
 }
