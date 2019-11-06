@@ -44,7 +44,7 @@ export default {
           user: payload.userId,
           page: 0,
           perPage: 0,
-          category: '5db0cad2c7baf510c480a7e0'
+          category: '999'
         }
       }
     })
