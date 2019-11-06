@@ -12,7 +12,7 @@
 
     <div class="row">
       <div class="col-md-3 col-sm-4 col-xs-12 doc-label" v-for="(documents, index) in pendingDocs" :key="index">
-        <DocLabel :fileName="documents.fileName" :createdAt="documents.createdAt" />
+        <DocLabel :id="documents._id" :fileName="documents.fileName" :createdAt="documents.createdAt" />
       </div>
     </div>
   </div>

@@ -18,13 +18,13 @@
                   <q-menu transition-show="scale" transition-hide="scale" anchor="center right" self="center right">
                     <q-list style="min-width: 100px">
                       <q-item clickable>
-                        <q-item-section>Abrir</q-item-section>
+                        <q-item-section @click="abrir()">Abrir</q-item-section>
                       </q-item>
                       <q-item clickable>
                         <q-item-section @click="mover()" >Mover a</q-item-section>
                       </q-item>
                       <q-item clickable>
-                        <q-item-section>Descargar</q-item-section>
+                        <q-item-section @click="descargar()">Descargar</q-item-section>
                       </q-item>
                       <q-item clickable>
                         <q-item-section @click="eliminar()">Eliminar</q-item-section>
@@ -43,6 +43,7 @@
 <script>
 import ModalMover from 'components/documentos/modalMover'
 import ModalEliminar from 'components/documentos/modalEliminar'
+import { getFile } from '../../services/downloads'
 
 export default {
   name: 'DocLabel',
@@ -55,15 +56,22 @@ export default {
     }
   },
   props: {
+    id: String,
     fileName: String,
     createdAt: Number
   },
   methods: {
+    abrir () {
+      getFile(this.id, 'watch')
+    },
     mover () {
       this.$q.dialog({
         component: ModalMover,
         title: 'Mover'
       })
+    },
+    descargar () {
+      getFile(this.id, 'download')
     },
     eliminar () {
       this.$q.dialog({
