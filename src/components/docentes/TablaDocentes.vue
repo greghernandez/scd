@@ -30,14 +30,7 @@
               {{ props.row.clave}}
             </q-td>
             <q-td key="verDocente">
-              <q-btn
-                class="btn-habilitar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-eye-outline"
-                @click="habilitarAviso()"
-              />
+              <BtnVerDocentes :clave="props.row.clave" />
             </q-td>
             <q-td key="habilitarDocente">
               <q-btn
@@ -69,10 +62,12 @@
 import Alert from 'components/Alert.vue'
 import { apolloClient } from '../../boot/vue-apollo'
 import { docentesQueryAdmin } from '../../services/graphql/queries'
+import BtnVerDocentes from '../../components/docentes/actions/btnVer'
 
 export default {
   name: 'TablaAvisos',
   components: {
+    BtnVerDocentes
   },
   data () {
     return {
