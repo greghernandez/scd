@@ -37,7 +37,7 @@
               {{ props.row.clave }}
             </q-td>
             <q-td key="verDocente" align="center">
-              <BtnAdministradores :rango="props.row.permissions" />
+              <BtnAdministradores :rango="props.row.permissions" :userId="props.row._id" />
             </q-td>
           </q-tr>
         </template>
@@ -61,6 +61,7 @@ export default {
   apollo: {
     users: gql`query {
       users(page: 0, perPage: 0){
+        _id
         name
         clave
         status
