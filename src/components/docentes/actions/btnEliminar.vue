@@ -2,7 +2,7 @@
   <div>
     <q-btn class="btn-eliminar" round color="grey-14" size="sm" icon="eva-trash-outline" @click="eliminarDocente()">
       <q-tooltip content-class="bg-indigo" transition-show="rotate" transition-hide="rotate">
-        {{ tooltipMsg }}
+        Eliminar docente
       </q-tooltip>
     </q-btn>
   </div>
@@ -26,10 +26,10 @@ export default {
       alert(this.clave)
       this.$q.dialog({
         component: AlertAviso,
-        title: this.propTitle,
-        message: this.propMessage,
-        btn: this.propBtn,
-        btnColor: this.propBtnColor
+        title: 'Eliminar docente',
+        message: '¿Esta seguo de eliminar este doncente?',
+        btn: 'Eliminar docente',
+        btnColor: 'negative'
       }).onOk(() => {
         apolloClient.mutate({
           mutation: userUpdateMutation,
