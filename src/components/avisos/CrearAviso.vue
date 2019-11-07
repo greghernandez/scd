@@ -114,8 +114,21 @@ export default {
           res => {
             // console.log(res.data.createNotice)
             this.$emit('newNotice', res.data.createNotice)
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se creo correctamente el aviso'
+            })
           })
-        .catch(error => console.error(error))
+        .catch(
+          err => {
+            console.error(err)
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrió un error, intentalo de nuevo'
+            })
+          })
     },
     // following method is REQUIRED
     // (don't change its name --> "show")
