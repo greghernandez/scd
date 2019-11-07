@@ -30,26 +30,13 @@
               {{ props.row.clave}}
             </q-td>
             <q-td key="verDocente">
-              <BtnVerDocentes :clave="props.row.clave" />
+              <BtnVer :clave="props.row.clave" />
             </q-td>
             <q-td key="habilitarDocente">
-              <q-btn
-                class="btn-editar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-lock-outline"
-              />
+              <BtnCandado :status="props.row.status" :userId="props.row._id" />
             </q-td>
             <q-td key="Eliminar">
-              <q-btn
-                class="btn-eliminar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-trash-outline"
-                @click="eliminarDocente()"
-              />
+              <BtnEliminar :clave="props.row.clave" />
             </q-td>
           </q-tr>
         </template>
@@ -62,12 +49,16 @@
 import Alert from 'components/Alert.vue'
 import { apolloClient } from '../../boot/vue-apollo'
 import { docentesQueryAdmin } from '../../services/graphql/queries'
-import BtnVerDocentes from '../../components/docentes/actions/btnVer'
+import BtnVer from '../../components/docentes/actions/btnVer'
+import BtnCandado from '../../components/docentes/actions/btnCandado'
+import BtnEliminar from '../../components/docentes/actions/btnEliminar'
 
 export default {
   name: 'TablaAvisos',
   components: {
-    BtnVerDocentes
+    BtnVer,
+    BtnCandado,
+    BtnEliminar
   },
   data () {
     return {
@@ -93,6 +84,7 @@ export default {
       .then(
         res => {
           this.docentesData = res.data.users
+          // console.log(res.data.users)
         })
   },
   methods: {

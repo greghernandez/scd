@@ -50,21 +50,7 @@
               </q-btn>
             </q-td>
             <q-td key="Ocultar">
-              <q-btn
-                class="btn-habilitar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-eye-off-outline"
-                @click="habilitarAviso()"
-              >
-                <q-tooltip
-                  transition-show="rotate"
-                  transition-hide="rotate"
-                >
-                  Habilitar aviso
-                </q-tooltip>
-              </q-btn>
+              <BtnStatus />
             </q-td>
             <q-td key="Eliminar">
               <q-btn
@@ -84,20 +70,7 @@
               </q-btn>
             </q-td>
             <q-td key="Ver">
-              <q-btn
-                class="btn-link"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-link"
-              >
-                <q-tooltip
-                  transition-show="rotate"
-                  transition-hide="rotate"
-                >
-                  Ver convocatoria
-                </q-tooltip>
-              </q-btn>
+              <VerConvocatoria :link="props.row.link" />
             </q-td>
           </q-tr>
         </template>
@@ -110,12 +83,16 @@
 import gql from 'graphql-tag'
 import AlertAviso from './Alert.vue'
 import ModalEditarAviso from 'components/avisos/EditarAviso'
+import VerConvocatoria from 'components/avisos/actions/verConvocatoria'
+import BtnStatus from 'components/avisos/actions/btnStatus'
 import { apolloClient } from '../../boot/vue-apollo'
 import { noticeDeleteMutation } from '../../services/graphql/mutations'
 
 export default {
   name: 'TablaAvisos',
   components: {
+    VerConvocatoria,
+    BtnStatus
   },
   mounted () {
     apolloClient.query({
@@ -132,6 +109,7 @@ export default {
     })
       .then(res => {
         this.notices = res.data.notices
+        console.log(res.data.notices)
       })
       .catch(err => {
         console.log(err)
@@ -177,17 +155,6 @@ export default {
             id: id
           }
         })
-      })
-    },
-
-    // Muestra Alert para habilitar aviso
-    habilitarAviso () {
-      this.$q.dialog({
-        component: AlertAviso,
-        title: 'Habilitar aviso',
-        message: 'Este aviso se hara visible para los usuarios',
-        btn: 'Habilitar aviso',
-        btnColor: 'primary'
       })
     }
   }

@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'BtnVerDocentes',
+  name: 'BtnVer',
   props: {
     clave: {
       type: String,

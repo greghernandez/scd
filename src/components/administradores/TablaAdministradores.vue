@@ -5,23 +5,24 @@
         :data="docentesData"
         :columns="columns"
         row-key="Nombre"
-        :filter="search"
-        binary-state-sort
+        :filter="filter.trim()"
         no-data-label="No hay datos disponibles"
         no-results-label="No se encontraron coincidencias"
         rows-per-page-label="Campos por página"
         :dense="$q.screen.lt.md"
+        binary-state-sort
         flat
       >
         <template v-slot:top="props">
           <div class="q-mx-md">
             <h5>Docentes</h5>
+            <p>{{ filter }}</p>
           </div>
           <div class="q-mx-md">
             <q-btn rounded color="primary" icon="eva-shield-outline" label="Ver administradores" no-caps/>
           </div>
           <q-space />
-          <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar docentes" type="search">
+          <q-input class="search q-my-xs" rounded outlined dense v-model="filter" placeholder="Buscar docentes" type="search">
             <template v-slot:append>
               <!--<q-avatar color="primary" text-color="white" size="30px" icon="eva-search"></q-avatar>-->
               <q-icon name="search" />
@@ -30,7 +31,7 @@
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="Nombre">
+            <q-td key="name">
               {{ props.row.name }}
             </q-td>
             <q-td key="Clave">
@@ -70,9 +71,9 @@ export default {
   },
   data () {
     return {
-      search: undefined,
+      filter: '',
       columns: [
-        { name: 'Nombre', label: 'Nombre', field: 'nombre', align: 'left', sortable: true, required: true },
+        { name: 'Nombre', label: 'Nombre', field: row => row.name, align: 'left', sortable: true, required: true },
         { name: 'Clave', align: 'left', label: 'Clave', field: 'clave', sortable: true },
         { name: 'Administrador', align: 'center', label: 'Administrador' }
       ],

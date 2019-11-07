@@ -178,6 +178,7 @@ import SubirDocumentos from 'components/documentos/subirDocumentos'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
 import { userQueryToolbar } from '../services/graphql/queries'
 import { apolloClient } from '../boot/vue-apollo'
+import { payload } from '../services/user'
 
 export default {
   name: 'MyLayout',
@@ -188,7 +189,7 @@ export default {
     return {
       drawer: false,
       miniState: false,
-      linkPerfil: 'Mensaje',
+      linkPerfil: 'www.google.com/',
       userData: undefined,
       name: undefined,
       adscription: undefined
@@ -238,21 +239,19 @@ export default {
     }
   },
   mounted () {
-    // Decode token
-    const token = localStorage.getItem('scd-at') || null
-    var playload = JSON.parse(atob(token.split('.')[1]))
-
     // Graphql query
     apolloClient.query({
       query: userQueryToolbar,
       variables: {
-        id: playload.userId
+        id: payload.userId
       }
     })
       .then(
         res => {
           this.name = res.data.user.name
           this.adscription = res.data.user.adscription.name
+          console.log(res.data.user)
+          this.linkPerfil += payload.clave
         })
       .catch(
         err => {
