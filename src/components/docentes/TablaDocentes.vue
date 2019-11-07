@@ -5,7 +5,7 @@
         :data="docentesData"
         :columns="columns"
         row-key="Nombre"
-        :filter="search"
+        :filter="filter"
         binary-state-sort
         no-data-label="No hay datos disponibles"
         no-results-label="No se encontraron coincidencias"
@@ -14,7 +14,7 @@
         flat
       >
         <template v-slot:top="props">
-          <q-input class="search q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar docentes" type="search">
+          <q-input class="search q-my-xs" rounded outlined dense v-model="filter" placeholder="Buscar docentes" type="search">
             <template v-slot:append>
               <!--<q-avatar color="primary" text-color="white" size="30px" icon="eva-search"></q-avatar>-->
               <q-icon name="search" />
@@ -23,7 +23,7 @@
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="Nombre">
+            <q-td key="name">
               {{ props.row.name}}
             </q-td>
             <q-td key="Clave">
@@ -62,9 +62,9 @@ export default {
   },
   data () {
     return {
-      search: '',
+      filter: '',
       columns: [
-        { name: 'Nombre', label: 'Nombre', field: 'nombre', align: 'left', sortable: true, required: true },
+        { name: 'Nombre', label: 'Nombre', field: row => row.name, align: 'left', sortable: true, required: true },
         { name: 'Clave', align: 'left', label: 'Clave', field: 'clave', sortable: true },
         { name: 'Ocultar/Habilitar', align: 'center', label: '', field: 'code' },
         { name: 'Eliminar', align: 'center', label: '', field: 'code' },
