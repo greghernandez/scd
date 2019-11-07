@@ -19,7 +19,7 @@
             <p>{{ filter }}</p>
           </div>
           <div class="q-mx-md">
-            <q-btn rounded color="primary" icon="eva-shield-outline" label="Ver administradores" no-caps/>
+            <q-btn rounded color="primary" icon="eva-shield-outline" label="Ver administradores" no-caps @click="filtrarDocentes()"/>
           </div>
           <q-space />
           <q-input class="search q-my-xs" rounded outlined dense v-model="filter" placeholder="Buscar docentes" type="search">
@@ -85,7 +85,8 @@ export default {
       query: docentesQueryAdmin,
       variables: {
         page: 0,
-        perPage: 0
+        perPage: 0,
+        btnFiltro: true
       }
     })
       .then(
@@ -96,6 +97,10 @@ export default {
   },
   methods: {
   // Muestra el Alert para eliminar
+    filtrarDocentes () {
+      this.btnFiltro = !this.btnFiltro
+      alert(this.btnFiltro)
+    },
     eliminarAviso () {
       this.$q.dialog({
         component: Alert,
