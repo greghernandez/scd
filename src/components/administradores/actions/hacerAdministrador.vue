@@ -121,7 +121,7 @@ export default {
             this.isAdmin = !this.isAdmin
             this.$q.notify({
               color: 'positive',
-              icon: 'eva-alert-triangle-outline',
+              icon: 'eva-checkmark-circle-outline',
               message: this.propNotify
             })
           }
