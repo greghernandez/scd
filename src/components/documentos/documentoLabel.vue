@@ -56,13 +56,13 @@ export default {
     }
   },
   props: {
-    id: String,
+    fileId: String,
     fileName: String,
     createdAt: Number
   },
   methods: {
     abrir () {
-      getFile(this.id, 'watch')
+      getFile(this.fileId, 'watch')
     },
     mover () {
       this.$q.dialog({
@@ -71,7 +71,7 @@ export default {
       })
     },
     descargar () {
-      getFile(this.id, 'download')
+      getFile(this.fileId, 'download')
     },
     eliminar () {
       this.$q.dialog({

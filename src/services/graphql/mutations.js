@@ -28,12 +28,12 @@ export const noticeDeleteMutation = gql`mutation DeleteNotice($id: ID!){
 }
 `
 // notice Mutation Update Status
-export const noticeStatusMutation = gql`mutation StatusNotice($id: ID!, $status: Int!){
-  updateNotice(id: $id, input: $input){
-    _id
-  }
-}
-`
+// export const noticeStatusMutation = gql`mutation StatusNotice($id: ID!, $input: UpdateNotice!){
+//   updateNotice(id: $id, input: $input){
+//     _id
+//   }
+// }
+// `
 // User Mutation UpdateRole
 export const userRoleMutation = gql`mutation ChangeRoleUser($userId: ID!, $permissionId: ID!, $action: Int!){
   updateUserRole( userId: $userId, permissionId: $permissionId, action: $action){
@@ -86,10 +86,10 @@ export const DELETE_DOCUMENTS = gql`mutation DeleteDocuments($ids: [ID!]!){
   }
 }
 `
-// Delete User4
+// Delete User
 export const DELETE_USER = gql`mutation DelteUser($id: ID!){
   deleteUser(id: $id){
-    id
+    _id
   }
 }
 `

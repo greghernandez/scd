@@ -1,4 +1,4 @@
-import axios from '../boot/axios'
+import axios from 'axios'
 import { address } from '../../enviroment.dev'
 
 export const getFile = async (id, mode) => {
@@ -11,7 +11,6 @@ export const getFile = async (id, mode) => {
         mode: mode
       },
       responseType: 'blob',
-      observe: 'response',
       headers: { 'content-type': 'application/json' }
     })
     // axios.post(address + '/downloads/getFile', {
@@ -79,13 +78,14 @@ export const joinInPdf = async (files, mode) => {
 }
 
 function getFileNameFromHttpResponse (httpResponse) {
-  const contentDispositionHeader = httpResponse.headers.get('Content-Disposition')
+  console.log(httpResponse)
+  const contentDispositionHeader = httpResponse.headers['content-disposition']
   const result = contentDispositionHeader.split(';')[1].trim().split('=')[1]
   return result.replace(/"/g, '')
 }
 function saveFile (data) {
   const name = getFileNameFromHttpResponse(data)
-  const blob = new Blob([data.body])
+  const blob = new Blob([data.data])
   // const url = window.URL.createObjectURL(blob);
   // saveAs(blob);
   // window.open(url);
