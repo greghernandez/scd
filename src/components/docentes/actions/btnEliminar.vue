@@ -10,7 +10,7 @@
 
 <script>
 import { apolloClient } from '../../../boot/vue-apollo'
-import { userUpdateMutation } from '../../../services/graphql/mutations'
+import { DELETE_USER } from '../../../services/graphql/mutations'
 import AlertAviso from '../../Alert'
 
 export default {
@@ -19,11 +19,15 @@ export default {
     clave: {
       type: String,
       required: true
+    },
+    userId: {
+      type: String,
+      required: true
     }
   },
   methods: {
     eliminarDocente () {
-      alert(this.clave)
+      alert(this.userId)
       this.$q.dialog({
         component: AlertAviso,
         title: 'Eliminar docente',
@@ -32,10 +36,9 @@ export default {
         btnColor: 'negative'
       }).onOk(() => {
         apolloClient.mutate({
-          mutation: userUpdateMutation,
+          mutation: DELETE_USER,
           variables: {
-            userId: this.userId,
-            status: this.newStatus
+            id: this.userId
           }
         })
           .then(

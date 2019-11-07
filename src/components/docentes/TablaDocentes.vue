@@ -36,7 +36,7 @@
               <BtnCandado :status="props.row.status" :userId="props.row._id" />
             </q-td>
             <q-td key="Eliminar">
-              <BtnEliminar :clave="props.row.clave" />
+              <BtnEliminar :clave="props.row.clave" :userId="props.row._id"/>
             </q-td>
           </q-tr>
         </template>
@@ -84,7 +84,7 @@ export default {
       .then(
         res => {
           this.docentesData = res.data.users
-          // console.log(res.data.users)
+          console.log(res.data.users)
         })
   },
   methods: {
