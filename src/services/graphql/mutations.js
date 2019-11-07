@@ -78,18 +78,18 @@ export const MOVE_DOCUMENT = gql`mutation MoveDocument($doc: ID!, $cat: ID!){
   }
 }
 `
-// User DeleteDocument
-export const DELETE_DOCUMENT = gql`mutation DeleteDocument($id: ID!){
-  deleteDocument(id: $id){
-    _id
-  }
-}
-`
 // User DeletDocuments
 export const DELETE_DOCUMENTS = gql`mutation DeleteDocuments($ids: [ID!]!){
   deleteDocuments(ids: $ids){
     deletedCount
     errors
+  }
+}
+`
+// Delete User4
+export const DELETE_USER = gql`mutation DelteUser($id: ID!){
+  deleteUser(id: $id){
+    id
   }
 }
 `
