@@ -97,7 +97,7 @@ export default {
   mounted () {
     apolloClient.query({
       query: gql`query{
-      notices(page: 0, perPage: 0)
+      notices(page: 0, perPage: 0, status: 3)
         {
           _id
           title
@@ -119,7 +119,7 @@ export default {
     return {
       search: undefined,
       columns: [
-        { name: 'Titulo', label: 'Titulo', field: 'name', align: 'left', sortable: true, required: true },
+        { name: 'Titulo', label: 'Titulo', field: row => row.title, align: 'left', sortable: true, required: true },
         { name: 'Estado', align: 'left', label: 'Estado', field: 'calories', sortable: true },
         { name: 'Fecha', align: 'left', label: 'Fecha', field: 'fat', sortable: true },
         { name: 'Editar', align: 'center', label: '', field: 'code' },
@@ -155,6 +155,25 @@ export default {
             id: id
           }
         })
+          .then(
+            res => {
+              console.log(res.data)
+              this.$q.notify({
+                color: 'positive',
+                icon: 'eva-checkmark-circle-outline',
+                message: 'Se elimino correctamente a este usuario'
+              })
+            }
+          ).catch(
+            err => {
+              console.log(err)
+              this.$q.notify({
+                color: 'negative',
+                icon: 'eva-alert-triangle-outline',
+                message: 'Ocurrió un error, intentalo de nuevo'
+              })
+            }
+          )
       })
     }
   }
