@@ -1,8 +1,8 @@
 <template name="component-name">
   <div>
-    <q-btn class="btn-habilitar" round color="grey-14" size="sm" icon="eva-eye-off-outline" @click="habilitarAviso()">
+    <q-btn class="btn-habilitar" round color="grey-14" size="sm" :icon="icon" @click="cambiarStatus()">
       <q-tooltip transition-show="rotate" transition-hide="rotate">
-        Habilitar aviso
+        {{ tooltipMsg }}
       </q-tooltip>
     </q-btn>
   </div>
@@ -10,14 +10,48 @@
 
 <script>
 import AlertAviso from '../../Alert'
+import { noticeUpdateMutation } from '../../../services/graphql/mutations'
+import { apolloClient } from '../../../boot/vue-apollo'
 
 export default {
   name: 'BtnStatus',
+  data () {
+    return {
+      icon: '',
+      newStatus: undefined,
+      tooltipMsg: undefined
+    }
+  },
   props: {
+    id: {
+      type: String,
+      required: true
+    },
+    status: {
+      type: Number,
+      required: true
+    }
+  },
+  mounted () {
+    this.verificarStatus(this.status)
   },
   methods: {
-    // Muestra Alert para habilitar aviso
-    habilitarAviso () {
+    // cambia es status del btn de acuerdo a si este es precionado
+    verificarStatus (status) {
+      if (status === 0) {
+        this.icon = 'eva-eye-outline'
+        this.newStatus = 1
+        this.tooltipMsg = 'Habilitar Aviso'
+      } else if (status === 1) {
+        this.icon = 'eva-eye-off-outline'
+        this.newStatus = 0
+        this.tooltipMsg = 'Deshabilitar Aviso'
+      }
+    },
+
+    // Muestra Alert para habilitar/Deshabilitar aviso
+    // 0 - oculto, 1 - Vigente, 2 - Vencido, 3 - todos
+    cambiarStatus () {
       this.$q.dialog({
         component: AlertAviso,
         title: 'Habilitar aviso',
@@ -25,7 +59,36 @@ export default {
         btn: 'Habilitar aviso',
         btnColor: 'primary'
       }).onOk(() => {
-        alert('Listo')
+        console.log(this.id)
+        apolloClient.mutate({
+          mutation: noticeUpdateMutation,
+          variables: {
+            id: this.id,
+            input: {
+              status: this.newStatus
+            }
+          }
+        })
+          .then(
+            res => {
+              console.log(res.data)
+              this.verificarStatus(this.newStatus)
+              this.$q.notify({
+                color: 'positive',
+                icon: 'eva-checkmark-circle-outline',
+                message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
+              })
+            }
+          ).catch(
+            err => {
+              console.log(err)
+              this.$q.notify({
+                color: 'negative',
+                icon: 'eva-alert-triangle-outline',
+                message: 'Ocurrió un error, intentalo de nuevo'
+              })
+            }
+          )
       })
     }
   }
