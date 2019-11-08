@@ -43,8 +43,8 @@ export default {
         })
           .then(
             res => {
+              console.log('-- Then --')
               console.log(res.data)
-              this.verificarStatus(this.newStatus)
               this.$q.notify({
                 color: 'positive',
                 icon: 'eva-checkmark-circle-outline',
@@ -53,11 +53,12 @@ export default {
             }
           ).catch(
             err => {
-              console.log(err.data)
+              console.log('-- Catch --')
+              console.log(err)
               this.$q.notify({
                 color: 'negative',
                 icon: 'eva-alert-triangle-outline',
-                message: 'Ocurrio un error intentalo de nuevo'
+                message: 'Ocurrió un error, intentalo de nuevo'
               })
             }
           )
