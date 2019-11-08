@@ -152,3 +152,8 @@ export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
         }
     }
 }`
+// Count Docuements and pending documents
+export const DOCUENTS_QUANTITY = gql`query DocuemntsQuantity($userId: ID!, $category: String!){
+  documentsQuantity(user: $userId, category: $category)
+}
+`
