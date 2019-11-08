@@ -50,24 +50,10 @@
               </q-btn>
             </q-td>
             <q-td key="Ocultar">
-              <BtnStatus />
+              <BtnStatus :id="props.row._id" :status="props.row.status"  />
             </q-td>
             <q-td key="Eliminar">
-              <q-btn
-                class="btn-eliminar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-trash-outline"
-                @click="eliminarAviso(props.row._id)"
-              >
-                <q-tooltip
-                  transition-show="rotate"
-                  transition-hide="rotate"
-                >
-                  Eliminar aviso
-                </q-tooltip>
-              </q-btn>
+              <btnEliminar :id="props.row._id" />
             </q-td>
             <q-td key="Ver">
               <VerConvocatoria :link="props.row.link" />
@@ -81,18 +67,18 @@
 
 <script>
 import gql from 'graphql-tag'
-import AlertAviso from './Alert.vue'
 import ModalEditarAviso from 'components/avisos/EditarAviso'
 import VerConvocatoria from 'components/avisos/actions/verConvocatoria'
 import BtnStatus from 'components/avisos/actions/btnStatus'
+import BtnEliminar from 'components/avisos/actions/btnEliminar'
 import { apolloClient } from '../../boot/vue-apollo'
-import { noticeDeleteMutation } from '../../services/graphql/mutations'
 
 export default {
   name: 'TablaAvisos',
   components: {
     VerConvocatoria,
-    BtnStatus
+    BtnStatus,
+    BtnEliminar
   },
   mounted () {
     apolloClient.query({
@@ -139,42 +125,6 @@ export default {
     },
     newNotice (e) {
       this.notices.push(e)
-    },
-    // Muest ra el Alert para eliminar
-    eliminarAviso (id) {
-      this.$q.dialog({
-        component: AlertAviso,
-        title: 'Eliminar',
-        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
-        btn: 'Eliminar Aviso',
-        btnColor: 'negative'
-      }).onOk(() => {
-        apolloClient.mutate({
-          mutation: noticeDeleteMutation,
-          variables: {
-            id: id
-          }
-        })
-          .then(
-            res => {
-              console.log(res.data)
-              this.$q.notify({
-                color: 'positive',
-                icon: 'eva-checkmark-circle-outline',
-                message: 'Se elimino correctamente a este usuario'
-              })
-            }
-          ).catch(
-            err => {
-              console.log(err)
-              this.$q.notify({
-                color: 'negative',
-                icon: 'eva-alert-triangle-outline',
-                message: 'Ocurrió un error, intentalo de nuevo'
-              })
-            }
-          )
-      })
     }
   }
 }
