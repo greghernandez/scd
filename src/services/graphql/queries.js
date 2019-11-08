@@ -32,8 +32,9 @@ export const userQueryPerfil = gql`query User($id: ID!){
   }
 `
 // Notices Query
-export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
-  notices(page: $page, perPage: $perPage){
+export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!, $status: Int!){
+  notices(page: $page, perPage: $perPage, status: $status){
+    _id
     title
     body
     link
@@ -45,6 +46,7 @@ export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!){
 // Notice Query
 export const noticeQuery = gql`query Notice($id: ID!){
   notice(id: $id){
+    _id
     title
     body
     link
