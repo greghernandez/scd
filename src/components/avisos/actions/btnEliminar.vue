@@ -1,8 +1,9 @@
-<template name="component-name">
+<template>
   <div>
-    <q-btn class="btn-eliminar" round color="grey-14" size="sm" icon="eva-trash-outline" @click="eliminarDocente()">
-      <q-tooltip content-class="bg-indigo" transition-show="rotate" transition-hide="rotate">
-        Eliminar docente
+    <q-btn class="btn-eliminar" round color="grey-14" size="sm" icon="eva-trash-outline"
+      @click="eliminarAviso()">
+      <q-tooltip transition-show="rotate" transition-hide="rotate">
+        Eliminar aviso
       </q-tooltip>
     </q-btn>
   </div>
@@ -10,50 +11,44 @@
 
 <script>
 import { apolloClient } from '../../../boot/vue-apollo'
-import { DELETE_USER } from '../../../services/graphql/mutations'
-import AlertAviso from '../../Alert'
+import { noticeDeleteMutation } from '../../../services/graphql/mutations'
+import AlertAviso from '../Alert.vue'
 
 export default {
   name: 'BtnEliminar',
   props: {
-    clave: {
-      type: String,
-      required: true
-    },
-    userId: {
+    id: {
       type: String,
       required: true
     }
   },
   methods: {
-    eliminarDocente () {
-      alert(this.userId)
+    // Muest ra el Alert para eliminar
+    eliminarAviso () {
       this.$q.dialog({
         component: AlertAviso,
-        title: 'Eliminar docente',
-        message: '¿Esta seguo de eliminar este doncente?',
-        btn: 'Eliminar docente',
+        title: 'Eliminar',
+        message: '¿Esta seguro de que desea eliminar permanentemente el aviso?',
+        btn: 'Eliminar Aviso',
         btnColor: 'negative'
       }).onOk(() => {
         apolloClient.mutate({
-          mutation: DELETE_USER,
+          mutation: noticeDeleteMutation,
           variables: {
-            id: this.userId
+            id: this.id
           }
         })
           .then(
             res => {
-              console.log('-- Then --')
               console.log(res.data)
               this.$q.notify({
                 color: 'positive',
                 icon: 'eva-checkmark-circle-outline',
-                message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
+                message: 'Se elimino correctamente a este usuario'
               })
             }
           ).catch(
             err => {
-              console.log('-- Catch --')
               console.log(err)
               this.$q.notify({
                 color: 'negative',
