@@ -33,7 +33,6 @@ export default {
   data () {
     return {
       noticesData: []
-      // items: [{}, {}, {}, {}, {}, {}, {}]
     }
   },
   methods: {
@@ -43,7 +42,8 @@ export default {
           query: noticesQuery,
           variables: {
             page: 0,
-            perPage: 3
+            perPage: 3,
+            status: 1
           }
         })
           .then(
