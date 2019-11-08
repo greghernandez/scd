@@ -12,7 +12,7 @@ export const noticeCreateMutation = gql`mutation CreateNotice($file: Upload!, $i
 }
 `
 // notice Mutation Update
-export const noticeUpdateMutation = gql`mutation UpdateNotice($id: ID!, $input: UpdateNotice, $file: Upload){
+export const noticeUpdateMutation = gql`mutation UpdateNotice($id: ID!, $input: UpdateNotice!, $file: Upload){
   updateNotice(id: $id, input: $input, file: $file)
   {
     _id
