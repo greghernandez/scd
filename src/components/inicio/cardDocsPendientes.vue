@@ -4,7 +4,7 @@
       <div class="text-center">
         <div>
           <q-avatar class="secondary-spc" size="xl" text-color="secondary" icon="eva-archive-outline">
-            <q-badge round floating color="primary">5</q-badge>
+            <q-badge round floating color="primary">{{ numDocPendientes }}</q-badge>
           </q-avatar>
         </div>
         <div class="label-text">
@@ -16,7 +16,27 @@
 </template>
 
 <script>
+import { DOCUMENTS_QUANTITY } from '../../services/graphql/queries'
+import { apolloClient } from '../../boot/vue-apollo'
+import { payload } from '../../services/user'
+
 export default {
-  name: 'cardDocsPen'
+  name: 'cardDocsPen',
+  mounted () {
+    apolloClient.mutate({
+      mutation: DOCUMENTS_QUANTITY,
+      variables: {
+        userId: payload.userId,
+        category: '999'
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+        this.numDocPendientes = res.data.documentsQuantity
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 </script>
