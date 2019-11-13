@@ -14,6 +14,7 @@ export const loginQuery = gql`query Login($clave: String!, $password: String!){
 export const userQueryToolbar = gql`query User($id: ID!){
   user(id: $id){
       name
+      lastName
       adscription{
         name
       }  
@@ -75,6 +76,7 @@ export const docentesQueryAdmin = gql`query Docentes($page: Int!, $perPage: Int!
     clave
     status
     name
+    lastName
     permissions{
       _id
       rank

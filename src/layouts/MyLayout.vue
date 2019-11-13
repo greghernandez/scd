@@ -31,7 +31,7 @@
                 </q-banner>
               </q-popup-proxy>
             </q-btn>
-            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat label="Nombre usuario"
+            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat :label="name"
               icon="img:https://picsum.photos/200" rounded no-caps>
               <q-list link>
                 <q-item clickable to="/mi-perfil">
@@ -58,7 +58,11 @@
                   <img src="https://picsum.photos/200">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
-                  <p class="q-my-none text-subtitle2">{{ name }}<br><span class="text-caption">{{ adscription }}</span></p>
+                  <p class="q-my-none text-subtitle2">
+                    {{ name }}<br>
+                    <span>{{ lastName }}</span><br>
+                    <span class="text-caption">{{ adscription }}</span>
+                  </p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
                     50 P
                   </q-chip>
@@ -192,6 +196,7 @@ export default {
       linkPerfil: 'www.google.com/',
       userData: undefined,
       name: undefined,
+      lastName: undefined,
       adscription: undefined
     }
   },
@@ -249,6 +254,7 @@ export default {
       .then(
         res => {
           this.name = res.data.user.name
+          this.lastName = res.data.user.lastName
           this.adscription = res.data.user.adscription.name
           console.log(res.data.user)
           this.linkPerfil += payload.clave
