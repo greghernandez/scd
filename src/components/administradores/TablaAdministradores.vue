@@ -32,7 +32,7 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="name">
-              {{ props.row.name }}
+              {{ props.row.name + ' ' + props.row.lastName}}
             </q-td>
             <q-td key="Clave">
               {{ props.row.clave }}
@@ -64,6 +64,7 @@ export default {
       users(page: 0, perPage: 0){
         _id
         name
+        lastName
         clave
         status
       }

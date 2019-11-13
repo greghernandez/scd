@@ -24,7 +24,7 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="name">
-              {{ props.row.name}}
+              {{ props.row.name + ' ' + props.row.lastName}}
             </q-td>
             <q-td key="Clave">
               {{ props.row.clave}}
@@ -46,12 +46,14 @@
 </template>
 
 <script>
+// Componentes
 import Alert from 'components/Alert.vue'
-import { apolloClient } from '../../boot/vue-apollo'
-import { docentesQueryAdmin } from '../../services/graphql/queries'
 import BtnVer from '../../components/docentes/actions/btnVer'
 import BtnCandado from '../../components/docentes/actions/btnCandado'
 import BtnEliminar from '../../components/docentes/actions/btnEliminar'
+
+// vuex
+import { mapActions } from 'vuex'
 
 export default {
   name: 'TablaAvisos',
@@ -69,26 +71,18 @@ export default {
         { name: 'Ocultar/Habilitar', align: 'center', label: '', field: 'code' },
         { name: 'Eliminar', align: 'center', label: '', field: 'code' },
         { name: 'Ver', align: 'center', label: '', field: 'code' }
-      ],
-      docentesData: []
+      ]
     }
   },
   mounted () {
-    apolloClient.query({
-      query: docentesQueryAdmin,
-      variables: {
-        page: 0,
-        perPage: 0
-      }
-    })
-      .then(
-        res => {
-          this.docentesData = res.data.users
-          console.log(res.data.users)
-        })
+    this.$store
+      .dispatch('docentes/docentesQuery')
   },
   methods: {
-  // Muestra el Alert para eliminar
+    ...mapActions({
+      docentesQuery: 'docentes/actions'
+    }),
+    // Muestra el Alert para eliminar
     eliminarDocente () {
       this.$q.dialog({
         component: Alert,
@@ -97,6 +91,11 @@ export default {
         btn: 'Eliminar Ddocente',
         btnColor: 'negative'
       })
+    }
+  },
+  computed: {
+    docentesData () {
+      return this.$store.state.docentes.docentes
     }
   }
 }
