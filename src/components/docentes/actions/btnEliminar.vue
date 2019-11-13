@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import { apolloClient } from '../../../boot/vue-apollo'
-import { DELETE_USER } from '../../../services/graphql/mutations'
+// import { apolloClient } from '../../../boot/vue-apollo'
+// import { DELETE_USER } from '../../../services/graphql/mutations'
 import AlertAviso from '../../Alert'
 
 export default {
@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     eliminarDocente () {
-      alert(this.userId)
       this.$q.dialog({
         component: AlertAviso,
         title: 'Eliminar docente',
@@ -35,33 +34,9 @@ export default {
         btn: 'Eliminar docente',
         btnColor: 'negative'
       }).onOk(() => {
-        apolloClient.mutate({
-          mutation: DELETE_USER,
-          variables: {
-            id: this.userId
-          }
-        })
-          .then(
-            res => {
-              console.log('-- Then --')
-              console.log(res.data)
-              this.$q.notify({
-                color: 'positive',
-                icon: 'eva-checkmark-circle-outline',
-                message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
-              })
-            }
-          ).catch(
-            err => {
-              console.log('-- Catch --')
-              console.log(err)
-              this.$q.notify({
-                color: 'negative',
-                icon: 'eva-alert-triangle-outline',
-                message: 'Ocurrió un error, intentalo de nuevo'
-              })
-            }
-          )
+        const userId = this.userId
+        this.$store
+          .dispatch('docentes/eliminarDocente', { userId })
       })
     }
   }
