@@ -22,6 +22,11 @@ import { payload } from '../../services/user'
 
 export default {
   name: 'cardDocsPen',
+  data () {
+    return {
+      numDocPendientes: ''
+    }
+  },
   mounted () {
     apolloClient.mutate({
       mutation: DOCUMENTS_QUANTITY,
