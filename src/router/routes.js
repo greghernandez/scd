@@ -34,7 +34,8 @@ const routes = [
       { path: 'rubros', component: () => import('pages/Rubros.vue') },
       { path: 'avisos', component: () => import('pages/Avisos.vue') },
       { path: 'docentes', component: () => import('pages/Docentes.vue') },
-      { path: 'Administradores', component: () => import('pages/Administradores.vue') }
+      { path: 'Administradores', component: () => import('pages/Administradores.vue') },
+      { path: 'preview-document', component: () => import('src/pages/preview.vue') }
     ]
   }
 ]
