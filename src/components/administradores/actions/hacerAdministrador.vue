@@ -119,6 +119,10 @@ export default {
           res => {
             console.log(res.data)
             this.isAdmin = !this.isAdmin
+            // const nId = this.id
+            // const permiso = this.propPermition
+            // this.$store.commit('docentes/cambiarPermisos', { nId, permiso })
+            this.$store.dispatch('docentes/docentesQuery')
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',
