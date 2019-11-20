@@ -81,7 +81,8 @@ module.exports = function (ctx) {
         'QExpansionItem',
         'QInfiniteScroll',
         'QSpinnerDots',
-        'QTree'
+        'QTree',
+        'QBar'
       ],
 
       directives: [
