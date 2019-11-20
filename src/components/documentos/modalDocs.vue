@@ -1,13 +1,7 @@
 <template>
   <q-dialog ref="dialog" v-model="alertAviso" :maximized="maximizedToggle" transition-show="slide-up"
     transition-hide="slide-down">
-    <q-card class="items-center">
-      <q-bar>
-        <q-space />
-        <q-btn dense flat icon="close" v-close-popup>
-          <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
-        </q-btn>
-      </q-bar>
+    <q-card class="items-center doc-modal">
 
       <q-card-section class="doc-container">
         <q-pdfviewer
