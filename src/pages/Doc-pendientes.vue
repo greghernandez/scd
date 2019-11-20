@@ -9,8 +9,7 @@
         </template>
       </q-input>
     </div>
-
-    <div class="row">
+    <div>
       <DocumentsSection />
     </div>
   </div>
@@ -26,6 +25,11 @@ export default {
   name: 'PageDocPendientes',
   components: {
     DocumentsSection
+  },
+  data () {
+    return {
+      search: ''
+    }
   }
 }
 </script>

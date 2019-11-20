@@ -43,6 +43,7 @@
 <script>
 import ModalMover from 'components/documentos/modalMover'
 import ModalEliminar from 'components/documentos/modalEliminar'
+import modalDocs from 'components/documentos/modalDocs'
 import { getFile } from '../../services/downloads'
 
 export default {
@@ -52,7 +53,7 @@ export default {
   },
   data () {
     return {
-
+      pdfsrc: ''
     }
   },
   props: {
@@ -62,7 +63,11 @@ export default {
   },
   methods: {
     abrir () {
-      getFile(this.fileId, 'watch')
+      // Dialog con la vista del documento
+      this.$q.dialog({
+        component: modalDocs,
+        fileId: this.fileId
+      })
     },
     mover () {
       this.$q.dialog({

@@ -12,6 +12,12 @@
       <div class="col-md-2 col-xs-6 card-info">
         <cardDocsPen />
       </div>
+      <div class="col-md-2 col-xs-6 card-info">
+        <cardDocsPen />
+      </div>
+      <div class="col-md-2 col-xs-6 card-info">
+        <cardDocsPen />
+      </div>
     </div>
     <!--Sección de avisos-->
     <div class="q-mb-xl">

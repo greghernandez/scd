@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="col-md-3 col-sm-4 col-xs-12 doc-label" v-for="(documents, index) in pendingDocs" :key="index">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in pendingDocs" :key="index">
           <DocLabel :fileId="documents.fileId" :fileName="documents.fileName" :createdAt="documents.createdAt" />
         </div>
     </div>
