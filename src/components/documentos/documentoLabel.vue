@@ -10,6 +10,9 @@
                 </div>
               </div>
               <div class="col-8 text-caption">
+                <q-tooltip>
+                  {{ fileName }}
+                </q-tooltip>
                 <div class="col text-weight-bold text-inline">{{ fileName }}</div>
                 <div class="col">{{ createdAt }}</div>
               </div>
