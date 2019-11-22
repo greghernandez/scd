@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" persistent>
+  <q-dialog ref="dialog" v-model="alertAviso">
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
@@ -12,60 +12,42 @@
           Rubros
         </div>
         <q-list>
-
-          <q-expansion-item group="somegroup" icon="eva-book-outline" label="First" header-class="text-primary">
-            <q-card>
-              <q-card-section>
-                contenido
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
           <q-separator />
 
-          <q-expansion-item group="somegroup" icon="eva-book-outline" label="Trabajos de investigación" header-class="text-primary">
+          <q-expansion-item v-for="(item, index) in categorias" :key="index" group="somegroup" icon="eva-book-outline"
+            :label="item.title" header-class="text-primary">
             <q-card>
               <q-card-section>
-                <q-expansion-item switch-toggle-side label="Articulos cientificos publicados en revistas">
-                  <q-card>
-                    <q-card-section>
-                      <q-item tag="label" v-ripple>
-                        <q-item-section side top>
-                          <q-checkbox v-model="check1" />
-                        </q-item-section>
+                <div v-for="(children, index) in item.children" :key="index">
+                  <q-expansion-item v-if="(children.value == null)" switch-toggle-side :label="children.title">
+                    <q-card>
+                      <q-card-section>
+                        <q-item v-for="(children, index) in children.children" :key="index" tag="label" v-ripple>
+                          <q-item-section side top>
+                            <q-checkbox v-model="check" />
+                          </q-item-section>
 
-                        <q-item-section>
-                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
-                        </q-item-section>
-                      </q-item>
+                          <q-item-section>
+                            <q-item-label>{{ children.title }}</q-item-label>
+                          </q-item-section>
+                        </q-item>
 
-                      <q-separator />
+                        <q-separator />
 
-                      <q-item tag="label" v-ripple>
-                        <q-item-section side top>
-                          <q-checkbox v-model="check2" />
-                        </q-item-section>
+                      </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                  <q-item v-else tag="label" v-ripple>
+                    <q-item-section side top>
+                      <q-checkbox v-model="check" />
+                    </q-item-section>
 
-                        <q-item-section>
-                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
-                        </q-item-section>
-                      </q-item>
+                    <q-item-section>
+                      <q-item-label>{{ item.title }}</q-item-label>
+                    </q-item-section>
+                  </q-item>
 
-                      <q-separator />
-
-                      <q-item tag="label" v-ripple>
-                        <q-item-section side top>
-                          <q-checkbox v-model="check3" />
-                        </q-item-section>
-
-                        <q-item-section>
-                          <q-item-label>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</q-item-label>
-                        </q-item-section>
-                      </q-item>
-
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
+                </div>
               </q-card-section>
             </q-card>
           </q-expansion-item>
@@ -88,11 +70,17 @@
 </template>
 
 <script>
+import { apolloClient } from '../../boot/vue-apollo'
+import { categoriesQueryTreeMover } from '../../services/graphql/queries'
+import { categoryType } from '../../../enviroment.dev'
+
 export default {
   name: 'AlertAvisos',
   data () {
     return {
-      alertAviso: false
+      alertAviso: false,
+      categorias: [],
+      check: []
     }
   },
   props: {
@@ -119,6 +107,20 @@ export default {
       console.log('Cancel')
       this.hide()
     }
+  },
+  mounted () {
+    apolloClient.query({
+      query: categoriesQueryTreeMover,
+      variables: {
+        page: 0,
+        perPage: 0,
+        type: categoryType.rootCategories
+      }
+    })
+      .then(res => {
+        this.categorias = res.data.categories
+        console.log(res.data)
+      })
   }
 }
 </script>

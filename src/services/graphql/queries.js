@@ -159,3 +159,30 @@ export const DOCUMENTS_QUANTITY = gql`query DocuemntsQuantity($userId: ID!, $cat
   documentsQuantity(user: $userId, category: $category)
 }
 `
+export const categoriesQueryTreeMover = gql`query CategoriesTreeMover($page: Int!, $perPage: Int!, $type: Int!){
+  categories(page: $page, perPage: $perPage, type: $type){
+    _id
+    title
+    clave
+    value
+    children{
+      _id
+      clave
+      title
+      value
+      children{
+        _id
+        title
+        clave
+        value
+        children{
+          _id
+          title
+          clave
+          value
+        }
+      }
+    }
+  }
+}
+`

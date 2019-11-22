@@ -14,7 +14,7 @@ export const getFile = async (id, mode) => {
       headers: { 'content-type': 'application/json' }
     })
     // axios.post(address + '/downloads/getFile', {
-    //   id: id,
+    //   id: id,2
     //   mode: mode
     // }, {
     //   responseType: 'blob',
@@ -22,8 +22,12 @@ export const getFile = async (id, mode) => {
     //   headers: { 'content-type': 'application/json' }
     // })
       .then((res) => {
-        console.log('asfafd')
-        saveFile(res)
+        if (mode === 'download') {
+          saveFile(res)
+        } else if (mode === 'watch') {
+          // watchFile(res)
+          console.log('watch')
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -83,6 +87,7 @@ function getFileNameFromHttpResponse (httpResponse) {
   const result = contentDispositionHeader.split(';')[1].trim().split('=')[1]
   return result.replace(/"/g, '')
 }
+
 function saveFile (data) {
   const name = getFileNameFromHttpResponse(data)
   const blob = new Blob([data.data])

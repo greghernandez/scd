@@ -10,6 +10,9 @@
                 </div>
               </div>
               <div class="col-8 text-caption">
+                <q-tooltip>
+                  {{ fileName }}
+                </q-tooltip>
                 <div class="col text-weight-bold text-inline">{{ fileName }}</div>
                 <div class="col">{{ createdAt }}</div>
               </div>
@@ -43,6 +46,7 @@
 <script>
 import ModalMover from 'components/documentos/modalMover'
 import ModalEliminar from 'components/documentos/modalEliminar'
+import modalDocs from 'components/documentos/modalDocs'
 import { getFile } from '../../services/downloads'
 
 export default {
@@ -52,7 +56,7 @@ export default {
   },
   data () {
     return {
-
+      pdfsrc: ''
     }
   },
   props: {
@@ -62,7 +66,11 @@ export default {
   },
   methods: {
     abrir () {
-      getFile(this.fileId, 'watch')
+      // Dialog con la vista del documento
+      this.$q.dialog({
+        component: modalDocs,
+        fileId: this.fileId
+      })
     },
     mover () {
       this.$q.dialog({
