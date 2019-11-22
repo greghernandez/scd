@@ -60,9 +60,10 @@ export default {
     }
   },
   props: {
+    objId: String,
     fileId: String,
     fileName: String,
-    createdAt: Number
+    createdAt: String
   },
   methods: {
     abrir () {
@@ -75,7 +76,8 @@ export default {
     mover () {
       this.$q.dialog({
         component: ModalMover,
-        title: 'Mover'
+        title: 'Mover',
+        objId: this.objId
       })
     },
     descargar () {

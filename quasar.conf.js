@@ -82,7 +82,8 @@ module.exports = function (ctx) {
         'QInfiniteScroll',
         'QSpinnerDots',
         'QTree',
-        'QBar'
+        'QBar',
+        'QRadio'
       ],
 
       directives: [
