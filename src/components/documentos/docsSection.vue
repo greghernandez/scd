@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in pendingDocs" :key="index">
-          <DocLabel :fileId="documents.fileId" :fileName="documents.fileName" :createdAt="documents.createdAt" />
+          <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName" :createdAt="documents.createdAt"/>
         </div>
     </div>
 </template>

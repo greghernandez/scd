@@ -18,8 +18,7 @@ export function docentesQuery ({ commit }) {
     })
       .then(res => {
         const docentesData = res.data.users
-        console.log('DOCENTES:')
-        console.log(res.data.users)
+        console.log('DOCENTES:', res.data.users)
         commit('setDocentes', docentesData)
         resolve(res)
       })

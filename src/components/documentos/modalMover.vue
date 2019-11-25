@@ -24,7 +24,7 @@
                       <q-card-section>
                         <q-item v-for="(children, index) in children.children" :key="index" tag="label" v-ripple>
                           <q-item-section side top>
-                            <q-checkbox v-model="check" />
+                            <q-radio v-model="option" :val="children._id"/>
                           </q-item-section>
 
                           <q-item-section>
@@ -39,7 +39,7 @@
                   </q-expansion-item>
                   <q-item v-else tag="label" v-ripple>
                     <q-item-section side top>
-                      <q-checkbox v-model="check" />
+                      <q-radio v-model="option" :val="children._id" />
                     </q-item-section>
 
                     <q-item-section>
@@ -57,6 +57,9 @@
         </q-list>
 
         <q-separator />
+        <div>
+          <p>{{ option }}</p>
+        </div>
 
       </q-card-section>
 
@@ -73,6 +76,7 @@
 import { apolloClient } from '../../boot/vue-apollo'
 import { categoriesQueryTreeMover } from '../../services/graphql/queries'
 import { categoryType } from '../../../enviroment.dev'
+import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
 
 export default {
   name: 'AlertAvisos',
@@ -80,11 +84,12 @@ export default {
     return {
       alertAviso: false,
       categorias: [],
-      check: []
+      option: ''
     }
   },
   props: {
-    title: String
+    title: String,
+    objId: String
   },
   methods: {
     show () {
@@ -100,6 +105,18 @@ export default {
     },
     onOKClick () {
       console.log('Ok')
+      // Mover Documento
+      apolloClient.mutate({
+        mutation: MOVE_DOCUMENT,
+        variables: {
+          doc: this.objId,
+          cat: this.option
+        }
+      }).then(res => {
+        console.log(res._id)
+      }).catch(err => {
+        console.log(err)
+      })
       this.$emit('ok')
       this.hide()
     },
