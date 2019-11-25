@@ -63,7 +63,7 @@ export default {
     objId: String,
     fileId: String,
     fileName: String,
-    createdAt: String
+    createdAt: Number
   },
   methods: {
     abrir () {
@@ -77,7 +77,8 @@ export default {
       this.$q.dialog({
         component: ModalMover,
         title: 'Mover',
-        objId: this.objId
+        objId: this.objId,
+        parent: this
       })
     },
     descargar () {

@@ -10,7 +10,7 @@
       </q-input>
     </div>
     <div>
-      <DocumentsSection />
+      <DocumentsSection category="999"/>
     </div>
   </div>
 </template>

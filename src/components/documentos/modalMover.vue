@@ -24,7 +24,7 @@
                       <q-card-section>
                         <q-item v-for="(children, index) in children.children" :key="index" tag="label" v-ripple>
                           <q-item-section side top>
-                            <q-radio v-model="option" :val="children._id"/>
+                            <q-radio v-model="newCat" :val="children._id"/>
                           </q-item-section>
 
                           <q-item-section>
@@ -39,7 +39,7 @@
                   </q-expansion-item>
                   <q-item v-else tag="label" v-ripple>
                     <q-item-section side top>
-                      <q-radio v-model="option" :val="children._id" />
+                      <q-radio v-model="newCat" :val="children._id" />
                     </q-item-section>
 
                     <q-item-section>
@@ -58,7 +58,7 @@
 
         <q-separator />
         <div>
-          <p>{{ option }}</p>
+          <p>{{ newCat }}</p>
         </div>
 
       </q-card-section>
@@ -76,7 +76,8 @@
 import { apolloClient } from '../../boot/vue-apollo'
 import { categoriesQueryTreeMover } from '../../services/graphql/queries'
 import { categoryType } from '../../../enviroment.dev'
-import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
+import { mapActions } from 'vuex'
+// import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
 
 export default {
   name: 'AlertAvisos',
@@ -84,14 +85,23 @@ export default {
     return {
       alertAviso: false,
       categorias: [],
-      option: ''
+      newCat: ''
     }
   },
   props: {
-    title: String,
-    objId: String
+    title: {
+      type: String,
+      required: true
+    },
+    objId: {
+      type: String,
+      required: true
+    }
   },
   methods: {
+    ...mapActions({
+      documentos: 'documentos/actions'
+    }),
     show () {
       this.$refs.dialog.show()
     },
@@ -104,19 +114,12 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
-      console.log('Ok')
-      // Mover Documento
-      apolloClient.mutate({
-        mutation: MOVE_DOCUMENT,
-        variables: {
-          doc: this.objId,
-          cat: this.option
-        }
-      }).then(res => {
-        console.log(res._id)
-      }).catch(err => {
-        console.log(err)
+      // MoveDocument action
+      this.$store.dispatch('documentos/moverDocumento', {
+        doc: this.objId,
+        cat: this.newCat
       })
+      console.log('Ok')
       this.$emit('ok')
       this.hide()
     },
