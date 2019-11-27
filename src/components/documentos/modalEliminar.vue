@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'AlertAvisos',
   data () {
@@ -28,9 +30,19 @@ export default {
     }
   },
   props: {
-    title: String
+    title: {
+      type: String,
+      required: true
+    },
+    docId: {
+      type: String,
+      required: true
+    }
   },
   methods: {
+    ...mapActions({
+      documentos: 'documentos/actions'
+    }),
     show () {
       this.$refs.dialog.show()
     },
@@ -43,6 +55,8 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
+      const id = this.docId
+      this.$store.dispatch('documentos/eliminarDocumento', id)
       console.log('Ok')
       this.$emit('ok')
       this.hide()
