@@ -1,8 +1,19 @@
 <template>
-  <div class="row">
-    <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in documentosData" :key="index">
-      <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName"
-        :createdAt="documents.createdAt" />
+  <div>
+    <div>
+      <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
+        placeholder="Buscar categorías" type="search" @change="filteredList">
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+      <p>{{ search }}</p>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in documentosData" :key="index">
+        <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName"
+          :createdAt="documents.createdAt" />
+      </div>
     </div>
   </div>
 </template>

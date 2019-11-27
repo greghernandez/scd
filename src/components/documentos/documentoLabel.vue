@@ -87,7 +87,9 @@ export default {
     eliminar () {
       this.$q.dialog({
         component: ModalEliminar,
-        title: 'Eliminar documento'
+        parent: this,
+        title: 'Eliminar documento',
+        docId: this.objId
       })
     }
   }

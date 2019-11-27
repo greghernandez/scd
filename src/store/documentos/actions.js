@@ -1,7 +1,7 @@
-// import { Notify } from 'quasar'
+import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
 import { documentsTartaro } from '../../services/graphql/queries'
-import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
+import { MOVE_DOCUMENT, DELETE_DOCUMENT } from '../../services/graphql/mutations'
 
 /**
  * DocumentosQuery
@@ -29,6 +29,11 @@ export function documentosQuery ({ commit }, payload) {
       })
       .catch(err => {
         console.log(err)
+        Notify.create({
+          color: 'negative',
+          icon: 'eva-alert-triangle-outline',
+          message: 'Ocurrió un error, intentalo de nuevo'
+        })
       })
   })
 }
@@ -48,9 +53,50 @@ export function moverDocumento ({ commit }, payload) {
         console.log('Respuesta:', res)
         const id = payload.doc
         commit('deleteDocumento', id)
+        Notify.create({
+          color: 'positive',
+          icon: 'eva-checkmark-circle-outline',
+          message: 'Se movió correctamente el documento seleccionado'
+        })
         resolve(res)
       })
       .catch(err => {
+        Notify.create({
+          color: 'negative',
+          icon: 'eva-alert-triangle-outline',
+          message: 'Ocurrió un error, intentalo de nuevo'
+        })
+        console.log(err)
+      })
+  })
+}
+
+export function eliminarDocumento ({ commit }, id) {
+  return new Promise(resolve => {
+    console.log('ID a eliminar', id)
+    apolloClient.mutate({
+      mutation: DELETE_DOCUMENT,
+      variables: {
+        id: id
+      }
+    })
+      .then(res => {
+        console.log('Respuesta:', res)
+        const idDoc = id
+        commit('deleteDocumento', idDoc)
+        Notify.create({
+          color: 'positive',
+          icon: 'eva-checkmark-circle-outline',
+          message: 'Se eliminó correctamente el documento seleccionado'
+        })
+        resolve(res)
+      })
+      .catch(err => {
+        Notify.create({
+          color: 'negative',
+          icon: 'eva-alert-triangle-outline',
+          message: 'Ocurrió un error, intentalo de nuevo'
+        })
         console.log(err)
       })
   })

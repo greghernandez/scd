@@ -3,7 +3,7 @@ export function setDocumentos (state, documentos) {
 }
 
 export function deleteDocumento (state, id) {
-  console.log(id)
+  console.log()
   const index = state.documentos.findIndex(e => e._id === id)
   state.documentos.splice(index, 1)
 }
