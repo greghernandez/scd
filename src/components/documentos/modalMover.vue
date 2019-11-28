@@ -43,7 +43,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{ item.title }}</q-item-label>
+                      <q-item-label>{{ children.title }}</q-item-label>
                     </q-item-section>
                   </q-item>
 
