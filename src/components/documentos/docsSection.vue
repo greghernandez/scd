@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div>
+    <div if-ca>
       <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
-        placeholder="Buscar categorías" type="search" @change="filteredList">
+        placeholder="Buscar documento" type="search">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
@@ -38,6 +38,19 @@ export default {
     category: {
       type: String,
       required: true
+    }
+  },
+  watch: {
+    category: function (newVal, oldVal) {
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      var newElement = document.getElementById(newVal)
+      newElement.classList.add('selected-card')
+      var oldElement = document.getElementById(oldVal)
+      oldElement.classList.remove('selected-card')
+      const userId = payload.userId
+      const category = this.category
+      this.$store
+        .dispatch('documentos/documentosQuery', { userId, category })
     }
   },
   mounted () {
