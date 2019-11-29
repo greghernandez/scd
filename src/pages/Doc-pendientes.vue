@@ -9,9 +9,6 @@
 
 <script>
 import DocumentsSection from '../components/documentos/docsSection'
-// import { apolloClient } from '../boot/vue-apollo'
-// import { documentsTartaro } from '../services/graphql/queries'
-// import { payload } from '../services/user'
 
 export default {
   name: 'PageDocPendientes',
