@@ -4,7 +4,7 @@
       <q-card class="my-card q-mt-xs q-mb-xs padding-card">
         <q-card-section class="q-px-none q-py-none">
           <div>
-            <h4 class="q-mt-xs q-mb-xs">Categorías</h4>
+            <h5 class="q-mt-xs q-mb-xs">Categorías</h5>
           </div>
           <div>
             <q-input class="search search-input q-my-xs" rounded outlined dense v-model="search"

@@ -1,6 +1,6 @@
 <template>
-  <div class="column justify-center flex-center">
-    <q-card :id="clave" class="my-card card-cat cat-card">
+  <div class="column">
+    <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card">
       <q-card-section class="row justify-center items-center content-center">
         <div class="row justify-center flex-center">
           <div class="col-2 full-with">
@@ -12,7 +12,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="value != Number">
+      <div v-if="value != null">
         <q-separator inset />
 
         <q-card-section>
