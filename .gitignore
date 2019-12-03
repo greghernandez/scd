@@ -19,3 +19,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 enviroment.dev.js
+debug.log

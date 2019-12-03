@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import docentes from './docentes'
 import documentos from './documentos'
+import avisos from './avisos'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       docentes,
-      documentos
+      documentos,
+      avisos
     },
 
     // enable strict mode (adds overhead!)

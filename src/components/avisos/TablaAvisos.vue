@@ -26,9 +26,6 @@
             <q-td key="Titulo">
               {{ props.row.title}}
             </q-td>
-            <q-td key="Estado">
-              {{ props.row.status}}
-            </q-td>
             <q-td key="Fecha">
               {{ props.row.fromDate}}
             </q-td>
@@ -106,7 +103,6 @@ export default {
       search: undefined,
       columns: [
         { name: 'Titulo', label: 'Titulo', field: row => row.title, align: 'left', sortable: true, required: true },
-        { name: 'Estado', align: 'left', label: 'Estado', field: 'calories', sortable: true },
         { name: 'Fecha', align: 'left', label: 'Fecha', field: 'fat', sortable: true },
         { name: 'Editar', align: 'center', label: '', field: 'code' },
         { name: 'Ocultar/Habilitar', align: 'center', label: '', field: 'code' },

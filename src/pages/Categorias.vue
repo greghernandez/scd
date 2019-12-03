@@ -4,11 +4,11 @@
       <q-card class="my-card q-mt-xs q-mb-xs padding-card">
         <q-card-section class="q-px-none q-py-none">
           <div>
-            <h4 class="q-mt-xs q-mb-xs">Categorías</h4>
+            <h5 class="q-mt-xs q-mb-xs">Categorías</h5>
           </div>
           <div>
-            <q-input class="search search-input q-my-xs" rounded outlined dense v-model="search" placeholder="Buscar categorías"
-              type="search">
+            <q-input class="search search-input q-my-xs" rounded outlined dense v-model="search"
+              placeholder="Buscar categorías" type="search">
               <template v-slot:append>
                 <q-icon name="search" />
               </template>
@@ -25,56 +25,45 @@
               </q-breadcrumbs>
             </div>
             <div class="q-pa-md">
-              <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel" paginationActiveColor="#4A4FF1">
+              <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
+                paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in categoryData" :key="index">
-                  <CatCard :clave="category.clave" :title="category.title" />
+                  <div @click="selectedCard(category.clave)">
+                    <CatCard :clave="category.clave" :title="category.title" :value="category.value" />
+                  </div>
                 </slide>
               </carousel>
-              <!-- slider -->
-              <!-- <vue-glide type="" :swipeThreshold="100" :dragThreshold="200" :touchRatio="1">
-                <vue-glide-slide v-for="(category, index) in categoryData" :key="index">
-                  <CatCard :clave="category.clave" :title="category.title" />
-                </vue-glide-slide>
-                <template slot="control">
-                  <q-btn class="absolute-left" round data-glide-dir="<" icon="eva-chevron-left" />
-                  <q-btn class="absolute-right" round data-glide-dir=">" icon="eva-chevron-right" />
-                </template>
-              </vue-glide> -->
             </div>
           </div>
         </q-card-section>
       </q-card>
+      <div class="q-pa-md">
+        <DocumentsSection :category="category" />
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
-// import { Glide, GlideSlide } from 'vue-glide-js'
-// import 'vue-glide-js/dist/vue-glide.css'
 import CatCard from 'components/documentos/categoriaCard'
 import { apolloClient } from '../boot/vue-apollo'
 import { categoryQuery } from '../services/graphql/queries'
-// import { VueperSlides, VueperSlide } from 'vueperslides'
-// Since v. 1.6.0, you need to include Vueper Slides CSS file for default styles.
-// import 'vueperslides/dist/vueperslides.css'
 import { Carousel, Slide } from 'vue-carousel'
+import DocumentsSection from '../components/documentos/docsSection'
 
 export default {
   name: 'PageCategorias',
   components: {
-    // [Glide.name]: Glide,
-    // [GlideSlide.name]: GlideSlide,
-    // VueperSlides,
-    // VueperSlide,
     Carousel,
     Slide,
-    CatCard
-    // rubro: this.$route.params.id
+    CatCard,
+    DocumentsSection
   },
   data () {
     return {
       search: undefined,
       categoryData: [],
+      category: '',
       nextLabel: "<img src='/assets/arrow-forward.png' class='carousel-img' />",
       prevLabel: "<img src='/assets/arrow-back.png' class='carousel-img' />"
     }
@@ -98,6 +87,15 @@ export default {
   },
   props: {
     number: undefined
+  },
+  methods: {
+    selectedCard (clave) {
+      this.selected = !this.selected
+      // console.log(event)
+      console.log(this.selected)
+      console.log('Clave seleccionada', clave)
+      this.category = clave
+    }
   }
 }
 </script>
