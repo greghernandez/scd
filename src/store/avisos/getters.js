@@ -1,4 +1,3 @@
-/*
-export function someGetter (state) {
+export function getAvisos (state) {
+  return state.avisos
 }
-*/

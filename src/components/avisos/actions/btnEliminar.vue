@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import { apolloClient } from '../../../boot/vue-apollo'
-import { noticeDeleteMutation } from '../../../services/graphql/mutations'
 import AlertAviso from '../Alert.vue'
+// vuex
+import { mapActions } from 'vuex'
 
 export default {
   name: 'BtnEliminar',
@@ -23,6 +23,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      notices: 'avisos/actions'
+    }),
     // Muest ra el Alert para eliminar
     eliminarAviso () {
       this.$q.dialog({
@@ -32,31 +35,15 @@ export default {
         btn: 'Eliminar Aviso',
         btnColor: 'negative'
       }).onOk(() => {
-        apolloClient.mutate({
-          mutation: noticeDeleteMutation,
-          variables: {
-            id: this.id
-          }
-        })
-          .then(
-            res => {
-              console.log(res.data)
-              this.$q.notify({
-                color: 'positive',
-                icon: 'eva-checkmark-circle-outline',
-                message: 'Se elimino correctamente a este usuario'
-              })
-            }
-          ).catch(
-            err => {
-              console.log(err)
-              this.$q.notify({
-                color: 'negative',
-                icon: 'eva-alert-triangle-outline',
-                message: 'Ocurrió un error, intentalo de nuevo'
-              })
-            }
-          )
+        this.$store
+          .dispatch('avisos/deleteAviso', this.id)
+          .then(res => {
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se elimino correctamente a este usuario'
+            })
+          })
       })
     }
   }
