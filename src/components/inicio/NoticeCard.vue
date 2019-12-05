@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-2 col-xs-12">
-      <q-img src="https://picsum.photos/200" class="notice-img" spinner-color="white" />
+      <q-img :src="src + img" class="notice-img" :ratio="1" spinner-color="white" />
     </div>
     <div class="col-md-10 col-sm-12">
       <div class="column q-mx-lg q-my-md">
@@ -21,12 +21,19 @@
 </template>
 
 <script>
+import { address } from '../../../enviroment.dev'
 export default {
   name: 'AvisoCard',
+  data () {
+    return {
+      src: address
+    }
+  },
   props: {
     title: String,
     body: String,
-    fromDate: Number
+    fromDate: Number,
+    img: String
   }
 }
 </script>

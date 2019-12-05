@@ -39,6 +39,7 @@ export const noticesQuery = gql`query Notices($page: Int!, $perPage: Int!, $stat
     title
     body
     link
+    imgLnk
     fromDate
     toDate
     status
