@@ -25,7 +25,8 @@ export default {
     // Muestra el Modal para crear avisos
     crearAviso () {
       this.$q.dialog({
-        component: ModalCrearAviso
+        component: ModalCrearAviso,
+        parent: this
       })
     }
   }

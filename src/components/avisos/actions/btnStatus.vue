@@ -76,7 +76,7 @@ export default {
               this.$q.notify({
                 color: 'positive',
                 icon: 'eva-checkmark-circle-outline',
-                message: 'Se cambio correctamente el estado del usuario a "' + this.newStatus + '"'
+                message: 'Se cambio correctamente el estado del usuario'
               })
             }
           ).catch(

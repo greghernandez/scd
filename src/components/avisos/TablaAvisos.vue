@@ -2,7 +2,7 @@
   <div>
     <q-card class="my-card my-shadow">
       <q-table
-        :data="notices"
+        :data="avisosData"
         :columns="columns"
         row-key="Titulo"
         :filter="search"
@@ -24,10 +24,13 @@
         <template v-slot:body="props" @newNotice = "newNotice">
           <q-tr :props="props">
             <q-td key="Titulo">
-              {{ props.row.title}}
+              {{ props.row.title }}
             </q-td>
-            <q-td key="Fecha">
-              {{ props.row.fromDate}}
+            <q-td key="fromDate">
+              {{ props.row.fromDate | dateFormat}}
+            </q-td>
+            <q-td key="toDate">
+              {{ props.row.toDate | dateFormat }}
             </q-td>
             <q-td key="Editar">
               <q-btn
@@ -36,7 +39,7 @@
                 color="grey-14"
                 size="sm"
                 icon="eva-edit-outline"
-                @click="editarAviso()"
+                @click="editarAviso(props.row._id)"
               >
                 <q-tooltip
                   transition-show="rotate"
@@ -63,12 +66,14 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
 import ModalEditarAviso from 'components/avisos/EditarAviso'
 import VerConvocatoria from 'components/avisos/actions/verConvocatoria'
 import BtnStatus from 'components/avisos/actions/btnStatus'
 import BtnEliminar from 'components/avisos/actions/btnEliminar'
-import { apolloClient } from '../../boot/vue-apollo'
+
+// vuex
+import { mapActions } from 'vuex'
+import { date } from 'quasar'
 
 export default {
   name: 'TablaAvisos',
@@ -78,49 +83,49 @@ export default {
     BtnEliminar
   },
   mounted () {
-    apolloClient.query({
-      query: gql`query{
-      notices(page: 0, perPage: 0, status: 3)
-        {
-          _id
-          title
-          status
-          fromDate
-          link
-        }
-      }`
-    })
-      .then(res => {
-        this.notices = res.data.notices
-        console.log(res.data.notices)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    this.$store
+      .dispatch('avisos/avisosQuery')
   },
   data () {
     return {
       search: undefined,
       columns: [
         { name: 'Titulo', label: 'Titulo', field: row => row.title, align: 'left', sortable: true, required: true },
-        { name: 'Fecha', align: 'left', label: 'Fecha', field: 'fat', sortable: true },
-        { name: 'Editar', align: 'center', label: '', field: 'code' },
-        { name: 'Ocultar/Habilitar', align: 'center', label: '', field: 'code' },
-        { name: 'Eliminar', align: 'center', label: '', field: 'code' },
-        { name: 'Ver', align: 'center', label: '', field: 'code' }
-      ],
-      notices: []
+        { name: 'Inicio', align: 'left', label: 'Fecha de Inico', sortable: true },
+        { name: 'Expiración', align: 'left', label: 'Fecha de expiración', sortable: true },
+        { name: 'Editar', align: 'center', label: '' },
+        { name: 'Ocultar/Habilitar', align: 'center', label: '' },
+        { name: 'Eliminar', align: 'center', label: '' },
+        { name: 'Ver', align: 'center', label: '' }
+      ]
+    }
+  },
+  filters: {
+    dateFormat: function (value) {
+      if (!value) return 'NA'
+      value = date.formatDate(value, 'DD-MM-YYYY')
+      return value
     }
   },
   methods: {
+    ...mapActions({
+      notices: 'avisos/actions'
+    }),
     // Muestra Modal para editar una noticia
     editarAviso (id) {
       this.$q.dialog({
-        component: ModalEditarAviso
+        component: ModalEditarAviso,
+        parent: this,
+        id: id
       })
     },
     newNotice (e) {
       this.notices.push(e)
+    }
+  },
+  computed: {
+    avisosData () {
+      return this.$store.state.avisos.avisos
     }
   }
 }
