@@ -74,16 +74,15 @@ export function updateAviso ({ commit }, aviso) {
     apolloClient.mutate({
       mutation: noticeUpdateMutation,
       variables: {
+        id: aviso.id,
         file: aviso.file,
         input: {
-          id: aviso._id,
           title: aviso.title,
           body: aviso.body,
           status: 1,
           link: aviso.link,
           fromDate: aviso.fromDate,
           toDate: aviso.toDate
-          // createdBy: aviso.createdBy
         }
       },
       context: {
@@ -92,6 +91,7 @@ export function updateAviso ({ commit }, aviso) {
     })
       .then(res => {
         console.log(res.data)
+        commit('updateAviso', aviso)
         resolve(res)
       })
   })

@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="confirm" persistent>
+  <q-dialog ref="dialog" v-model="confirm">
     <q-card class="my-modal">
       <q-card-section>
         <div class="text-h6">Editar Aviso </div>
@@ -9,23 +9,23 @@
         <template v-slot="body">
           <div>
             <q-form class="q-gutter-xs">
-              <q-input outlined :v-model="title" type="text" label="Titulo del aviso" lazy-rules dense
+              <q-input outlined v-model="title" type="text" label="Titulo del aviso" lazy-rules dense
                 :rules="[ val => val && val.length > 0 || 'Debes completar este campo']" />
 
-              <q-input outlined :v-model="description" type="textarea" label="Descripción del aviso" lazy-rules
+              <q-input outlined v-model="description" type="textarea" label="Descripción del aviso" lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Debes completar este campo']" />
 
-              <q-input outlined :v-model="link" type="text" label="Link" lazy-rules dense
+              <q-input outlined v-model="link" type="text" label="Link" lazy-rules dense
                 :rules="[ val => val && val.length > 0 || 'Debes completar este campo']" />
 
               <div class="row">
                 <div class="col-6 q-pr-sm">
                   <span>Fecha de inicio:</span>
-                  <q-input outlined :v-model="toDate" dense mask="date" :rules="['date']">
+                  <q-input outlined v-model="fromDate" dense mask="date" :rules="['date']">
                     <template v-slot:append>
                       <q-icon name="event" class="cursor-pointer">
                         <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                          <q-date :v-model="fromDate" :value="fromDate" @input="() => $refs.qDateProxy.hide()" />
+                          <q-date v-model="fromDate" :locale="myLocale" @input="() => $refs.qDateProxy.hide()" />
                         </q-popup-proxy>
                       </q-icon>
                     </template>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-6">
                   <span>Fecha de vencimiento:</span>
-                  <q-input outlined :v-model="toDate" dense mask="date" :rules="['date']">
+                  <q-input outlined v-model="toDate" dense mask="date" :rules="['date']">
                     <template v-slot:append>
                       <q-icon name="event" class="cursor-pointer">
                         <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -98,15 +98,19 @@ export default {
   filters: {
     dateFormat: function (value) {
       if (!value) return 'NA'
-      console.log('filter')
       value = date.formatDate(value, 'YYYY-MM-DD')
       return value
     }
   },
   mounted () {
+    console.log('id', this.id)
     this.$store
       .dispatch('avisos/avisoQuery', this.id)
     this.title = this.aviso.title
+    this.description = this.aviso.body
+    this.link = this.aviso.link
+    this.fromDate = date.formatDate(this.aviso.fromDate, 'YYYY-MM-DD')
+    this.toDate = date.formatDate(this.aviso.toDate, 'YYYY-MM-DD')
   },
   computed: {
     aviso () {
@@ -115,7 +119,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      notices: 'avisos/actions'
+      notices: 'avisos/actions',
+      updateNotice: 'avisos/updateAviso'
     }),
     loadPhoto (file) {
       this.file = file
@@ -130,14 +135,18 @@ export default {
           fromDate: parseFloat(date.formatDate(this.fromDate, 'x')),
           toDate: parseFloat(date.formatDate(this.toDate, 'x')),
           // createdBy: payload.userId,
+          _index: this.index,
+          id: this.id,
           file: this.file
         })
         .then(res => {
           this.$q.notify({
             color: 'positive',
             icon: 'eva-checkmark-circle-outline',
-            message: 'Se creo correctamente el aviso'
+            message: 'Se editó correctamente el aviso'
           })
+          this.$store
+            .dispatch('avisos/avisoQuery', this.id)
         })
         .catch(err => {
           console.log(err)

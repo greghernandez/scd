@@ -33,21 +33,7 @@
               {{ props.row.toDate | dateFormat }}
             </q-td>
             <q-td key="Editar">
-              <q-btn
-                class="btn-editar"
-                round
-                color="grey-14"
-                size="sm"
-                icon="eva-edit-outline"
-                @click="editarAviso(props.row._id)"
-              >
-                <q-tooltip
-                  transition-show="rotate"
-                  transition-hide="rotate"
-                >
-                  Editar aviso
-                </q-tooltip>
-              </q-btn>
+              <BtnEditar :id="props.row._id" :title="props.row.title" />
             </q-td>
             <q-td key="Ocultar">
               <BtnStatus :id="props.row._id" :status="props.row.status"  />
@@ -66,10 +52,10 @@
 </template>
 
 <script>
-import ModalEditarAviso from 'components/avisos/EditarAviso'
 import VerConvocatoria from 'components/avisos/actions/verConvocatoria'
 import BtnStatus from 'components/avisos/actions/btnStatus'
 import BtnEliminar from 'components/avisos/actions/btnEliminar'
+import BtnEditar from 'components/avisos/actions/btnEditar'
 
 // vuex
 import { mapActions } from 'vuex'
@@ -80,7 +66,8 @@ export default {
   components: {
     VerConvocatoria,
     BtnStatus,
-    BtnEliminar
+    BtnEliminar,
+    BtnEditar
   },
   mounted () {
     this.$store
@@ -111,14 +98,6 @@ export default {
     ...mapActions({
       notices: 'avisos/actions'
     }),
-    // Muestra Modal para editar una noticia
-    editarAviso (id) {
-      this.$q.dialog({
-        component: ModalEditarAviso,
-        parent: this,
-        id: id
-      })
-    },
     newNotice (e) {
       this.notices.push(e)
     }
