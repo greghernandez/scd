@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!documentosData.title == null">
+    <div v-if="documentosData.length != 0 && this.category !== ''">
       <div>
         <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
           placeholder="Buscar documento" type="search">
