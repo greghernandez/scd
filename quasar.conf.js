@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'axios',
       'vue-apollo',
       'vue-glide',
-      'vue-clipboard'
+      'vue-clipboard',
+      'vue-truncate-filter'
     ],
 
     css: [

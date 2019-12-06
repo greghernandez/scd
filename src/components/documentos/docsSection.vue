@@ -57,7 +57,10 @@ export default {
       var newElement = document.getElementById(newVal)
       newElement.classList.add('selected-card')
       var oldElement = document.getElementById(oldVal)
-      oldElement.classList.remove('selected-card')
+      if (oldVal) {
+        console.log('----', oldVal)
+        oldElement.classList.remove('selected-card')
+      }
       const userId = payload.userId
       const category = this.category
       this.$store

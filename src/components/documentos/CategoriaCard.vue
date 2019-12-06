@@ -1,18 +1,19 @@
 <template>
   <div class="column">
-    <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card">
-      <q-card-section class="row justify-center items-center content-center">
-        <div class="row justify-center flex-center">
-          <div class="col-2 full-with">
-            <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
+    <!-- si tiene un valor RIPAUAQ se renderiza una tarjeta con los puntos -->
+    <div v-if="value != 0">
+      <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card">
+        <q-card-section class="row justify-center items-center content-center">
+          <div class="row justify-center flex-center">
+            <div class="col-3 full-with">
+              <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
+            </div>
+            <div class="col-9 q-col-ml-sm" style="height: 100%">
+              <p class="q-my-none text-weight-bold">{{ title | truncate(120) }}</p>
+            </div>
           </div>
-          <div class="col-8 q-ml-sm rubro-title" style="height: 100%">
-            <p class="q-my-none text-weight-bold">{{ title }}</p>
-          </div>
-        </div>
-      </q-card-section>
+        </q-card-section>
 
-      <div v-if="value != null">
         <q-separator inset />
 
         <q-card-section>
@@ -40,8 +41,21 @@
             </div>
           </div>
         </q-card-section>
-      </div>
-    </q-card>
+      </q-card>
+    </div>
+    <!-- si tiene no tiene un valor RIPAUAQ se renderiza esta tarjeta -->
+    <div v-else>
+      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center">
+        <q-card-section class="row justify-center items-center content-center">
+          <div class="col-3 full-with">
+            <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
+          </div>
+          <div class="col-9 q-col-ml-sm" style="height: 100%">
+            <p class="q-my-none">{{ title | truncate(150) }}</p>
+          </div>
+        </q-card-section>
+      </q-card>
+    </div>
   </div>
 </template>
 
@@ -66,8 +80,6 @@ export default {
       type: Number,
       required: true
     }
-  },
-  methods: {
   }
 }
 </script>

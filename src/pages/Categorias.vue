@@ -29,7 +29,7 @@
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in categoryData" :key="index">
                   <div @click="selectedCard(category.clave)">
-                    <CatCard :clave="category.clave" :title="category.title" :value="category.value" />
+                    <CatCard :clave="category.clave" :title="category.title" :value="category.value || 0" />
                   </div>
                 </slide>
               </carousel>
