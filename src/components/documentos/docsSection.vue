@@ -1,19 +1,30 @@
 <template>
   <div>
-    <div if-ca>
-      <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
-        placeholder="Buscar documento" type="search">
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-      <p>{{ search }}</p>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in documentosData" :key="index">
-        <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName"
-          :createdAt="documents.createdAt" />
+    <div v-if="!documentosData.title == null">
+      <div>
+        <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
+          placeholder="Buscar documento" type="search">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
       </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in documentosData" :key="index">
+          <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName"
+            :createdAt="documents.createdAt" />
+        </div>
+      </div>
+    </div>
+    <div v-else class="row items-center justify-center q-ma-lg">
+      <q-banner class="q-pa-md bg-grey-3">
+        <div class="col-12 text-center q-pb-sm">
+          <q-avatar size="50px" font-size="25px" color="grey-5" text-color="text-primary" icon="eva-file-outline" />
+        </div>
+        <div class="col-12">
+          <span class="text-subtitle-1 ">Selecciona una categoria para visualizar los documentos contenidos</span>
+        </div>
+      </q-banner>
     </div>
   </div>
 </template>
