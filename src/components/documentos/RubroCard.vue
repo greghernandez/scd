@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card rubro-content row justify-center flex-center" to="100" @click="seleccionada(clave)">
+  <q-card class="my-card rubro-content row justify-center flex-center" @click="seleccionada(clave)">
     <q-card-section class="row justify-center items-center content-center">
       <div class="col full-with">
         <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>

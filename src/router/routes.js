@@ -29,7 +29,14 @@ const routes = [
       { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
       { path: 'docente/:clave', name: 'docente', component: () => import('pages/PerfilDocente.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
-      { path: 'documentos/categorias/:id', name: 'categorias', component: () => import('pages/Categorias.vue') },
+      {
+        path: 'documentos/categorias/:id',
+        name: 'categorias',
+        component: () => import('pages/Categorias.vue'),
+        children: [
+          { path: 'subcat/:idSub', name: 'subcategoria', component: () => import('pages/Categorias.vue') }
+        ]
+      },
       { path: 'documentos-pendientes', component: () => import('pages/Doc-pendientes.vue') },
       { path: 'rubros', component: () => import('pages/Rubros.vue') },
       { path: 'avisos', component: () => import('pages/Avisos.vue') },

@@ -6,7 +6,7 @@
         <q-card-section class="row justify-center items-center content-center">
           <div class="row justify-center flex-center">
             <div class="col-3 full-with">
-              <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
+              <q-avatar color="secondary" font-size="12px" text-color="white">{{ clave }}</q-avatar>
             </div>
             <div class="col-9 q-col-ml-sm" style="height: 100%">
               <p class="q-my-none text-weight-bold">{{ title | truncate(120) }}</p>
@@ -45,7 +45,7 @@
     </div>
     <!-- si tiene no tiene un valor RIPAUAQ se renderiza esta tarjeta -->
     <div v-else>
-      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center">
+      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center" @click="seleccionada(clave)">
         <q-card-section class="row justify-center items-center content-center">
           <div class="col-3 full-with">
             <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
@@ -79,6 +79,11 @@ export default {
     value: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    seleccionada (clave) {
+      this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
     }
   }
 }
