@@ -12,7 +12,7 @@
 <script>
 import ModalEditarAviso from 'components/avisos/EditarAviso'
 // vuex
-// import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'BtnEditar',
@@ -27,15 +27,22 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      notices: 'avisos/actions'
+    }),
     // Muestra Modal para editar una noticia
     editarAviso () {
-      this.$store
-        .dispatch('avisos/avisoQuery', this.id)
       this.$q.dialog({
         component: ModalEditarAviso,
         parent: this,
-        id: this.id
+        id: this.id,
+        title: this.title
       })
+    }
+  },
+  computed: {
+    aviso () {
+      return this.$store.state.avisos.aviso
     }
   }
 }

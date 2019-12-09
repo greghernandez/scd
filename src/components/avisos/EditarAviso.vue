@@ -2,7 +2,7 @@
   <q-dialog ref="dialog" v-model="confirm">
     <q-card class="my-modal">
       <q-card-section>
-        <div class="text-h6">Editar Aviso </div>
+        <div class="text-h6">Editar Aviso</div>
       </q-card-section>
 
       <q-card-section>
