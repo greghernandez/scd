@@ -21,15 +21,16 @@
                   <q-icon size="1.5em" name="chevron_right " color="#575757" />
                 </template>
                 <q-breadcrumbs-el label="Rubros" to="/documentos" />
-                <q-breadcrumbs-el :label="'Rubro ' + this.$route.params.id" />
+                <q-breadcrumbs-el :label="'Rubro ' + this.$route.params.id" :to="'/documentos/categorias/' +  this.$route.params.id" />
+                <q-breadcrumbs-el v-if="this.$route.params.idSub" :label="'Categoria ' + this.$route.params.idSub"/>
               </q-breadcrumbs>
             </div>
             <div class="q-pa-md">
               <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in categoryData" :key="index">
-                  <div @click="selectedCard(category.clave)">
-                    <CatCard :clave="category.clave" :title="category.title" :value="category.value" />
+                  <div @click="selectedCard(category.clave, category.value)">
+                    <CatCard :clave="category.clave" :title="category.title" :value="category.value || 0" />
                   </div>
                 </slide>
               </carousel>
@@ -64,37 +65,47 @@ export default {
       search: undefined,
       categoryData: [],
       category: '',
+      id: '',
       nextLabel: "<img src='/assets/arrow-forward.png' class='carousel-img' />",
       prevLabel: "<img src='/assets/arrow-back.png' class='carousel-img' />"
     }
   },
   mounted () {
-    console.log(this.$route.params.id)
-    apolloClient.query({
-      query: categoryQuery,
-      variables: {
-        type: 2,
-        uid: this.$route.params.id
-      }
-    })
-      .then(res => {
-        this.categoryData = res.data.category.children
-        console.log(this.categoryData)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    this.catQuery()
   },
   props: {
     number: undefined
   },
   methods: {
-    selectedCard (clave) {
+    catQuery () {
+      console.log(this.$route.params.id)
+      if (this.$route.params.idSub) {
+        this.id = this.$route.params.idSub
+      } else {
+        this.id = this.$route.params.id
+      }
+      apolloClient.query({
+        query: categoryQuery,
+        variables: {
+          type: 2,
+          uid: this.id
+        }
+      })
+        .then(res => {
+          this.categoryData = res.data.category.children
+          console.log(this.categoryData)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    selectedCard (clave, value) {
       this.selected = !this.selected
       // console.log(event)
       console.log(this.selected)
       console.log('Clave seleccionada', clave)
       this.category = clave
+      this.catQuery()
     }
   }
 }

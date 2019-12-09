@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="confirm" persistent>
+  <q-dialog ref="dialog" v-model="confirm">
     <q-card class="my-modal">
       <q-card-section>
         <div class="text-h6">Crear Aviso</div>
