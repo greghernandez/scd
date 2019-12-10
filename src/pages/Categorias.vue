@@ -107,6 +107,15 @@ export default {
       this.category = clave
       this.catQuery()
     }
+  },
+  watch: {
+    $route (to, from) {
+      this.catQuery()
+      if (to.params.idSub === undefined) {
+        console.log('--idSub', to.params.idSub)
+        // this.catQuery()
+      }
+    }
   }
 }
 </script>

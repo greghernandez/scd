@@ -14,11 +14,6 @@ export default {
   name: 'PageDocPendientes',
   components: {
     DocumentsSection
-  },
-  data () {
-    return {
-      search: ''
-    }
   }
 }
 </script>
