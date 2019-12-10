@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     catQuery () {
-      console.log(this.$route.params.id)
       if (this.$route.params.idSub) {
         this.id = this.$route.params.idSub
       } else {
@@ -93,7 +92,6 @@ export default {
       })
         .then(res => {
           this.categoryData = res.data.category.children
-          console.log(this.categoryData)
         })
         .catch(err => {
           console.log(err)
@@ -101,7 +99,6 @@ export default {
     },
     selectedCard (clave, value) {
       this.selected = !this.selected
-      // console.log(event)
       console.log(this.selected)
       console.log('Clave seleccionada', clave)
       this.category = clave
@@ -111,10 +108,6 @@ export default {
   watch: {
     $route (to, from) {
       this.catQuery()
-      if (to.params.idSub === undefined) {
-        console.log('--idSub', to.params.idSub)
-        // this.catQuery()
-      }
     }
   }
 }

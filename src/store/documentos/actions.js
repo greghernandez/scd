@@ -10,6 +10,7 @@ import { MOVE_DOCUMENT, DELETE_DOCUMENT } from '../../services/graphql/mutations
  */
 export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
+    console.log('Categoria de documentos', payload.category)
     apolloClient.query({
       query: documentsTartaro,
       variables: {
