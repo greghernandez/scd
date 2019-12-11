@@ -6,11 +6,27 @@
     </div>
     <!--Sección cartas informativas-->
     <div class="row">
-      <div class="col-md-2 col-xs-6 card-info">
-        <InfoCard />
+      <div class="row col-12">
+        <div class="col-md-2 col-xs-6 card-info">
+          <InfoCard />
+        </div>
+        <div class="col-md-2 col-xs-6 card-info">
+          <cardDocsPen />
+        </div>
       </div>
-      <div class="col-md-2 col-xs-6 card-info">
-        <cardDocsPen />
+      <div class="col-md-4 col-xs-6 card-info">
+        <q-card class="my-card">
+          <q-card-section>
+            <DonutChart />
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-md-4 col-xs-6 card-info">
+        <q-card class="my-card">
+          <q-card-section>
+            <DonutChart />
+          </q-card-section>
+        </q-card>
       </div>
     </div>
     <!--Sección de avisos-->
@@ -25,6 +41,7 @@
 
 <script>
 import InfoCard from 'components/inicio/InfoCard'
+import DonutChart from 'components/inicio/DonutChart'
 import CardDocsPen from 'components/inicio/cardDocsPendientes'
 import BoardAvisos from 'components/inicio/BoardAvisos'
 
@@ -33,7 +50,8 @@ export default {
   components: {
     InfoCard,
     BoardAvisos,
-    CardDocsPen
+    CardDocsPen,
+    DonutChart
   },
   data () {
     return {
