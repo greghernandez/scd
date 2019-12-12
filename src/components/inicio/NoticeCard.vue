@@ -10,10 +10,10 @@
         </div>
         <div class="col text-gray">{{ fromDate }}</div>
         <div class="col text-weight-medium">
-          {{ body }}
+          {{ body | truncate(250) }}
         </div>
         <div class="col">
-          <q-btn outline rounded dense color="primary" label="Ver más" no-caps />
+          <q-btn outline rounded color="primary" class="q-px-lg" label="Ver más" no-caps />
         </div>
       </div>
     </div>
