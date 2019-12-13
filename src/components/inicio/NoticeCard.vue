@@ -13,7 +13,7 @@
           {{ body | truncate(250) }}
         </div>
         <div class="col">
-          <q-btn outline rounded color="primary" class="q-px-lg" label="Ver más" no-caps />
+          <q-btn outline rounded color="primary" class="q-px-lg" label="Ver más" no-caps @click="verConvocatoria"/>
         </div>
       </div>
     </div>
@@ -33,7 +33,13 @@ export default {
     title: String,
     body: String,
     fromDate: Number,
-    img: String
+    img: String,
+    link: String
+  },
+  methods: {
+    verConvocatoria () {
+      window.open(this.link, '_blank')
+    }
   }
 }
 </script>

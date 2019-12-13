@@ -8,7 +8,7 @@
         </div>
         <!-- cards con los avisos -->
         <q-card v-for="(notices, index) in noticesData" :key="index" class="my-card q-my-md">
-          <NoticeCard :title="notices.title" :body="notices.body" :img="notices.imgLnk" ></NoticeCard>
+          <NoticeCard :title="notices.title" :body="notices.body" :img="notices.imgLnk" :link="notices.link" />
         </q-card>
         <template name="loading" v-slot:loading>
           <div class="row justify-center q-my-md">
