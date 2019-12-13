@@ -7,6 +7,7 @@ export const noticeCreateMutation = gql`mutation CreateNotice($file: Upload!, $i
         title
         status
         fromDate
+        toDate
         link
     }
 }
@@ -16,6 +17,9 @@ export const noticeUpdateMutation = gql`mutation UpdateNotice($id: ID!, $input: 
   updateNotice(id: $id, input: $input, file: $file)
   {
     _id
+    title
+    body
+    fromDate
   }
 }
 `

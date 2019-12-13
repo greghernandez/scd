@@ -39,9 +39,8 @@ export function avisoQuery ({ commit }, idAviso) {
   })
 }
 
-export function createAviso ({ commit }, aviso) {
+export function createAviso ({ commit, dispatch }, aviso) {
   return new Promise(resolve => {
-    console.log(aviso)
     apolloClient.mutate({
       mutation: noticeCreateMutation,
       variables: {
@@ -61,8 +60,11 @@ export function createAviso ({ commit }, aviso) {
       }
     })
       .then(res => {
-        console.log(res.data)
-        commit('addAviso', aviso)
+        console.log(res.data.createNotice._id)
+        let nuevoAviso = res.data.createNotice
+        console.log(nuevoAviso)
+        // dispatch('avisosQuery')
+        commit('addAviso', nuevoAviso)
         resolve(res)
       })
   })

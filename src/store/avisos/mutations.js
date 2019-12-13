@@ -17,6 +17,7 @@ export function updateAviso (state, aviso) {
 }
 
 export function addAviso (state, aviso) {
+  console.log('Aviso en state', aviso)
   state.avisos.push(aviso)
 }
 
