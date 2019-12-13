@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-2 col-xs-12">
-      <q-img :src="src + img" class="notice-img" :ratio="1" spinner-color="white" />
+      <q-img :src="img" class="notice-img" :ratio="1" spinner-color="white" />
     </div>
     <div class="col-md-10 col-sm-12">
       <div class="column q-mx-lg q-my-md">
@@ -10,10 +10,10 @@
         </div>
         <div class="col text-gray">{{ fromDate }}</div>
         <div class="col text-weight-medium">
-          {{ body }}
+          {{ body | truncate(250) }}
         </div>
         <div class="col">
-          <q-btn outline rounded dense color="primary" label="Ver más" no-caps />
+          <q-btn outline rounded color="primary" class="q-px-lg" label="Ver más" no-caps @click="verConvocatoria"/>
         </div>
       </div>
     </div>
@@ -33,7 +33,13 @@ export default {
     title: String,
     body: String,
     fromDate: Number,
-    img: String
+    img: String,
+    link: String
+  },
+  methods: {
+    verConvocatoria () {
+      window.open(this.link, '_blank')
+    }
   }
 }
 </script>

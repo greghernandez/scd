@@ -57,10 +57,6 @@
         </q-list>
 
         <q-separator />
-        <div>
-          <p>{{ newCat }}</p>
-        </div>
-
       </q-card-section>
 
       <q-card-actions align="right">
