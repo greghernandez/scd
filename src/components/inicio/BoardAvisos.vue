@@ -52,17 +52,9 @@ export default {
               console.log(this.noticesData)
               console.log('------------')
               done(true)
-            }, 2000)
-      })
+            })
+      }, 1000)
     }
-    /* onLoad (index, done) {
-      setTimeout(() => {
-        if (this.items) {
-          this.items.push({}, {}, {}, {}, {}, {}, {})
-          done()
-        }
-      }, 2000)
-    } */
   }
 }
 </script>
