@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" persistent>
+  <q-dialog ref="dialog" v-model="alertAviso">
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
