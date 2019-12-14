@@ -87,7 +87,14 @@ export default {
           hasUpload: true
         }
       })
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res)
+          this.$q.notify({
+            color: 'positive',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Los documentos se subieron con exito'
+          })
+        })
         .catch(err => console.log(err))
       // this.$emit('ok')
       this.hide()
