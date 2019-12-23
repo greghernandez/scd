@@ -1,11 +1,10 @@
-
 // export const host = 'http://148.220.210.222:4000/graphql'
 // export const host = 'https://safe-citadel-72492.herokuapp.com/graphql'
 export const host = 'https://safe-citadel-72492.herokuapp.com/graphql'
 
 // export const address = 'http://148.220.210.222:4000'
 // export const address = 'https://safe-citadel-72492.herokuapp.com/'
-export const address = 'https://safe-citadel-72492.herokuapp.com/graphql'
+export const address = 'https://safe-citadel-72492.herokuapp.com'
 
 // Permisos existentes para los usuarios
 export const permissions = {
