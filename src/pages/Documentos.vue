@@ -7,8 +7,8 @@
             <h4 class="q-mt-md q-mb-md">Rubros</h4>
           </div>
           <div>
-            <q-input class="search q-my-xs" rounded outlined dense v-model="search" label="Buscar rubros" type="search">
-              <template v-slot:append>
+            <q-input class="search q-my-xs" rounded outlined dense clearable clear-icon="eva-close-circle-outline" v-model="search" label="Buscar rubros" type="search">
+              <template v-slot:prepend>
                 <q-icon name="search" />
               </template>
             </q-input>
@@ -27,9 +27,16 @@
                 <q-breadcrumbs-el label="Rubros"/>
               </q-breadcrumbs>
             </div>
-            <div class="row">
-              <div class="col-md-4 col-sm-6 col-xs-12 rubro-card" v-for="(rubro, index) in categoriesData" :key="index">
-                <RubroCard :clave="rubro.clave" :rubro="rubro.title" />
+            <div  v-if="this.resultQuery.length != 0" class="row">
+              <div class="col-md-4 col-sm-6 col-xs-12 rubro-card" v-for="(rubro, index) in resultQuery" :key="index">
+                <div>
+                  <RubroCard :clave="rubro.clave" :rubro="rubro.title" />
+                </div>
+              </div>
+            </div>
+            <div v-else class="row items-center justify-center">
+              <div v-if="this.search != null">
+                <q-banner class="q-pa-md bg-grey-3">No hay resultados que coincidan con la busqueda</q-banner>
               </div>
             </div>
           </div>
@@ -57,7 +64,7 @@ export default {
   },
   data () {
     return {
-      search: undefined,
+      search: null,
       categoriesData: []
     }
   },
@@ -77,9 +84,15 @@ export default {
         console.log(err)
       })
   },
-  methods: {
-    link (id) {
-      alert(id)
+  computed: {
+    resultQuery () {
+      if (this.search) {
+        return this.categoriesData.filter((item) => {
+          return this.search.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
+        })
+      } else {
+        return this.categoriesData
+      }
     }
   }
 }
