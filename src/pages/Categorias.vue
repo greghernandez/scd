@@ -26,7 +26,7 @@
               </q-breadcrumbs>
             </div>
             <div class="q-pa-md">
-              <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
+              <carousel v-if="this.resultQuery.length != 0" :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in resultQuery" :key="index">
                   <div @click="selectedCard(category.clave, category.value)">
@@ -34,6 +34,11 @@
                   </div>
                 </slide>
               </carousel>
+              <div v-else class="row items-center justify-center">
+              <div v-if="this.search != null">
+                <q-banner class="q-pa-md bg-grey-3">No hay resultados que coincidan con la busqueda</q-banner>
+              </div>
+            </div>
             </div>
           </div>
         </q-card-section>
