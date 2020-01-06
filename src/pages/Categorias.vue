@@ -7,9 +7,9 @@
             <h5 class="q-mt-xs q-mb-xs">Categorías</h5>
           </div>
           <div>
-            <q-input class="search search-input q-my-xs" rounded outlined dense v-model="search"
+            <q-input class="search search-input q-my-xs" rounded outlined dense clearable clear-icon="eva-close-circle-outline" v-model="search"
               placeholder="Buscar categorías" type="search">
-              <template v-slot:append>
+              <template v-slot:prepend>
                 <q-icon name="search" />
               </template>
             </q-input>
@@ -28,7 +28,7 @@
             <div class="q-pa-md">
               <carousel :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
                 paginationActiveColor="#4A4FF1">
-                <slide v-for="(category, index) in categoryData" :key="index">
+                <slide v-for="(category, index) in resultQuery" :key="index">
                   <div @click="selectedCard(category.clave, category.value)">
                     <CatCard :clave="category.clave" :title="category.title" :value="category.value || 0" />
                   </div>
@@ -62,7 +62,7 @@ export default {
   },
   data () {
     return {
-      search: undefined,
+      search: null,
       categoryData: [],
       category: '',
       id: '',
@@ -108,6 +108,17 @@ export default {
   watch: {
     $route (to, from) {
       this.catQuery()
+    }
+  },
+  computed: {
+    resultQuery () {
+      if (this.search) {
+        return this.categoryData.filter((item) => {
+          return this.search.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
+        })
+      } else {
+        return this.categoryData
+      }
     }
   }
 }
