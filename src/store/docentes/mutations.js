@@ -7,13 +7,13 @@ export function deleteDocente (state, id) {
 }
 export function cambiarPermisos (state, payload) {
   // Busco al usuario
-  const index = state.docentes.findIndex(e => e._id === payload.id)
-  console.log(index)
+  // const index = state.docentes.findIndex(e => e._id === payload.id)
+  // console.log(index)
   // Busco el permiso
-  state.docentes.splice(index, 1)
+  // state.docentes.splice(index, 1)
   // Elimino o agrego permisos
-  let variable = {}
+  // let variable = {}
 
-  console.log('Nuevo')
-  console.log(variable)
+  // console.log('Nuevo')
+  // console.log(variable)
 }

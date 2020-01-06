@@ -43,6 +43,12 @@ export const userRoleMutation = gql`mutation ChangeRoleUser($userId: ID!, $permi
   updateUserRole( userId: $userId, permissionId: $permissionId, action: $action){
     _id
     name
+    lastName
+    status
+    permissions{
+      _id
+      rank
+    }
   }
 }
 `
@@ -59,6 +65,12 @@ export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($input: Update
   updateUserRole(input: $input){
     _id
     name
+    lastName
+    status
+    permissions{
+      _id
+      rank
+    }
   }
 }
 `
