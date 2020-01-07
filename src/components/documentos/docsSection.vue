@@ -1,19 +1,29 @@
 <template>
   <div>
-    <div v-if="documentosData.length != 0 && this.category !== ''">
+    <div v-if="this.category !== ''">
       <div>
-        <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense v-model="search"
+        <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable clear-icon="eva-close-circle-outline" v-model="search"
           placeholder="Buscar documento" type="search">
-          <template v-slot:append>
+          <template v-slot:prepend>
             <q-icon name="search" />
           </template>
         </q-input>
       </div>
-      <div class="row">
+      <div class="row" v-if="this.documentosData.length != 0">
         <div class="col-md-3 col-sm-3 col-xs-12 doc-label" v-for="(documents, index) in documentosData" :key="index">
           <DocLabel :objId="documents._id" :fileId="documents.fileId" :fileName="documents.fileName"
             :createdAt="documents.createdAt" />
         </div>
+      </div>
+      <div v-else class="row items-center justify-center q-ma-lg">
+        <q-banner class="q-pa-md bg-grey-3">
+          <div v-if="this.documentosData.length === 0 && (this.search === null || this.search === '')">
+            No tienes documentos en esta categoria
+          </div>
+          <div v-else-if="this.search !== null">
+            No hay resultados que coincidan con la busqueda
+          </div>
+        </q-banner>
       </div>
     </div>
     <div v-else class="row items-center justify-center q-ma-lg">
@@ -41,7 +51,7 @@ export default {
   },
   data () {
     return {
-      search: undefined,
+      search: null,
       pendingDocs: []
     }
   },
@@ -81,7 +91,13 @@ export default {
   },
   computed: {
     documentosData () {
-      return this.$store.state.documentos.documentos
+      if (this.search) {
+        return this.$store.state.documentos.documentos.filter((item) => {
+          return this.search.toLowerCase().split(' ').every(v => item.fileName.toLowerCase().includes(v))
+        })
+      } else {
+        return this.$store.state.documentos.documentos
+      }
     }
   }
 }
