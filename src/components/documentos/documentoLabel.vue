@@ -4,7 +4,7 @@
       <q-card-section class="q-py-xs q-px-xs">
         <div class="row col-12 justify-between items-center content-center">
           <div class="col-1">
-            <q-checkbox dense v-model="val" :val="objId"/>
+            <q-checkbox dense v-model="val" @input="check(val)"/>
           </div>
           <div class="col-2">
             <q-icon color="negative" name="eva-file-text" style="font-size: 2rem;" />
@@ -52,6 +52,7 @@ import ModalEliminar from 'components/documentos/modalEliminar'
 import modalDocs from 'components/documentos/modalDocs'
 import { getFile } from '../../services/downloads'
 import { date } from 'quasar'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'DocLabel',
@@ -78,6 +79,15 @@ export default {
     createdAt: Number
   },
   methods: {
+    ...mapMutations({
+      notices: 'documentos/mutations'
+    }),
+    check (val) {
+      this.$store.commit('documentos/check', {
+        val: val,
+        objId: this.objId
+      })
+    },
     abrir () {
       // Dialog con la vista del documento
       this.$q.dialog({

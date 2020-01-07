@@ -12,6 +12,7 @@ export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
     console.log('----- Query documentos ----')
     console.log('Categoria de documentos', payload.category)
+    commit('resetStore')
     apolloClient.query({
       query: documentsTartaro,
       variables: {

@@ -1,4 +1,5 @@
 export default {
   documentos: [],
-  isLoading: false
+  isLoading: false,
+  selected: []
 }

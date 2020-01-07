@@ -1,5 +1,6 @@
 <template>
   <div>
+    selected {{ this.selected }}
     <div v-if="this.category !== ''">
       <div>
         <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable clear-icon="eva-close-circle-outline" v-model="search"
@@ -106,6 +107,9 @@ export default {
     },
     isLoading () {
       return this.$store.state.documentos.isLoading
+    },
+    selected () {
+      return this.$store.state.documentos.selected
     }
   }
 }
