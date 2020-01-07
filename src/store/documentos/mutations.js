@@ -16,6 +16,8 @@ export function addDocuments (state, documentos) {
 export function deleteDocumento (state, id) {
   const index = state.documentos.findIndex(e => e._id === id)
   state.documentos.splice(index, 1)
+  const indexSeleted = state.selected.findIndex(e => e === id)
+  state.selected.splice(indexSeleted, 1)
 }
 
 export function resetStore (state) {
