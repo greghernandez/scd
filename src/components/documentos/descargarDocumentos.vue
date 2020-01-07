@@ -43,6 +43,7 @@
 <script>
 import { apolloClient } from '../../boot/vue-apollo'
 import { treeQuery } from '../../services/graphql/queries'
+import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -90,8 +91,8 @@ export default {
       apolloClient.query({
         query: treeQuery,
         variables: {
-          cat: '5db33a684dc61d2260e5c505',
-          user: '5da4dca3377d68341c67575d'
+          cat: '201',
+          user: payload.userId
         }
       })
         .then(res => {
