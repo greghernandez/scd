@@ -1,3 +1,4 @@
 export default {
-  documentos: []
+  documentos: [],
+  isLoading: false
 }

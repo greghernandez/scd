@@ -43,6 +43,7 @@ export function documentosQuery ({ commit }, payload) {
 
 export function subirDocumentos ({ commit }, payload) {
   return new Promise(resolve => {
+    commit('isUploading')
     // Subir documento
     apolloClient.mutate({
       mutation: multipleUpload,
@@ -60,6 +61,7 @@ export function subirDocumentos ({ commit }, payload) {
       .then(res => {
         console.log(res.data.multipleUpload)
         commit('addDocuments', res.data.multipleUpload)
+        commit('isUploading')
         resolve(res)
       })
       .catch(err => console.log(err))

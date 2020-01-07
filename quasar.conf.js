@@ -84,7 +84,8 @@ module.exports = function (ctx) {
         'QSpinnerDots',
         'QTree',
         'QBar',
-        'QRadio'
+        'QRadio',
+        'QSpinner'
       ],
 
       directives: [

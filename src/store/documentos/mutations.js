@@ -1,7 +1,9 @@
 export function setDocumentos (state, documentos) {
   state.documentos = documentos
 }
-
+export function isUploading (state) {
+  state.isLoading = !state.isLoading
+}
 export function addDocuments (state, documentos) {
   console.log('Payload', documentos)
   documentos.filter((item) => {

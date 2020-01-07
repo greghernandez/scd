@@ -36,6 +36,9 @@
         </div>
       </q-banner>
     </div>
+    <div>
+      <UploadingDialog :uploading="isLoading" />
+    </div>
   </div>
 </template>
 
@@ -43,11 +46,13 @@
 import DocLabel from 'components/documentos/documentoLabel'
 import { payload } from '../../services/user'
 import { mapActions } from 'vuex'
+import UploadingDialog from './UploadingDialog'
 
 export default {
   name: 'documentsSection',
   components: {
-    DocLabel
+    DocLabel,
+    UploadingDialog
   },
   data () {
     return {
@@ -98,6 +103,9 @@ export default {
       } else {
         return this.$store.state.documentos.documentos
       }
+    },
+    isLoading () {
+      return this.$store.state.documentos.isLoading
     }
   }
 }
