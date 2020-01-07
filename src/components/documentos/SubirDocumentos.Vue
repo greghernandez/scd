@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" persistent>
+  <q-dialog ref="dialog" v-model="alertAviso">
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
@@ -34,8 +34,6 @@ import 'filepond/dist/filepond.min.css'
 // Create component
 const FilePond = vueFilePond(FilePondPluginFileValidateType)
 // imports needed to comunicate with the API
-// import { apolloClient } from '../../boot/vue-apollo'
-// import { multipleUpload } from '../../services/graphql/mutations'
 import { payload } from '../../services/user'
 import { mapActions } from 'vuex'
 
@@ -75,8 +73,14 @@ export default {
     onOKClick () {
       const pondFiles = this.$refs.pond.getFiles()
       const files = pondFiles.map(e => {
-        return e.file
+        if (e.file.type === 'application/pdf') {
+          console.log(e.file.type)
+          return e.file
+        } else {
+          return 0
+        }
       })
+      console.log(files)
       this.$store
         .dispatch('documentos/subirDocumentos', {
           files: files,
