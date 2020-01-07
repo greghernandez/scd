@@ -77,7 +77,7 @@ export default {
           console.log(e.file.type)
           return e.file
         } else {
-          return 0
+          return false
         }
       })
       console.log(files)
