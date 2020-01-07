@@ -72,15 +72,13 @@ export default {
     },
     onOKClick () {
       const pondFiles = this.$refs.pond.getFiles()
-      const files = pondFiles.map(e => {
+      const files = pondFiles.filter((e) => {
         if (e.file.type === 'application/pdf') {
-          console.log(e.file.type)
+          console.log(e.file)
           return e.file
-        } else {
-          return false
         }
-      })
-      console.log(files)
+      }).map((e) => { return e.file })
+      console.log('ya filtrados', files)
       this.$store
         .dispatch('documentos/subirDocumentos', {
           files: files,
