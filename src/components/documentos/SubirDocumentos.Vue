@@ -34,9 +34,10 @@ import 'filepond/dist/filepond.min.css'
 // Create component
 const FilePond = vueFilePond(FilePondPluginFileValidateType)
 // imports needed to comunicate with the API
-import { apolloClient } from '../../boot/vue-apollo'
-import { multipleUpload } from '../../services/graphql/mutations'
+// import { apolloClient } from '../../boot/vue-apollo'
+// import { multipleUpload } from '../../services/graphql/mutations'
 import { payload } from '../../services/user'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AlertAvisos',
@@ -54,6 +55,9 @@ export default {
     btnColor: String
   },
   methods: {
+    ...mapActions({
+      notices: 'documentos/actions'
+    }),
     handleFilePondInit: function () {
       console.log('FilePond has initialized')
     },
@@ -73,29 +77,18 @@ export default {
       const files = pondFiles.map(e => {
         return e.file
       })
-      // console.log(files)
-      apolloClient.mutate({
-        mutation: multipleUpload,
-        variables: {
+      this.$store
+        .dispatch('documentos/subirDocumentos', {
           files: files,
-          input: {
-            category: '5db33a924dc61d2260e5c507',
-            owner: payload.userId
-          }
-        },
-        context: {
-          hasUpload: true
-        }
-      })
-        .then(res => {
-          console.log(res)
+          category: '5db33a924dc61d2260e5c507',
+          owner: payload.userId
+        }).then(res => {
           this.$q.notify({
             color: 'positive',
             icon: 'eva-alert-triangle-outline',
             message: 'Los documentos se subieron con exito'
           })
         })
-        .catch(err => console.log(err))
       // this.$emit('ok')
       this.hide()
     },

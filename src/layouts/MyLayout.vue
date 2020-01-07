@@ -224,6 +224,7 @@ export default {
     subirDocumentos () {
       this.$q.dialog({
         component: SubirDocumentos,
+        parent: this,
         title: 'Carga de archivos X',
         unelevated: true,
         rounded: true,

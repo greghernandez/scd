@@ -1,7 +1,7 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
 import { documentsTartaro } from '../../services/graphql/queries'
-import { MOVE_DOCUMENT, DELETE_DOCUMENT } from '../../services/graphql/mutations'
+import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload } from '../../services/graphql/mutations'
 
 /**
  * DocumentosQuery
@@ -38,6 +38,31 @@ export function documentosQuery ({ commit }, payload) {
           message: 'Ocurrió un error, intentalo de nuevo'
         })
       })
+  })
+}
+
+export function subirDocumentos ({ commit }, payload) {
+  return new Promise(resolve => {
+    // Subir documento
+    apolloClient.mutate({
+      mutation: multipleUpload,
+      variables: {
+        files: payload.files,
+        input: {
+          category: payload.category,
+          owner: payload.owner
+        }
+      },
+      context: {
+        hasUpload: true
+      }
+    })
+      .then(res => {
+        console.log(res.data.multipleUpload)
+        commit('addDocuments', res.data.multipleUpload)
+        resolve(res)
+      })
+      .catch(err => console.log(err))
   })
 }
 

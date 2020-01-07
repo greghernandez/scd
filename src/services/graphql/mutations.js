@@ -84,6 +84,7 @@ export const multipleUpload = gql`
             mimetype
             size
             path
+            createdAt
         }
     }
 `
