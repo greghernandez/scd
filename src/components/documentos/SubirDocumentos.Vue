@@ -3,7 +3,8 @@
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
-          <div class="text-h6">{{ title }}</div>
+          <div class="text-h6">Subir Documentos a {{ title }}</div>
+          {{ this.$route.name }}
         </div>
       </q-card-section>
 
@@ -41,7 +42,8 @@ export default {
   name: 'AlertAvisos',
   data () {
     return {
-      alertAviso: false
+      alertAviso: false,
+      selectedCat: ''
     }
   },
   components: {
@@ -50,7 +52,8 @@ export default {
   props: {
     title: String,
     btn: String,
-    btnColor: String
+    btnColor: String,
+    category: String
   },
   methods: {
     ...mapActions({
@@ -82,8 +85,10 @@ export default {
       this.$store
         .dispatch('documentos/subirDocumentos', {
           files: files,
-          category: '5db33a924dc61d2260e5c507',
-          owner: payload.userId
+          category: this.category,
+          owner: payload.userId,
+          page: this.$route.name,
+          global: this.global
         }).then(res => {
           this.$q.notify({
             color: 'positive',

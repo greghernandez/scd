@@ -37,7 +37,7 @@ const routes = [
           { path: 'subcat/:idSub', name: 'subcategoria', component: () => import('pages/Categorias.vue') }
         ]
       },
-      { path: 'documentos-pendientes', component: () => import('pages/Doc-pendientes.vue') },
+      { path: 'documentos-pendientes', name: 'pendientes', component: () => import('pages/Doc-pendientes.vue') },
       { path: 'rubros', component: () => import('pages/Rubros.vue') },
       { path: 'avisos', component: () => import('pages/Avisos.vue') },
       { path: 'docentes', component: () => import('pages/Docentes.vue') },

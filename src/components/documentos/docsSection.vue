@@ -1,10 +1,11 @@
 <template>
   <div>
     selected {{ this.selected }}
+    idcat {{ this.SelectedCategory }}
     <div v-if="this.category !== ''">
       <div>
-        <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable clear-icon="eva-close-circle-outline" v-model="search"
-          placeholder="Buscar documento" type="search">
+        <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable
+          clear-icon="eva-close-circle-outline" v-model="search" placeholder="Buscar documento" type="search">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
@@ -37,6 +38,8 @@
         </div>
       </q-banner>
     </div>
+    <Floating-menu v-if="this.selected.length > 0"/>
+    <floating-upload v-if="this.SelectedCategory.length != 0 || this.category === '999'" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <div>
       <UploadingDialog :uploading="isLoading" />
     </div>
@@ -46,14 +49,18 @@
 <script>
 import DocLabel from 'components/documentos/documentoLabel'
 import { payload } from '../../services/user'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import UploadingDialog from './UploadingDialog'
+import FloatingMenu from './floating-buttons/Menu'
+import FloatingUpload from './floating-buttons/Upload'
 
 export default {
   name: 'documentsSection',
   components: {
     DocLabel,
-    UploadingDialog
+    UploadingDialog,
+    FloatingUpload,
+    FloatingMenu
   },
   data () {
     return {
@@ -65,6 +72,12 @@ export default {
     category: {
       type: String,
       required: true
+    },
+    catId: {
+      type: String
+    },
+    title: {
+      type: String
     }
   },
   watch: {
@@ -81,10 +94,13 @@ export default {
       const category = this.category
       this.$store
         .dispatch('documentos/documentosQuery', { userId, category })
+      this.$store.commit('documentos/setActualCategory', {
+        catId: this.catId,
+        title: this.title
+      })
     }
   },
   mounted () {
-    console.log(payload.userId)
     const userId = payload.userId
     const category = this.category
     this.$store
@@ -93,6 +109,9 @@ export default {
   methods: {
     ...mapActions({
       documentosQuery: 'documentos/actions'
+    }),
+    ...mapMutations({
+      notices: 'documentos/mutations'
     })
   },
   computed: {
@@ -110,6 +129,9 @@ export default {
     },
     selected () {
       return this.$store.state.documentos.selected
+    },
+    SelectedCategory () {
+      return this.$store.state.documentos.selectedCat
     }
   }
 }

@@ -23,6 +23,7 @@ export function deleteDocumento (state, id) {
 export function resetStore (state) {
   state.documentos = []
   state.selected = []
+  state.selectedCat = ''
 }
 
 export function check (state, checkBox) {
@@ -34,4 +35,8 @@ export function check (state, checkBox) {
     const index = state.selected.findIndex(e => e === checkBox.objId)
     state.selected.splice(index, 1)
   }
+}
+
+export function setActualCategory (state, catId) {
+  state.selectedCat = catId
 }

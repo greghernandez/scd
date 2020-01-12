@@ -225,7 +225,9 @@ export default {
       this.$q.dialog({
         component: SubirDocumentos,
         parent: this,
-        title: 'Carga de archivos X',
+        title: 'Documentos Pendinetes',
+        category: '5db33a924dc61d2260e5c507',
+        global: true,
         unelevated: true,
         rounded: true,
         btnColor: 'primary'
@@ -257,7 +259,6 @@ export default {
           this.name = res.data.user.name
           this.lastName = res.data.user.lastName
           this.adscription = res.data.user.adscription.name
-          console.log(res.data.user)
           this.linkPerfil += payload.clave
         })
       .catch(

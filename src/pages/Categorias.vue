@@ -29,7 +29,7 @@
               <carousel v-if="this.resultQuery.length != 0" :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in resultQuery" :key="index">
-                  <div @click="selectedCard(category.clave, category.value)">
+                  <div @click="selectedCard(category._id, category.clave, category.value, category.title)">
                     <CatCard :clave="category.clave" :title="category.title" :value="category.value || 0" />
                   </div>
                 </slide>
@@ -44,7 +44,7 @@
         </q-card-section>
       </q-card>
       <div class="q-pa-md">
-        <DocumentsSection :category="category" />
+        <DocumentsSection :category="category" :catId="catId" :title="catTitle"/>
       </div>
     </div>
   </q-page>
@@ -70,6 +70,8 @@ export default {
       search: null,
       categoryData: [],
       category: '',
+      catId: '',
+      catTitle: '',
       id: '',
       nextLabel: "<img src='/assets/arrow-forward.png' class='carousel-img' />",
       prevLabel: "<img src='/assets/arrow-back.png' class='carousel-img' />"
@@ -97,16 +99,19 @@ export default {
       })
         .then(res => {
           this.categoryData = res.data.category.children
+          console.log('Id categoria: ', res.data.category.children)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    selectedCard (clave, value) {
+    selectedCard (id, clave, value, title) {
       this.selected = !this.selected
-      console.log(this.selected)
+      console.log('Id', id)
       console.log('Clave seleccionada', clave)
       this.category = clave
+      this.catId = id
+      this.catTitle = title
       this.catQuery()
     }
   },

@@ -98,9 +98,11 @@ export const categoriesQueryRoot = gql`query CategoriesRoot($page: Int!, $perPag
 // Categoia (Documento)
 export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
   category(type: $type, uid: $uid){
+    _id
     clave
     title
     children{
+      _id
       clave
       value
       title
