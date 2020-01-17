@@ -9,12 +9,13 @@
 
       <q-card-section>
         <div class="row justify-center items-center content-center">
-          <div class="column">
+          <div class="col-7">
             <q-tree class="col-6 col-sm-12"
               :nodes="simple"
-              node-key="label"
+              node-key="_id"
               tick-strategy="leaf"
-              ref="tree"
+              default-expand-all
+              accordion
               :selected.sync="selected"
               :ticked.sync="ticked"
               :expanded.sync="expanded" />
@@ -22,10 +23,10 @@
 
           <q-separator vertical/>
 
-          <div class="column justify-center flex-center">
-            <div class="col-6 col-sm-12 q-gutter-y-md">
-              <q-btn rounded label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="seleccionados()"/><br>
-              <q-btn rounded label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps /><br>
+          <div class="row col flex-center">
+            <div class="q-gutter-y-md">
+              <q-btn rounded class="text-caption" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps/><br>
+              <q-btn rounded label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps @click="descargaZip()" /><br>
               <q-btn rounded label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
             </div>
           </div>
@@ -44,6 +45,7 @@
 import { apolloClient } from '../../boot/vue-apollo'
 import { treeQuery } from '../../services/graphql/queries'
 import { payload } from '../../services/user'
+import { joinInZip } from '../../services/downloads'
 
 export default {
   name: 'AlertAvisos',
@@ -60,12 +62,9 @@ export default {
     title: String
   },
   methods: {
-    seleccionados () {
-      const treeNodes = this.$refs.tree.getTickedNodes()
-      const ids = treeNodes.map(e => {
-        return e.id
-      })
-      console.log(ids)
+    descargaZip () {
+      joinInZip('scd', this.ticked)
+      console.log(this.ticked)
     },
     show () {
       this.$refs.dialog.show()
@@ -88,10 +87,11 @@ export default {
       this.hide()
     },
     getTree () {
+      console.log(payload.userId)
       apolloClient.query({
         query: treeQuery,
         variables: {
-          cat: '201',
+          cat: '5db33a684dc61d2260e5c505',
           user: payload.userId
         }
       })
