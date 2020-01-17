@@ -8,7 +8,7 @@
       </q-card-section>
 
         <q-card-section>
-            Este documento sera eliminado permanentemente y no podra recuperarse.
+          {{ description }}
         </q-card-section>
 
       <q-card-actions align="right">
@@ -34,8 +34,16 @@ export default {
       type: String,
       required: true
     },
-    docId: {
+    description: {
       type: String,
+      required: true
+    },
+    docId: {
+      type: [String, Array],
+      required: true
+    },
+    multiple: {
+      type: Boolean,
       required: true
     }
   },
@@ -56,8 +64,39 @@ export default {
     },
     onOKClick () {
       const id = this.docId
-      this.$store.dispatch('documentos/eliminarDocumento', id)
-      console.log('Ok')
+      if (!this.multiple) {
+        this.$store.dispatch('documentos/eliminarDocumento', id)
+          .then(res => {
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se eliminó correctamente el documento seleccionado'
+            })
+          }).catch(err => {
+            console.log(err)
+            this.$q.notify({
+              color: 'negative',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrió un error, intentalo de nuevo'
+            })
+          })
+      } else {
+        this.$store.dispatch('documentos/eliminarDocumentos', id)
+          .then(res => {
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se eliminarón correctamente ' + res.data.deleteDocuments.deletedCount + ' documentos'
+            })
+          }).catch(err => {
+            console.log(err)
+            this.$q.notify({
+              color: 'negative',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrió un error, intentalo de nuevo'
+            })
+          })
+      }
       this.$emit('ok')
       this.hide()
     },

@@ -1,7 +1,7 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
 import { documentsTartaro } from '../../services/graphql/queries'
-import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload } from '../../services/graphql/mutations'
+import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS } from '../../services/graphql/mutations'
 
 /**
  * DocumentosQuery
@@ -109,7 +109,7 @@ export function moverDocumento ({ commit }, payload) {
 }
 
 export function eliminarDocumento ({ commit }, id) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     console.log('ID a eliminar', id)
     apolloClient.mutate({
       mutation: DELETE_DOCUMENT,
@@ -121,20 +121,31 @@ export function eliminarDocumento ({ commit }, id) {
         console.log('Respuesta:', res)
         const idDoc = id
         commit('deleteDocumento', idDoc)
-        Notify.create({
-          color: 'positive',
-          icon: 'eva-checkmark-circle-outline',
-          message: 'Se eliminó correctamente el documento seleccionado'
-        })
         resolve(res)
       })
       .catch(err => {
-        Notify.create({
-          color: 'negative',
-          icon: 'eva-alert-triangle-outline',
-          message: 'Ocurrió un error, intentalo de nuevo'
-        })
+        reject(err)
+      })
+  })
+}
+
+export function eliminarDocumentos ({ commit }, ids) {
+  return new Promise((resolve, reject) => {
+    apolloClient.mutate({
+      mutation: DELETE_DOCUMENTS,
+      variables: {
+        ids: ids
+      }
+    })
+      .then(res => {
+        console.log('Respuesta:', res)
+        const idDoc = ids
+        commit('deleteDocumentos', idDoc)
+        resolve(res)
+      })
+      .catch(err => {
         console.log(err)
+        reject(err)
       })
   })
 }

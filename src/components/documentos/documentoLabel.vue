@@ -110,8 +110,10 @@ export default {
       this.$q.dialog({
         component: ModalEliminar,
         parent: this,
-        title: 'Eliminar documento',
-        docId: this.objId
+        title: '¿Está seguro de eliminar este documento?',
+        description: 'Este documento sera eliminado permanentemente y no podra recuperarse.',
+        docId: this.objId,
+        multiple: false
       })
     }
   }

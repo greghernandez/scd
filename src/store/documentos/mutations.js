@@ -20,6 +20,14 @@ export function deleteDocumento (state, id) {
   state.selected.splice(indexSeleted, 1)
 }
 
+export function deleteDocumentos (state, ids) {
+  ids.filter(item => {
+    const index = state.documentos.findIndex(e => e._id === item)
+    state.documentos.splice(index, 1)
+    state.selected = []
+  })
+}
+
 export function resetStore (state) {
   state.documentos = []
   state.selected = []
