@@ -62,9 +62,10 @@ export function subirDocumentos ({ commit }, payload) {
       .then(res => {
         console.log(res.data.multipleUpload)
         console.log('page', payload.page)
-        if (payload.global === true) {
-          console.log('entro')
-        } else {
+        console.log('global', payload.global)
+        if (payload.global !== true) {
+          commit('addDocuments', res.data.multipleUpload)
+        } else if (payload.global === true && payload.page === 'pendientes') {
           commit('addDocuments', res.data.multipleUpload)
         }
         commit('isUploading')

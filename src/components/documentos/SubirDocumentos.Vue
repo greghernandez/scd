@@ -53,7 +53,8 @@ export default {
     title: String,
     btn: String,
     btnColor: String,
-    category: String
+    category: String,
+    global: Boolean
   },
   methods: {
     ...mapActions({
