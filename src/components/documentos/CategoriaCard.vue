@@ -2,7 +2,7 @@
   <div class="column">
     <!-- si tiene un valor RIPAUAQ se renderiza una tarjeta con los puntos -->
     <div v-if="value != 0">
-      <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card">
+      <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card cursor-pointer">
         <q-card-section class="row justify-center items-center content-center">
           <div class="row justify-center flex-center">
             <div class="col-3 full-with">
