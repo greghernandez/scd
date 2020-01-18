@@ -12,6 +12,7 @@
 <script>
 import { mapActions } from 'vuex'
 import ModalEliminar from 'components/documentos/modalEliminar'
+import ModalMover from 'components/documentos/modalMover'
 
 export default {
   name: 'FloatingMenu',
@@ -20,6 +21,13 @@ export default {
       documentos: 'documentos/actions'
     }),
     mover () {
+      this.$q.dialog({
+        component: ModalMover,
+        parent: this,
+        isMultiple: true,
+        title: 'Mover documentos',
+        oids: this.$store.state.documentos.selected
+      })
     },
     eliminar () {
       this.$q.dialog({

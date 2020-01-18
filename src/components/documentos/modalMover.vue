@@ -90,8 +90,14 @@ export default {
       required: true
     },
     objId: {
-      type: String,
-      required: true
+      type: String
+    },
+    oids: {
+      type: Array
+    },
+    isMultiple: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -111,10 +117,47 @@ export default {
     },
     onOKClick () {
       // MoveDocument action
-      this.$store.dispatch('documentos/moverDocumento', {
-        doc: this.objId,
-        cat: this.newCat
-      })
+      if (!this.isMultiple) {
+        this.$store.dispatch('documentos/moverDocumento', {
+          doc: this.objId,
+          cat: this.newCat
+        })
+          .then(res => {
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se movió correctamente el documento seleccionado'
+            })
+          })
+          .catch(err => {
+            this.$q.create({
+              color: 'negative',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrió un error, intentalo de nuevo'
+            })
+            console.log(err)
+          })
+      } else {
+        this.$store.dispatch('documentos/moverDocumentos', {
+          oids: this.oids,
+          cat: this.newCat
+        })
+          .then(res => {
+            this.$q.notify({
+              color: 'positive',
+              icon: 'eva-checkmark-circle-outline',
+              message: 'Se movierón correctamente los documentos seleccionados'
+            })
+          })
+          .catch(err => {
+            this.$q.create({
+              color: 'negative',
+              icon: 'eva-alert-triangle-outline',
+              message: 'Ocurrió un error, intentalo de nuevo'
+            })
+            console.log(err)
+          })
+      }
       console.log('Ok')
       this.$emit('ok')
       this.hide()

@@ -1,7 +1,7 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
 import { documentsTartaro } from '../../services/graphql/queries'
-import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS } from '../../services/graphql/mutations'
+import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_DOCUMENTS } from '../../services/graphql/mutations'
 
 /**
  * DocumentosQuery
@@ -76,7 +76,7 @@ export function subirDocumentos ({ commit }, payload) {
 }
 
 export function moverDocumento ({ commit }, payload) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     console.log('PAYLOAD:', payload)
     // Mover Documento
     apolloClient.mutate({
@@ -90,20 +90,33 @@ export function moverDocumento ({ commit }, payload) {
         console.log('Respuesta:', res)
         const id = payload.doc
         commit('deleteDocumento', id)
-        Notify.create({
-          color: 'positive',
-          icon: 'eva-checkmark-circle-outline',
-          message: 'Se movió correctamente el documento seleccionado'
-        })
         resolve(res)
       })
       .catch(err => {
-        Notify.create({
-          color: 'negative',
-          icon: 'eva-alert-triangle-outline',
-          message: 'Ocurrió un error, intentalo de nuevo'
-        })
-        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export function moverDocumentos ({ commit }, payload) {
+  return new Promise((resolve, reject) => {
+    console.log('PAYLOAD:', payload)
+    // Mover Documento
+    apolloClient.mutate({
+      mutation: MOVE_DOCUMENTS,
+      variables: {
+        oids: payload.oids,
+        cat: payload.cat
+      }
+    })
+      .then(res => {
+        console.log('Respuesta:', res)
+        const ids = payload.oids
+        commit('deleteDocumentos', ids)
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
       })
   })
 }
