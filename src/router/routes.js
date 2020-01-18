@@ -1,28 +1,13 @@
-const isAuth = localStorage.getItem('scd-at') || false
-
 const routes = [
   {
     path: '/login',
-    component: () => import('pages/login.vue'),
-    beforeEnter: (to, from, next) => {
-      if (isAuth) {
-        next('/')
-      } else {
-        next()
-      }
-    }
+    component: () => import('pages/login.vue')
   },
   {
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
-    beforeEnter: (to, from, next) => {
-      if (!isAuth) {
-        next({
-          path: '/login'
-        })
-      } else {
-        next()
-      }
+    meta: {
+      requiresAuth: true
     },
     children: [
       { path: '', component: () => import('pages/Index.vue') },
