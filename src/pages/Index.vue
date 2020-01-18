@@ -1,9 +1,5 @@
 <template>
   <q-page class="">
-    <!--Sección de bienvenida-->
-    <div>
-      <h5 class="q-mt-md q-mb-md">Hola Nombre docente!</h5>
-    </div>
     <!--Sección cartas informativas-->
     <div class="row">
       <div class="row col-12">
