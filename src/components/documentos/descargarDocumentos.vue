@@ -59,7 +59,15 @@ export default {
     }
   },
   props: {
-    title: String
+    title: String,
+    catId: {
+      type: String,
+      default: '5db33a684dc61d2260e5c505'
+    },
+    preTicket: {
+      type: Array,
+      default: null
+    }
   },
   methods: {
     descargaZip () {
@@ -91,7 +99,7 @@ export default {
       apolloClient.query({
         query: treeQuery,
         variables: {
-          cat: '5db33a684dc61d2260e5c505',
+          cat: this.catId,
           user: payload.userId
         }
       })
@@ -106,6 +114,9 @@ export default {
   },
   mounted () {
     this.getTree()
+    if (this.preTicket != null) {
+      this.ticked = this.preTicket
+    }
   }
 }
 </script>

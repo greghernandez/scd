@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab class="text-primary" icon="eva-cloud-upload-outline" @click="subirDocumentos()"/>
+      <q-btn fab class="text-white" color="primary" icon="eva-cloud-upload-outline" @click="subirDocumentos()"/>
     </q-page-sticky>
   </div>
 </template>

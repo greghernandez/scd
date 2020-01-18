@@ -38,7 +38,8 @@
         </div>
       </q-banner>
     </div>
-    <Floating-menu v-if="this.selected.length > 0"/>
+    <floating-menu v-if="this.selected.length > 0"/>
+    <floating-download v-if="this.SelectedCategory.length != 0" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <floating-upload v-if="this.SelectedCategory.length != 0 || this.category === '999'" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <div>
       <UploadingDialog :uploading="isLoading" />
@@ -53,6 +54,7 @@ import { mapActions, mapMutations } from 'vuex'
 import UploadingDialog from './UploadingDialog'
 import FloatingMenu from './floating-buttons/Menu'
 import FloatingUpload from './floating-buttons/Upload'
+import FloatingDownload from './floating-buttons/download'
 
 export default {
   name: 'documentsSection',
@@ -60,6 +62,7 @@ export default {
     DocLabel,
     UploadingDialog,
     FloatingUpload,
+    FloatingDownload,
     FloatingMenu
   },
   data () {
