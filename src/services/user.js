@@ -16,7 +16,6 @@ export function isTokenValid () {
     // token is null
     return false
   } else {
-    console.log('Token no nulo')
     let ts = Math.floor(Date.now() / 1000)
     // verifying if token expired
     if (ts >= payload.exp) {
