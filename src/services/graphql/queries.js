@@ -110,7 +110,6 @@ export const categoryQuery = gql`query Categories($type: Int!, $uid: ID!){
       clave
       value
       title
-      
     }
   }
 }
