@@ -85,18 +85,22 @@ export default {
   },
   watch: {
     category: function (newVal, oldVal) {
+      console.log('render')
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       var newElement = document.getElementById(newVal)
       newElement.classList.add('selected-card')
       var oldElement = document.getElementById(oldVal)
       if (oldVal) {
-        console.log('----', oldVal)
         oldElement.classList.remove('selected-card')
       }
       const userId = payload.userId
       const category = this.category
+      console.log('category', this.category)
       this.$store
         .dispatch('documentos/documentosQuery', { userId, category })
+        .then(res => {
+          console.log(res)
+        })
       this.$store.commit('documentos/setActualCategory', {
         catId: this.catId,
         title: this.title

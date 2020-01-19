@@ -11,7 +11,6 @@ import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_
 export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
     console.log('----- Query documentos ----')
-    console.log('Categoria de documentos', payload.category)
     commit('resetStore')
     apolloClient.query({
       query: documentsTartaro,
@@ -25,9 +24,8 @@ export function documentosQuery ({ commit }, payload) {
       }
     })
       .then(res => {
-        console.log(res.data)
         const documentos = res.data.documents
-        console.log('Documentos', documentos)
+        console.log('Documentos - QRY', documentos)
         commit('setDocumentos', documentos)
         resolve(res)
       })

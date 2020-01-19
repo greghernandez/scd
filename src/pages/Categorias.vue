@@ -99,7 +99,6 @@ export default {
       })
         .then(res => {
           this.categoryData = res.data.category.children
-          console.log('Id categoria: ', res.data.category.children)
         })
         .catch(err => {
           console.log(err)
