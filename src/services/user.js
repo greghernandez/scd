@@ -1,7 +1,7 @@
-//
+// Assign token value
 let token = localStorage.getItem('scd-at') || null
 
-//
+// Dividing token
 if (token !== null) {
   token = JSON.parse(atob(token.split('.')[1]))
 } else {
@@ -11,18 +11,18 @@ if (token !== null) {
 export const payload = token
 
 export function isTokenValid () {
+  // verifying if token is null
   if (token === null) {
-    console.log('Token Nulo')
+    // token is null
     return false
   } else {
     console.log('Token no nulo')
     let ts = Math.floor(Date.now() / 1000)
-    console.log(ts)
+    // verifying if token expired
     if (ts >= payload.exp) {
-      console.log('Token expiro')
       return false
     } else {
-      console.log('Token vigente')
+      // the token is valid
       return true
     }
   }
