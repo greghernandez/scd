@@ -45,7 +45,7 @@
             <div>
               <q-img class="logo-cd" src="assets/logo-cd.png" />
             </div>
-            Centro de desarrollo 2019
+            Centro de desarrollo {{ year }}
           </q-card-section>
         </q-card>
 
@@ -71,8 +71,12 @@ export default {
       recordarme: false,
       loginData: undefined,
       error: false,
-      errMsg: undefined
+      errMsg: undefined,
+      year: undefined
     }
+  },
+  mounted () {
+    this.year = new Date().getFullYear()
   },
   methods: {
     login () {
