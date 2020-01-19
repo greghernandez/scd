@@ -24,3 +24,6 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+
+### Used dependencies
+Vue-Caroussel: https://ssense.github.io/vue-carousel/
