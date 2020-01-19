@@ -17,7 +17,11 @@ export const userQueryToolbar = gql`query User($id: ID!){
       lastName
       adscription{
         name
-      }  
+      }
+      permissions{
+        _id
+        rank
+      }
     }
   }
 `

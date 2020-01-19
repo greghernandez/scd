@@ -113,7 +113,7 @@
               </q-item-section>
             </q-item>-->
 
-            <q-item to="/avisos" clickable v-ripple exact>
+            <q-item v-if="admin" to="/avisos" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-alert-triangle-outline" />
               </q-item-section>
@@ -123,7 +123,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/docentes" clickable v-ripple exact>
+            <q-item v-if="admin" to="/docentes" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-people-outline" />
               </q-item-section>
@@ -133,7 +133,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/administradores" clickable v-ripple exact>
+            <q-item v-if="superAdmin" to="/administradores" clickable v-ripple exact>
               <q-item-section avatar>
                 <q-icon name="eva-shield-outline" />
               </q-item-section>
@@ -177,12 +177,12 @@
 
 <script>
 import { openURL } from 'quasar'
-// import Modal from 'components/Dialog'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
 import { userQueryToolbar } from '../services/graphql/queries'
 import { apolloClient } from '../boot/vue-apollo'
 import { payload } from '../services/user'
+import { permissions } from '../../enviroment.dev'
 
 export default {
   name: 'MyLayout',
@@ -197,7 +197,10 @@ export default {
       userData: undefined,
       name: undefined,
       lastName: undefined,
-      adscription: undefined
+      adscription: undefined,
+      userPermissions: null,
+      admin: false,
+      superAdmin: false
     }
   },
   methods: {
@@ -260,6 +263,16 @@ export default {
           this.lastName = res.data.user.lastName
           this.adscription = res.data.user.adscription.name
           this.linkPerfil += payload.clave
+          this.userPermissions = res.data.user.permissions
+          this.userPermissions = this.userPermissions.filter(e => {
+            for (let index = 0; index < this.userPermissions.length; index++) {
+              if (permissions.admin === e.rank) {
+                this.admin = true
+              } else if (permissions.superAdmin === e.rank) {
+                this.superAdmin = true
+              }
+            }
+          })
         })
       .catch(
         err => {
