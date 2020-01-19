@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="column text-center padding-card-sm">
-              <div class="col-6 text-weight-bolder">1</div>
+              <div class="col-6 text-weight-bolder">{{ catPoints }}</div>
               <div class="col-6 txt-card-points text-weight-medium">Puntos <br> obtenidos</div>
             </div>
           </div>
@@ -60,31 +60,55 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { payload } from '../../services/user'
+
 export default {
   name: 'CatCard',
   data () {
     return {
-      selected: false
+      selected: false, // state of category card
+      catPoints: 0 // points in category
     }
   },
   props: {
+    // Category key
     clave: {
       type: String,
       required: true
     },
+    // Category title
     title: {
       type: String,
       required: true
     },
+    // Value of documents of a category
     value: {
       type: Number,
       required: true
     }
   },
   methods: {
+    ...mapActions({
+      documentosQuery: 'documentos/actions'
+    }),
     seleccionada (clave) {
       this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
     }
+  },
+  mounted () {
+    this.$store
+      .dispatch('documentos/documentosQty', {
+        userId: payload.userId,
+        category: this.clave
+      })
+      .then(res => {
+        this.numDocumentos = res.data.documentsQuantity
+        this.catPoints = this.numDocumentos * this.value
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
