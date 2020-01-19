@@ -26,7 +26,7 @@
               </q-breadcrumbs>
             </div>
             <div class="q-pa-md">
-              <carousel v-if="this.resultQuery.length != 0" :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
+              <carousel v-if="this.resultQuery.length != 0" :perPageCustom="[[480, 1], [768, 2]]" :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in resultQuery" :key="index">
                   <div @click="selectedCard(category._id, category.clave, category.value, category.title)">
