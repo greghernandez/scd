@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
-import { docentesQueryAdmin } from '../../services/graphql/queries'
+import { docentesQueryAdmin, userQueryToolbar } from '../../services/graphql/queries'
 import { DELETE_USER } from '../../services/graphql/mutations'
 
 /**
@@ -21,6 +21,23 @@ export function docentesQuery ({ commit }) {
         console.log('DOCENTES:', res.data.users)
         commit('setDocentes', docentesData)
         resolve(res)
+      })
+  })
+}
+
+export function userData ({ commit }, userId) {
+  return new Promise((resolve, reject) => {
+    apolloClient.query({
+      query: userQueryToolbar,
+      variables: {
+        id: userId
+      }
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
       })
   })
 }

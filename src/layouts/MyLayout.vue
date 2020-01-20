@@ -179,8 +179,7 @@
 import { openURL } from 'quasar'
 import SubirDocumentos from 'components/documentos/subirDocumentos'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
-import { userQueryToolbar } from '../services/graphql/queries'
-import { apolloClient } from '../boot/vue-apollo'
+import { mapActions } from 'vuex'
 import { payload } from '../services/user'
 import { permissions } from '../../enviroment.dev'
 
@@ -193,7 +192,7 @@ export default {
     return {
       drawer: false,
       miniState: false,
-      linkPerfil: 'www.google.com/',
+      linkPerfil: location.host + '/docente/',
       userData: undefined,
       name: undefined,
       lastName: undefined,
@@ -204,6 +203,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      documentosQuery: 'docentes/actions'
+    }),
     openURL,
     drawerClick (e) {
       // if in "mini" state and user
@@ -250,35 +252,28 @@ export default {
     }
   },
   mounted () {
-    // Graphql query
-    apolloClient.query({
-      query: userQueryToolbar,
-      variables: {
-        id: payload.userId
-      }
-    })
-      .then(
-        res => {
-          this.name = res.data.user.name
-          this.lastName = res.data.user.lastName
-          this.adscription = res.data.user.adscription.name
-          this.linkPerfil += payload.clave
-          this.userPermissions = res.data.user.permissions
-          this.userPermissions = this.userPermissions.filter(e => {
-            for (let index = 0; index < this.userPermissions.length; index++) {
-              if (permissions.admin === e.rank) {
-                this.admin = true
-              } else if (permissions.superAdmin === e.rank) {
-                this.superAdmin = true
-              }
+    // Get user info
+    this.$store
+      .dispatch('docentes/userData', payload.userId)
+      .then(res => {
+        this.name = res.data.user.name
+        this.lastName = res.data.user.lastName
+        this.adscription = res.data.user.adscription.name
+        this.linkPerfil += payload.userId
+        this.userPermissions = res.data.user.permissions
+        this.userPermissions = this.userPermissions.filter(e => {
+          for (let index = 0; index < this.userPermissions.length; index++) {
+            if (permissions.admin === e.rank) {
+              this.admin = true
+            } else if (permissions.superAdmin === e.rank) {
+              this.superAdmin = true
             }
-          })
+          }
         })
-      .catch(
-        err => {
-          alert(err.message)
-        }
-      )
+      })
+      .catch(err => {
+        console.log('Error', err)
+      })
   }
 }
 </script>
