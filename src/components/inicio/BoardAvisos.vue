@@ -42,7 +42,7 @@ export default {
           query: noticesQuery,
           variables: {
             page: 0,
-            perPage: 3,
+            perPage: 0,
             status: 1
           }
         })
