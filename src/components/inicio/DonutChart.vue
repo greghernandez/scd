@@ -6,7 +6,7 @@ export default {
   props: ['data', 'options'],
   mounted () {
     this.renderChart({
-      labels: ['Estudios especiales', 'DOS', 'TRES', 'CUATRO'],
+      labels: ['100', '200', '300', '400'],
       datasets: [
         {
           label: 'GitHub Commits',
