@@ -11,7 +11,8 @@ import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_
 export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
     console.log('----- Query documentos ----')
-    commit('resetStore')
+    // commit('resetStore')
+    apolloClient.cache.reset()
     apolloClient.query({
       query: documentsTartaro,
       variables: {
@@ -21,7 +22,8 @@ export function documentosQuery ({ commit }, payload) {
           perPage: 0,
           category: payload.category
         }
-      }
+      },
+      refetch: true
     })
       .then(res => {
         const documentos = res.data.documents
