@@ -111,12 +111,6 @@ export default {
       this.category = clave
       this.catId = id
       this.catTitle = title
-      console.log('x', this.catId)
-      this.$store
-        .dispatch('documentos/documentosQuery', {
-          userId: '5dc9dc01c5cfbf0d17ae79fe',
-          category: clave
-        })
       this.catQuery()
     }
   },
