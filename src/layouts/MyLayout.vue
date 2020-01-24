@@ -32,7 +32,7 @@
               </q-popup-proxy>
             </q-btn>
             <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat :label="name"
-              icon="img:https://picsum.photos/200" rounded no-caps>
+              :icon="'img:'+ photoUrl" rounded no-caps>
               <q-list link>
                 <q-item clickable to="/mi-perfil">
                   <q-item-section>Mi Perfil</q-item-section>
@@ -55,7 +55,7 @@
             <q-item v-if="!miniState">
               <q-item-section class="items-center">
                 <q-avatar class="avatar-img">
-                  <img src="https://picsum.photos/200">
+                  <img :src="photoUrl">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
                   <p class="q-my-none text-subtitle2">
@@ -196,6 +196,7 @@ export default {
       userData: undefined,
       name: undefined,
       lastName: undefined,
+      photoUrl: undefined,
       adscription: undefined,
       userPermissions: null,
       admin: false,
@@ -262,6 +263,7 @@ export default {
         this.name = res.data.user.name
         this.lastName = res.data.user.lastName
         this.adscription = res.data.user.adscription.name
+        this.photoUrl = res.data.user.photoURL
         this.linkPerfil += payload.userId
         this.userPermissions = res.data.user.permissions
         this.userPermissions = this.userPermissions.filter(e => {

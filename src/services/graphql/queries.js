@@ -15,6 +15,7 @@ export const userQueryToolbar = gql`query User($id: ID!){
   user(id: $id){
       name
       lastName
+      photoURL
       adscription{
         name
       }
