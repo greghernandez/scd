@@ -72,7 +72,7 @@ import { apolloClient } from '../../boot/vue-apollo'
 import { categoriesQueryTreeMover } from '../../services/graphql/queries'
 import { categoryType } from '../../../enviroment.dev'
 import { mapActions } from 'vuex'
-// import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
+import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -127,7 +127,8 @@ export default {
         if (!this.isMultiple) {
           this.$store.dispatch('documentos/moverDocumento', {
             doc: this.objId,
-            cat: this.newCat
+            cat: this.newCat,
+            user: payload.userId
           })
             .then(res => {
               this.$q.notify({

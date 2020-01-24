@@ -30,7 +30,7 @@
                 paginationActiveColor="#4A4FF1">
                 <slide v-for="(category, index) in resultQuery" :key="index">
                   <div @click="selectedCard(category._id, category.clave, category.value, category.title)">
-                    <CatCard :clave="category.clave" :title="category.title" :value="category.value || 0" />
+                    <CatCard :catId="category._id" :clave="category.clave" :title="category.title" :value="category.value || 0"/>
                   </div>
                 </slide>
               </carousel>
@@ -73,11 +73,13 @@ export default {
       catId: '',
       catTitle: '',
       id: '',
+      categories: [],
       nextLabel: "<img src='/assets/arrow-forward.png' class='carousel-img' />",
       prevLabel: "<img src='/assets/arrow-back.png' class='carousel-img' />"
     }
   },
   mounted () {
+    this.$store.commit('documentos/resetCatPoints')
     this.catQuery()
   },
   props: {
@@ -85,11 +87,13 @@ export default {
   },
   methods: {
     catQuery () {
+      console.log('- CatQuery -')
       if (this.$route.params.idSub) {
         this.id = this.$route.params.idSub
       } else {
         this.id = this.$route.params.id
       }
+      apolloClient.cache.reset()
       apolloClient.query({
         query: categoryQuery,
         variables: {
@@ -99,6 +103,18 @@ export default {
       })
         .then(res => {
           this.categoryData = res.data.category.children
+          console.log('CATDATA', this.categoryData)
+          for (let index = 0; index < this.categoryData.length; index++) {
+            console.log(this.categoryData.length)
+            const element = this.categoryData[index]
+            if (element.value !== null) {
+              console.log('Element', element._id)
+              this.categories.push(element._id)
+            }
+          }
+          console.log('RES-', this.categories)
+          this.$store.commit('documentos/addCategories', this.categories)
+          this.categories = {}
         })
         .catch(err => {
           console.log(err)
@@ -106,8 +122,8 @@ export default {
     },
     selectedCard (id, clave, value, title) {
       this.selected = !this.selected
-      console.log('Id', id)
-      console.log('Clave seleccionada', clave)
+      // console.log('Id', id)
+      // console.log('Clave seleccionada', clave)
       this.category = clave
       this.catId = id
       this.catTitle = title

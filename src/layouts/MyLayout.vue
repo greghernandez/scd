@@ -64,7 +64,7 @@
                     <span class="text-caption">{{ adscription }}</span>
                   </p>
                   <q-chip color="secondary" dense text-color="white" class="q-py-xs">
-                    50 P
+                    {{ this.totalPoints }} P
                   </q-chip>
                 </div>
               </q-item-section>
@@ -181,7 +181,7 @@ import SubirDocumentos from 'components/documentos/subirDocumentos'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
 import { mapActions } from 'vuex'
 import { payload } from '../services/user'
-import { permissions } from '../../enviroment.dev'
+import { permissions, rubros } from '../../enviroment.dev'
 
 export default {
   name: 'MyLayout',
@@ -204,7 +204,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      documentosQuery: 'docentes/actions'
+      docentesQuery: 'docentes/actions'
+    }),
+    ...mapActions({
+      documentosQuery: 'documentos/actions'
     }),
     openURL,
     drawerClick (e) {
@@ -274,6 +277,20 @@ export default {
       .catch(err => {
         console.log('Error', err)
       })
+    this.$store
+      .dispatch('documentos/inspectCategory', {
+        user: payload.userId,
+        category: rubros.todos
+      })
+      .then(res => {
+        console.log('Puntos totales: ', res.data.inspectCategory.totalValue)
+        this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
+      })
+  },
+  computed: {
+    totalPoints () {
+      return this.$store.state.documentos.totalPoints
+    }
   }
 }
 </script>

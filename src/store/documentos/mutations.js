@@ -12,7 +12,20 @@ export function addDocuments (state, documentos) {
     state.documentos.push(item)
   })
 }
-
+export function setTotalPoints (state, points) {
+  state.totalPoints = points
+}
+export function addCategories (state, categories) {
+  state.categorias = categories
+}
+export function addPoints (state, payload) {
+  console.log('addPOINTS', payload)
+  state.cardPoints.push(payload)
+  console.log('Point', state.cardPoints)
+}
+export function resetCatPoints (state) {
+  state.cardPoints = []
+}
 export function deleteDocumento (state, id) {
   const index = state.documentos.findIndex(e => e._id === id)
   state.documentos.splice(index, 1)
@@ -32,10 +45,10 @@ export function resetStore (state) {
   state.documentos = []
   state.selected = []
   state.selectedCat = ''
+  // state.cardPoints = []
 }
 
 export function check (state, checkBox) {
-  console.log(checkBox)
   if (checkBox.val) {
     state.selected.push(checkBox.objId)
   } else {

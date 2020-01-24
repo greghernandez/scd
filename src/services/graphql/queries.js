@@ -135,6 +135,7 @@ export const documentsTartaro = gql`query documentsInTartaro($search: SearchDocu
   }
 }
 `
+// get download tree data
 export const treeQuery = gql`query GetTree($cat: ID!, $user: ID!) {
     getTree(cat: $cat, user: $user) {
         _id
@@ -167,6 +168,18 @@ export const DOCUMENTS_QUANTITY = gql`query DocuemntsQuantity($userId: ID!, $cat
   documentsQuantity(user: $userId, category: $category)
 }
 `
+// get the amount of all user documents and their value
+export const INSPECT_CATEGORY = gql`query inspectCategory($user: ID!, $category: ID!){
+  inspectCategory(user: $user, category: $category) {
+    _id
+    clave
+    title
+    totalDocs
+    totalValue
+  }
+}
+`
+// get data from mover tree
 export const categoriesQueryTreeMover = gql`query CategoriesTreeMover($page: Int!, $perPage: Int!, $type: Int!){
   categories(page: $page, perPage: $perPage, type: $type){
     _id

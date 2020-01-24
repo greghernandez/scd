@@ -71,8 +71,7 @@ export default {
   },
   methods: {
     descargaZip () {
-      joinInZip('scd', this.ticked)
-      console.log(this.ticked)
+      joinInZip('scd.zip', this.ticked)
     },
     show () {
       this.$refs.dialog.show()

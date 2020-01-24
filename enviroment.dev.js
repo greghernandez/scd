@@ -8,10 +8,11 @@ export const address = 'https://safe-citadel-72492.herokuapp.com'
 
 // ID de los rubros
 export const rubros = {
-  100: '5db312f0f2339a28b809e783',
-  200: '5db3131af2339a28b809e785',
-  300: '5db31346f2339a28b809e787',
-  400: '5db3136af2339a28b809e789'
+  todos: '5db33a684dc61d2260e5c505',
+  uno: '5db312f0f2339a28b809e783',
+  dos: '5db3131af2339a28b809e785',
+  tres: '5db31346f2339a28b809e787',
+  cuatro: '5db3136af2339a28b809e789'
 }
 
 // Permisos existentes para los usuarios

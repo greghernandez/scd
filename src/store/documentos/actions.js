@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
-import { documentsTartaro, DOCUMENTS_QUANTITY } from '../../services/graphql/queries'
+import { documentsTartaro, DOCUMENTS_QUANTITY, INSPECT_CATEGORY } from '../../services/graphql/queries'
 import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_DOCUMENTS } from '../../services/graphql/mutations'
 
 /**
@@ -11,7 +11,7 @@ import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_
 export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
     console.log('----- Query documentos ----')
-    // commit('resetStore')
+    commit('resetStore')
     apolloClient.cache.reset()
     apolloClient.query({
       query: documentsTartaro,
@@ -38,6 +38,26 @@ export function documentosQuery ({ commit }, payload) {
           icon: 'eva-alert-triangle-outline',
           message: 'Ocurrió un error, intentalo de nuevo'
         })
+      })
+  })
+}
+
+export function inspectCategory ({ commit }, payload) {
+  return new Promise((resolve, reject) => {
+    commit('resetStore')
+    apolloClient.query({
+      query: INSPECT_CATEGORY,
+      variables: {
+        user: payload.user,
+        category: payload.category
+      }
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
       })
   })
 }
@@ -93,7 +113,7 @@ export function subirDocumentos ({ commit }, payload) {
   })
 }
 
-export function moverDocumento ({ commit }, payload) {
+export function moverDocumento ({ commit, dispatch }, payload) {
   return new Promise((resolve, reject) => {
     console.log('PAYLOAD:', payload)
     // Mover Documento

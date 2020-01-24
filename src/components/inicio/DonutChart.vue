@@ -3,23 +3,16 @@ import { Doughnut } from 'vue-chartjs'
 
 export default {
   extends: Doughnut,
-  props: ['data', 'options'],
+  props: {
+    chartdata: {
+      type: Object
+    },
+    options: {
+      type: Object
+    }
+  },
   mounted () {
-    this.renderChart({
-      labels: ['100', '200', '300', '400'],
-      datasets: [
-        {
-          label: 'GitHub Commits',
-          backgroundColor: [
-            '#4A4FF1',
-            '#9C27B0',
-            '#4ac0c0',
-            '#ffcc56'
-          ],
-          data: [40, 20, 12, 39]
-        }
-      ]
-    })
+    this.renderChart(this.chartdata)
   }
 }
 </script>

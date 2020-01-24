@@ -11,6 +11,7 @@ export const getFile = async (id, mode) => {
         mode: mode
       },
       responseType: 'blob',
+      observe: 'response',
       headers: { 'content-type': 'application/json' }
     })
     // axios.post(address + '/downloads/getFile', {
@@ -39,10 +40,12 @@ export const getFile = async (id, mode) => {
 
 export const joinInZip = async (fileName, fileList) => {
   try {
+    console.log('ZIPDATA', fileName, fileList)
+    console.log(fileName)
     axios.post(address + '/downloads/joinInZip', {
       files: {
         file_name: fileName,
-        file_list: fileList
+        files_list: fileList
       }
     }, {
       responseType: 'blob',
@@ -85,6 +88,7 @@ function getFileNameFromHttpResponse (httpResponse) {
   console.log(httpResponse)
   const contentDispositionHeader = httpResponse.headers['content-disposition']
   const result = contentDispositionHeader.split(';')[1].trim().split('=')[1]
+  console.log(contentDispositionHeader)
   return result.replace(/"/g, '')
 }
 

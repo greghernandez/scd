@@ -2,5 +2,8 @@ export default {
   documentos: [],
   isLoading: false,
   selected: [],
-  selectedCat: ''
+  selectedCat: '',
+  totalPoints: '',
+  cardPoints: [0],
+  categorias: []
 }
