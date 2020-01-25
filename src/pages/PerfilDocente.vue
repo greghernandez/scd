@@ -37,8 +37,8 @@
             </q-chip>
           </div>
         </div>
-        <div class="col-md-2 col-sm-6 col-xs-6">
-          <div>
+        <div class="col-md-2 col-sm-12 col-xs-12">
+          <div class="q-ma-xs">
             <q-btn outline rounded no-caps size="md" color="primary" label="Descargar CV" icon="eva-download-outline" @click="descargarCV()" />
           </div>
         </div>
