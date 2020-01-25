@@ -12,7 +12,6 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
-      { path: 'docente/:clave', name: 'docente', component: () => import('pages/PerfilDocente.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
       {
         path: 'documentos/categorias/:id',
@@ -28,7 +27,8 @@ const routes = [
       { path: 'docentes', component: () => import('pages/Docentes.vue') },
       { path: 'Administradores', component: () => import('pages/Administradores.vue') }
     ]
-  }
+  },
+  { path: '/docente/:id', name: 'docente', component: () => import('pages/PerfilDocente.vue') }
 ]
 
 // Always leave this as last one

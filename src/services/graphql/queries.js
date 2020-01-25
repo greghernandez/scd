@@ -13,6 +13,7 @@ export const loginQuery = gql`query Login($clave: String!, $password: String!){
 // Name and Adscription toolbar
 export const userQueryToolbar = gql`query User($id: ID!){
   user(id: $id){
+      clave
       name
       lastName
       photoURL

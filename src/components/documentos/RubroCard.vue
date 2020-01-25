@@ -23,6 +23,9 @@ export default {
   },
   methods: {
     seleccionada (clave) {
+      if (this.$route.name === 'docente') {
+        alert('Docente')
+      }
       this.$router.push({ name: 'categorias', params: { id: clave } })
     }
   }
