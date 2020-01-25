@@ -12,14 +12,14 @@
 export default {
   name: 'BtnVer',
   props: {
-    clave: {
+    id: {
       type: String,
       required: true
     }
   },
   methods: {
     verPerfil () {
-      this.$router.push({ name: 'docente', params: { clave: this.clave } })
+      this.$router.push({ name: 'docente', params: { id: this.id } })
     }
   }
 }
