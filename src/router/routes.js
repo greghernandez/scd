@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/docente',
     name: 'docente',
-    component: () => import('pages/PerfilDocente.vue'),
+    component: () => import('layouts/PerfilDocente.vue'),
     meta: {
       isVisitant: true
     },
