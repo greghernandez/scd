@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     verPerfil () {
-      this.$router.push({ name: 'docente', params: { id: this.id } })
+      this.$router.push({ name: 'rubrosDocente', params: { userId: this.id } })
     }
   }
 }

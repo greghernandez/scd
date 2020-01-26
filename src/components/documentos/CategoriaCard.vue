@@ -68,7 +68,8 @@ export default {
   data () {
     return {
       selected: false, // state of category card
-      catPoints: 0 // points in category
+      catPoints: 0, // points in category
+      userId: null
     }
   },
   props: {
@@ -101,12 +102,22 @@ export default {
       documentosGetters: 'documentos/getters'
     }),
     seleccionada (clave) {
-      this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
+      // If user is visitant we assign a special link subcategory view
+      if (this.$route.matched.some(record => record.meta.isVisitant)) {
+        this.$router.push({ name: 'subcategoriaDeDocente', params: { idSub: clave } })
+      } else {
+        this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
+      }
     },
     getCatPoints (id) {
+      if (this.$route.params.idCategory) {
+        this.userId = this.$route.params.userId
+      } else {
+        this.userId = payload.userId
+      }
       this.$store
         .dispatch('documentos/inspectCategory', {
-          user: payload.userId,
+          user: this.userId,
           category: id
         })
         .then(res => {

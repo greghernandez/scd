@@ -68,7 +68,8 @@ export default {
   data () {
     return {
       search: null,
-      pendingDocs: []
+      pendingDocs: [],
+      userId: null
     }
   },
   props: {
@@ -93,11 +94,12 @@ export default {
       if (oldVal) {
         oldElement.classList.remove('selected-card')
       }
-      const userId = payload.userId
+      // const userId = payload.userId
       const category = this.category
+      const user = this.userId
       console.log('category', this.category)
       this.$store
-        .dispatch('documentos/documentosQuery', { userId, category })
+        .dispatch('documentos/documentosQuery', { user, category })
         .then(res => {
           console.log(res)
         })
@@ -108,10 +110,16 @@ export default {
     }
   },
   mounted () {
-    const userId = payload.userId
+    // If user is visitant we assign profile id from url params
+    if (this.$route.matched.some(record => record.meta.isVisitant)) {
+      this.userId = this.$route.params.userId
+    } else {
+      this.userId = payload.userId
+    }
     const category = this.category
+    const user = this.userId
     this.$store
-      .dispatch('documentos/documentosQuery', { userId, category })
+      .dispatch('documentos/documentosQuery', { user, category })
   },
   methods: {
     ...mapActions({

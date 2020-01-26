@@ -44,20 +44,22 @@
         </div>
       </q-card-section>
     </q-card>
-    <PageDocumento />
+    <div class="q-pt-sm">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import { rubros } from '../../enviroment.dev'
-import PageDocumento from './Documentos'
+// import PageDocumento from './Documentos'
 // import { payload } from '../services/user'
 
 export default {
   name: 'PerfilDocente',
   components: {
-    PageDocumento
+    // PageDocumento
   },
   data () {
     return {
@@ -77,7 +79,7 @@ export default {
     })
   },
   mounted () {
-    this.docenteId = this.$route.params.id
+    this.docenteId = this.$route.params.userId
     // Get docente data
     this.$store
       .dispatch('docentes/userData', this.docenteId)

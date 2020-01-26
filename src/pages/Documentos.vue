@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-card class="my-card q-mt-md q-mb-md padding-card">
+    <q-card class="my-card q-mt-sm q-mb-md padding-card">
       <q-card-section>
         <div>
           <h4 class="q-mt-md q-mb-md">Rubros</h4>

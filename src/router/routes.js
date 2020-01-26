@@ -28,7 +28,25 @@ const routes = [
       { path: 'Administradores', component: () => import('pages/Administradores.vue') }
     ]
   },
-  { path: '/docente/:id', name: 'docente', component: () => import('pages/PerfilDocente.vue') }
+  {
+    path: '/docente',
+    name: 'docente',
+    component: () => import('pages/PerfilDocente.vue'),
+    meta: {
+      isVisitant: true
+    },
+    children: [
+      { path: '/docente/:userId', name: 'rubrosDocente', component: () => import('pages/Documentos.vue') },
+      {
+        path: '/docente/:userId/categorias/:idCategory',
+        name: 'categoriasDeDocente',
+        component: () => import('pages/Categorias.vue'),
+        children: [
+          { path: 'subcat/:idSub', name: 'subcategoriaDeDocente', component: () => import('pages/Categorias.vue') }
+        ]
+      }
+    ]
+  }
 ]
 
 // Always leave this as last one
