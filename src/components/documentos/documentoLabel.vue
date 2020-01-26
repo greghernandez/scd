@@ -27,13 +27,13 @@
                   <q-item clickable>
                     <q-item-section @click="abrir()">Abrir</q-item-section>
                   </q-item>
-                  <q-item clickable>
+                  <q-item clickable v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
                     <q-item-section @click="mover()">Mover a</q-item-section>
                   </q-item>
                   <q-item clickable>
                     <q-item-section @click="descargar()">Descargar</q-item-section>
                   </q-item>
-                  <q-item clickable>
+                  <q-item clickable v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
                     <q-item-section @click="eliminar()">Eliminar</q-item-section>
                   </q-item>
                 </q-list>
