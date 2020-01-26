@@ -38,9 +38,9 @@
         </div>
       </q-banner>
     </div>
-    <floating-menu v-if="this.selected.length > 0"/>
+    <floating-menu v-if="this.selected.length > 0 && !this.$route.matched.some(record => record.meta.isVisitant)"/>
     <floating-download v-if="this.SelectedCategory.length != 0" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
-    <floating-upload v-if="this.SelectedCategory.length != 0 || this.category === '999'" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
+    <floating-upload v-if="(this.SelectedCategory.length != 0 || this.category === '999') && !this.$route.matched.some(record => record.meta.isVisitant)" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <div>
       <UploadingDialog :uploading="isLoading" />
     </div>

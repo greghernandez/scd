@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-page-sticky position="bottom-right" :offset="[18, 86]">
-      <q-btn fab class="text-primary" icon="eva-cloud-download-outline" @click="descargarDocumentos()"/>
+      <q-btn fab text-color="primary" color="white" icon="eva-cloud-download-outline" @click="descargarDocumentos()"/>
     </q-page-sticky>
   </div>
 </template>
