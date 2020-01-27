@@ -1,7 +1,8 @@
 <template>
   <div>
     selected {{ this.selected }}
-    idcat {{ this.SelectedCategory }}
+    idcat {{ this.SelectedCategory }} <br>
+    download {{ this.isDownloading }}
     <div v-if="this.category !== ''">
       <div>
         <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable
@@ -43,6 +44,7 @@
     <floating-upload v-if="(this.SelectedCategory.length != 0 || this.category === '999') && !this.$route.matched.some(record => record.meta.isVisitant)" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <div>
       <UploadingDialog :uploading="isLoading" />
+      <DownloadingDialog :downloading="isDownloading" />
     </div>
   </div>
 </template>
@@ -52,6 +54,7 @@ import DocLabel from 'components/documentos/documentoLabel'
 import { payload } from '../../services/user'
 import { mapActions, mapMutations } from 'vuex'
 import UploadingDialog from './UploadingDialog'
+import DownloadingDialog from './DownloadingDialog'
 import FloatingMenu from './floating-buttons/Menu'
 import FloatingUpload from './floating-buttons/Upload'
 import FloatingDownload from './floating-buttons/download'
@@ -63,7 +66,8 @@ export default {
     UploadingDialog,
     FloatingUpload,
     FloatingDownload,
-    FloatingMenu
+    FloatingMenu,
+    DownloadingDialog
   },
   data () {
     return {
@@ -145,6 +149,9 @@ export default {
     },
     isLoading () {
       return this.$store.state.documentos.isLoading
+    },
+    isDownloading () {
+      return this.$store.state.documentos.isDownloading
     },
     selected () {
       return this.$store.state.documentos.selected

@@ -138,7 +138,7 @@ export default {
               })
             })
             .catch(err => {
-              this.$q.create({
+              this.$q.notify({
                 color: 'negative',
                 icon: 'eva-alert-triangle-outline',
                 message: 'Ocurrió un error, intentalo de nuevo'

@@ -6,6 +6,10 @@ export function isUploading (state) {
   state.isLoading = !state.isLoading
 }
 
+export function changeDownloadState (state) {
+  state.isDownloading = !state.isDownloading
+}
+
 export function addDocuments (state, documentos) {
   console.log('Payload', documentos)
   documentos.filter((item) => {

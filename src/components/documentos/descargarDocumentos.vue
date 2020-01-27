@@ -27,7 +27,7 @@
           <div class="row col flex-center">
             <div class="q-gutter-y-md">
               <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="descargaPdf()"/><br>
-              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps @click="descargaZip()" /><br>
+              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
               <q-btn rounded class="full-width" label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
             </div>
           </div>
@@ -79,7 +79,24 @@ export default {
       joinInPdf('scd.zip', this.ticked)
     },
     descargaZip () {
-      joinInZip(this.ticked, 'download')
+      this.hide()
+      this.$store.commit('documentos/changeDownloadState')
+      joinInZip('scd.zip', this.ticked).then(res => {
+        this.$store.commit('documentos/changeDownloadState')
+        if (res === 200) {
+          this.$q.notify({
+            color: 'positive',
+            icon: 'eva-checkmark-circle-outline',
+            message: 'Tu archivo se descargó correctamente'
+          })
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Ocurrió un error, intentalo de nuevo'
+          })
+        }
+      })
     },
     show () {
       this.$refs.dialog.show()

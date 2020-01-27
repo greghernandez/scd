@@ -104,8 +104,23 @@ export default {
       })
     },
     descargar () {
-      console.log('descargando...')
-      getFile(this.fileId, 'download').then(console.log('descarga lista'))
+      this.$store.commit('documentos/changeDownloadState')
+      getFile(this.fileId, 'download').then(res => {
+        this.$store.commit('documentos/changeDownloadState')
+        if (res === 200) {
+          this.$q.notify({
+            color: 'positive',
+            icon: 'eva-checkmark-circle-outline',
+            message: 'Tu documento se descargó correctamente'
+          })
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Ocurrió un error, intentalo de nuevo'
+          })
+        }
+      })
     },
     eliminar () {
       this.$q.dialog({
