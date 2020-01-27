@@ -26,9 +26,9 @@
 
           <div class="row col flex-center">
             <div class="q-gutter-y-md">
-              <q-btn rounded class="text-caption" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps/><br>
-              <q-btn rounded label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps @click="descargaZip()" /><br>
-              <q-btn rounded label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
+              <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="descargaPdf()"/><br>
+              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps @click="descargaZip()" /><br>
+              <q-btn rounded class="full-width" label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
 import { apolloClient } from '../../boot/vue-apollo'
 import { treeQuery } from '../../services/graphql/queries'
 import { payload } from '../../services/user'
-import { joinInZip } from '../../services/downloads'
+import { joinInZip, joinInPdf } from '../../services/downloads'
 
 export default {
   name: 'AlertAvisos',
@@ -75,8 +75,11 @@ export default {
     }
   },
   methods: {
+    descargaPdf () {
+      joinInPdf('scd.zip', this.ticked)
+    },
     descargaZip () {
-      joinInZip('scd.zip', this.ticked)
+      joinInZip(this.ticked, 'download')
     },
     show () {
       this.$refs.dialog.show()

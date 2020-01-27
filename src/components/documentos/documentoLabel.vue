@@ -24,16 +24,16 @@
             <q-btn round flat icon="eva-more-vertical-outline">
               <q-menu transition-show="scale" transition-hide="scale" anchor="center right" self="center right">
                 <q-list style="min-width: 100px">
-                  <q-item clickable>
+                  <q-item clickable v-close-popup>
                     <q-item-section @click="abrir()">Abrir</q-item-section>
                   </q-item>
-                  <q-item clickable v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
+                  <q-item clickable v-close-popup v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
                     <q-item-section @click="mover()">Mover a</q-item-section>
                   </q-item>
-                  <q-item clickable>
+                  <q-item clickable v-close-popup>
                     <q-item-section @click="descargar()">Descargar</q-item-section>
                   </q-item>
-                  <q-item clickable v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
+                  <q-item clickable v-close-popup v-if="!this.$route.matched.some(record => record.meta.isVisitant)">
                     <q-item-section @click="eliminar()">Eliminar</q-item-section>
                   </q-item>
                 </q-list>
@@ -104,7 +104,8 @@ export default {
       })
     },
     descargar () {
-      getFile(this.fileId, 'download')
+      console.log('descargando...')
+      getFile(this.fileId, 'download').then(console.log('descarga lista'))
     },
     eliminar () {
       this.$q.dialog({
