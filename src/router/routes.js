@@ -40,11 +40,9 @@ const routes = [
       {
         path: '/docente/:userId/categorias/:idCategory',
         name: 'categoriasDeDocente',
-        component: () => import('pages/Categorias.vue'),
-        children: [
-          { path: 'subcat/:idSub', name: 'subcategoriaDeDocente', component: () => import('pages/Categorias.vue') }
-        ]
-      }
+        component: () => import('pages/Categorias.vue')
+      },
+      { path: 'subcat/:idSub', name: 'subcategoriaDeDocente', component: () => import('pages/Categorias.vue') }
     ]
   }
 ]

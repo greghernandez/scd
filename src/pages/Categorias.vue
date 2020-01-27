@@ -46,6 +46,7 @@
       </q-card-section>
     </q-card>
     <div class="q-pa-md">
+      {{ category }}
       <DocumentsSection :category="category" :catId="catId" :title="catTitle" />
     </div>
   </div>
@@ -57,6 +58,7 @@ import { apolloClient } from '../boot/vue-apollo'
 import { categoryQuery } from '../services/graphql/queries'
 import { Carousel, Slide } from 'vue-carousel'
 import DocumentsSection from '../components/documentos/docsSection'
+import { payload } from '../services/user'
 
 export default {
   name: 'PageCategorias',
@@ -115,18 +117,15 @@ export default {
       })
         .then(res => {
           this.categoryData = res.data.category.children
-          console.log('CATDATA', this.categoryData)
           for (let index = 0; index < this.categoryData.length; index++) {
-            console.log(this.categoryData.length)
-            const element = this.categoryData[index]
-            if (element.value !== null) {
-              console.log('Element', element._id)
-              this.categories.push(element._id)
+            if (this.categoryData[index].value !== null) {
+              this.categories.push(this.categoryData[index]._id)
+              this.getCatPoints(this.categoryData[index]._id)
             }
           }
           console.log('RES-', this.categories)
           this.$store.commit('documentos/addCategories', this.categories)
-          this.categories = {}
+          this.categories = []
         })
         .catch(err => {
           console.log(err)
@@ -134,17 +133,52 @@ export default {
     },
     selectedCard (id, clave, value, title) {
       this.selected = !this.selected
-      // console.log('Id', id)
-      // console.log('Clave seleccionada', clave)
       this.category = clave
       this.catId = id
       this.catTitle = title
+      // Si es una categoría madre(sin puntos) se resetea la categoria seleccionada
+      if (value === null) {
+        // Reset selected Category in store
+        this.$store.commit('documentos/resetSelectedCat')
+      } else {
+        this.$store.commit('documentos/setActualCategory', {
+          catId: this.catId,
+          title: this.catTitle
+        })
+      }
       this.catQuery()
+    },
+    async getCatPoints (id) {
+      if (this.$route.params.idCategory) {
+        this.userId = this.$route.params.userId
+      } else {
+        this.userId = payload.userId
+      }
+      await this.$store
+        .dispatch('documentos/inspectCategory', {
+          user: this.userId,
+          category: id
+        })
+        .then(res => {
+          if (this.value !== 0) {
+            this.$store.commit('documentos/addPoints', {
+              id: res.data.inspectCategory._id,
+              clave: res.data.inspectCategory.clave,
+              totalValue: res.data.inspectCategory.totalValue
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   watch: {
     $route (to, from) {
       this.catQuery()
+      this.category = ''
+      // Reset selected Category in store
+      this.$store.commit('documentos/resetSelectedCat')
     }
   },
   computed: {

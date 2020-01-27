@@ -45,7 +45,7 @@ export function documentosQuery ({ commit }, payload) {
 
 export function inspectCategory ({ commit }, payload) {
   return new Promise((resolve, reject) => {
-    commit('resetStore')
+    commit('resetCatPoints')
     apolloClient.cache.reset()
     apolloClient.query({
       query: INSPECT_CATEGORY,

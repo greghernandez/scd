@@ -61,7 +61,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { payload } from '../../services/user'
+// import { payload } from '../../services/user'
 
 export default {
   name: 'CatCard',
@@ -108,44 +108,20 @@ export default {
       } else {
         this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
       }
-    },
-    getCatPoints (id) {
-      if (this.$route.params.idCategory) {
-        this.userId = this.$route.params.userId
-      } else {
-        this.userId = payload.userId
-      }
-      this.$store
-        .dispatch('documentos/inspectCategory', {
-          user: this.userId,
-          category: id
-        })
-        .then(res => {
-          if (this.value !== 0) {
-            this.$store.commit('documentos/addPoints', {
-              id: res.data.inspectCategory._id,
-              clave: res.data.inspectCategory.clave,
-              totalValue: res.data.inspectCategory.totalValue
-            })
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
     }
   },
   mounted () {
-    this.getCatPoints(this.catId)
+    // this.getCatPoints(this.catId)
   },
   computed: {
     points () {
       if (this.value !== 0) {
         const index = this.$store.state.documentos.cardPoints.findIndex(e => e.id === this.catId)
         if (this.$store.state.documentos.cardPoints[index]) {
-          console.log('PUNTOS:', this.$store.state.documentos.cardPoints)
+          // console.log('PUNTOS:', this.$store.state.documentos.cardPoints)
           return this.$store.state.documentos.cardPoints[index].totalValue
         } else {
-          return 'x'
+          return 0
         }
       } else {
         return 0

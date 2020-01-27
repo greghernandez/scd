@@ -19,9 +19,7 @@ export function addCategories (state, categories) {
   state.categorias = categories
 }
 export function addPoints (state, payload) {
-  console.log('addPOINTS', payload)
   state.cardPoints.push(payload)
-  console.log('Point', state.cardPoints)
 }
 export function resetCatPoints (state) {
   state.cardPoints = []
@@ -57,7 +55,10 @@ export function check (state, checkBox) {
     state.selected.splice(index, 1)
   }
 }
-
 export function setActualCategory (state, catId) {
   state.selectedCat = catId
+}
+
+export function resetSelectedCat (state) {
+  state.selectedCat = []
 }

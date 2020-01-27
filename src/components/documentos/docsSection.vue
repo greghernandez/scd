@@ -88,11 +88,15 @@ export default {
     category: function (newVal, oldVal) {
       console.log('render')
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-      var newElement = document.getElementById(newVal)
-      newElement.classList.add('selected-card')
-      var oldElement = document.getElementById(oldVal)
-      if (oldVal) {
-        oldElement.classList.remove('selected-card')
+      try {
+        var newElement = document.getElementById(newVal)
+        newElement.classList.add('selected-card')
+        var oldElement = document.getElementById(oldVal)
+        if (oldVal) {
+          oldElement.classList.remove('selected-card')
+        }
+      } catch {
+        newElement = ''
       }
       // const userId = payload.userId
       const category = this.category
