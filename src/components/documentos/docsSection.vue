@@ -1,8 +1,7 @@
 <template>
   <div>
     selected {{ this.selected }}
-    idcat {{ this.SelectedCategory }} <br>
-    download {{ this.isDownloading }}
+    idcat {{ this.SelectedCategory }}
     <div v-if="this.category !== ''">
       <div>
         <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable

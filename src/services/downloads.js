@@ -66,24 +66,27 @@ export const joinInZip = async (fileName, fileList) => {
 }
 // available modes: watch | download
 export const joinInPdf = async (files, mode) => {
-  try {
-    axios.post(address + '/downloads/joinInPdf', {
-      files: files,
-      mode: mode
-    }, {
-      responseType: 'blob',
-      observe: 'response',
-      headers: { 'content-type': 'application/json' }
-    })
-      .then(function (res) {
-        saveFile(res)
+  return new Promise(resolve => {
+    try {
+      axios.post(address + '/downloads/joinInPdf', {
+        files: files,
+        mode: mode
+      }, {
+        responseType: 'blob',
+        observe: 'response',
+        headers: { 'content-type': 'application/json' }
       })
-      .catch(function (error) {
-        console.log(error)
-      })
-  } catch (e) {
-    console.log(e)
-  }
+        .then(function (res) {
+          resolve(res)
+          saveFile(res)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  })
 }
 
 function getFileNameFromHttpResponse (httpResponse) {

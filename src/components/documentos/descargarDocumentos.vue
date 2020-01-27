@@ -76,7 +76,12 @@ export default {
   },
   methods: {
     descargaPdf () {
-      joinInPdf('scd.zip', this.ticked)
+      this.hide()
+      this.$store.commit('documentos/changeDownloadState')
+      joinInPdf(this.ticked, 'download').then(res => {
+        this.$store.commit('documentos/changeDownloadState')
+        console.log('DescargarPdf', res)
+      })
     },
     descargaZip () {
       this.hide()
