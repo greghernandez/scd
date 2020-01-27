@@ -18,7 +18,8 @@
               accordion
               :selected.sync="selected"
               :ticked.sync="ticked"
-              :expanded.sync="expanded" />
+              :expanded.sync="expanded"
+              no-nodes-label="No hay documentos para descargar" />
           </div>
 
           <q-separator vertical/>
@@ -60,6 +61,10 @@ export default {
   },
   props: {
     title: String,
+    userId: {
+      type: String,
+      default: payload.userId
+    },
     catId: {
       type: String,
       default: '5db33a684dc61d2260e5c505'
@@ -93,13 +98,13 @@ export default {
       console.log('Cancel')
       this.hide()
     },
-    getTree () {
+    async getTree () {
       console.log(payload.userId)
-      apolloClient.query({
+      await apolloClient.query({
         query: treeQuery,
         variables: {
           cat: this.catId,
-          user: payload.userId
+          user: this.userId
         }
       })
         .then(res => {

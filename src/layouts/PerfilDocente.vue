@@ -55,6 +55,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { rubros } from '../../enviroment.dev'
+import descargarDocumentos from 'components/documentos/descargarDocumentos'
 // import PageDocumento from './Documentos'
 // import { payload } from '../services/user'
 
@@ -78,7 +79,16 @@ export default {
   methods: {
     ...mapActions({
       documentosQuery: 'docentes/actions'
-    })
+    }),
+    descargarCV () {
+      this.$q.dialog({
+        component: descargarDocumentos,
+        parent: this,
+        userId: this.$route.params.userId,
+        title: 'Descargar del rubro ',
+        btnColor: 'negative'
+      })
+    }
   },
   mounted () {
     this.docenteId = this.$route.params.userId
