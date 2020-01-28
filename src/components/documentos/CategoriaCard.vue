@@ -45,7 +45,7 @@
     </div>
     <!-- si tiene no tiene un valor RIPAUAQ se renderiza esta tarjeta -->
     <div v-else>
-      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center" @click="seleccionada(clave)">
+      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center cursor-pointer" @click="seleccionada(clave)">
         <q-card-section class="row justify-center items-center content-center">
           <div class="col-3 full-with">
             <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>

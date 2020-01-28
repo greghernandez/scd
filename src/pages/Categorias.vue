@@ -14,6 +14,7 @@
           </q-input>
         </div>
         <div>
+          <!-- Breadcrumbs -->
           <div class="q-mt-sm q-mb-sm">
             <q-breadcrumbs style="font-size: 16px">
               <template v-slot:separator>
@@ -25,6 +26,7 @@
               <q-breadcrumbs-el v-if="this.$route.params.idSub" :label="'Categoria ' + this.$route.params.idSub" />
             </q-breadcrumbs>
           </div>
+          <!-- Carousel -->
           <div class="q-pa-md">
             <carousel v-if="this.resultQuery.length != 0" :perPageCustom="[[480, 1], [768, 2]]"
               :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
