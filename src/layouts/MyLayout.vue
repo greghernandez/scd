@@ -31,11 +31,11 @@
                 </q-banner>
               </q-popup-proxy>
             </q-btn>
-            <q-btn-dropdown class="avatar-img" v-if="$q.platform.is.desktop" auto-close flat :label="name"
+            <q-btn-dropdown class="avatar-img desktop-only"  auto-close flat :label="name"
               :icon="'img:'+ photoUrl" rounded no-caps>
               <q-list link>
-                <q-item clickable to="/mi-perfil">
-                  <q-item-section>Mi Perfil</q-item-section>
+                <q-item clickable to="/mi-cuenta">
+                  <q-item-section>Mi cuenta</q-item-section>
                 </q-item>
 
                 <q-item @click="logout()" clickable>
@@ -225,6 +225,7 @@ export default {
     descargarCV () {
       this.$q.dialog({
         component: descargarDocumentos,
+        parent: this,
         title: 'Descargar del rubro ',
         btnColor: 'negative'
       })
