@@ -136,14 +136,17 @@ export default {
                 icon: 'eva-checkmark-circle-outline',
                 message: 'Se movió correctamente el documento seleccionado'
               })
-              // Update the card points and the total points of the user
-              this.$store.commit('documentos/updatePoints', {
-                mode: 'move',
-                catId: this.SelectedCategory.catId,
-                newCat: this.newCat,
-                points: this.SelectedCategory.catDocValue,
-                movedCount: 1
-              })
+              // if the document is in pending documents, we not change points state
+              if (this.$route.name !== 'pendientes') {
+                // Update the card points and the total points of the user
+                this.$store.commit('documentos/updatePoints', {
+                  mode: 'move',
+                  catId: this.SelectedCategory.catId,
+                  newCat: this.newCat,
+                  points: this.SelectedCategory.catDocValue,
+                  movedCount: 1
+                })
+              }
               // update total points
               this.$store
                 .dispatch('documentos/inspectCategory', {
@@ -175,14 +178,17 @@ export default {
                 icon: 'eva-checkmark-circle-outline',
                 message: 'Se movierón correctamente los documentos seleccionados'
               })
-              // Update the card points and the total points of the user
-              this.$store.commit('documentos/updatePoints', {
-                mode: 'move',
-                catId: this.SelectedCategory.catId,
-                newCat: this.newCat,
-                points: this.SelectedCategory.catDocValue,
-                movedCount: res.data.moveMultipleDocuments.qty
-              })
+              // if the document is in pending documents, we not change points state
+              if (this.$route.name !== 'pendientes') {
+                // Update the card points and the total points of the user
+                this.$store.commit('documentos/updatePoints', {
+                  mode: 'move',
+                  catId: this.SelectedCategory.catId,
+                  newCat: this.newCat,
+                  points: this.SelectedCategory.catDocValue,
+                  movedCount: res.data.moveMultipleDocuments.qty
+                })
+              }
               // update total points
               this.$store
                 .dispatch('documentos/inspectCategory', {

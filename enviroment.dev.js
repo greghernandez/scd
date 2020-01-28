@@ -12,7 +12,8 @@ export const rubros = {
   uno: '5db312f0f2339a28b809e783',
   dos: '5db3131af2339a28b809e785',
   tres: '5db31346f2339a28b809e787',
-  cuatro: '5db3136af2339a28b809e789'
+  cuatro: '5db3136af2339a28b809e789',
+  pendientes: '5db33a924dc61d2260e5c507'
 }
 
 // Permisos existentes para los usuarios

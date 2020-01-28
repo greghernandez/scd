@@ -8,6 +8,7 @@
 
 <script>
 import SubirDocumentos from 'components/documentos/subirDocumentos'
+import { rubros } from '../../../../enviroment.dev'
 
 export default {
   name: 'FloatingUpload',
@@ -18,18 +19,21 @@ export default {
     }
   },
   props: {
+    // Category id
     catId: {
       type: String
     },
+    // category title
     catTitle: {
       type: String
     }
   },
   methods: {
+    // check the page where the dialog is called to set property id
     subirDocumentos () {
       if (this.catId === undefined) {
         this.title = 'Documentos Pendientes'
-        this.id = '5db33a924dc61d2260e5c507'
+        this.id = rubros.pendientes
       } else {
         this.title = this.catTitle
         this.id = this.catId

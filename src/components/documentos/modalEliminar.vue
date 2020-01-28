@@ -81,13 +81,16 @@ export default {
               icon: 'eva-checkmark-circle-outline',
               message: 'Se eliminó correctamente el documento seleccionado'
             })
-            // Update the card points and the total points of the user
-            this.$store.commit('documentos/updatePoints', {
-              mode: 'delete',
-              catId: this.selectedCategory.catId,
-              points: this.selectedCategory.catDocValue,
-              deletedCount: res.data.deleteDocument.deletedCount
-            })
+            // if the document is in pending documents, we not change points state
+            if (this.$route.name !== 'pendientes') {
+              // Update the card points and the total points of the user
+              this.$store.commit('documentos/updatePoints', {
+                mode: 'delete',
+                catId: this.selectedCategory.catId,
+                points: this.selectedCategory.catDocValue,
+                deletedCount: res.data.deleteDocument.deletedCount
+              })
+            }
           }).catch(err => {
             console.log(err)
             this.$q.notify({
@@ -105,13 +108,16 @@ export default {
               icon: 'eva-checkmark-circle-outline',
               message: 'Se eliminarón correctamente ' + res.data.deleteDocuments.deletedCount + ' documentos'
             })
-            // Update the card points and the total points of the user
-            this.$store.commit('documentos/updatePoints', {
-              mode: 'delete',
-              catId: this.selectedCategory.catId,
-              points: this.selectedCategory.catDocValue,
-              deletedCount: res.data.deleteDocuments.deletedCount
-            })
+            // if the document is in pending documents, we not change points state
+            if (this.$route.name !== 'pendientes') {
+              // Update the card points and the total points of the user
+              this.$store.commit('documentos/updatePoints', {
+                mode: 'delete',
+                catId: this.selectedCategory.catId,
+                points: this.selectedCategory.catDocValue,
+                deletedCount: res.data.deleteDocuments.deletedCount
+              })
+            }
           }).catch(err => {
             console.log(err)
             this.$q.notify({

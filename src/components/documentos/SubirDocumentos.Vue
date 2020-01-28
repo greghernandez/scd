@@ -4,7 +4,6 @@
       <q-card-section class="vertical-middle">
         <div class="row">
           <div class="text-h6">Subir Documentos a {{ title }}</div>
-          {{ this.$route.name }}
         </div>
       </q-card-section>
 
@@ -37,6 +36,7 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType)
 // imports needed to comunicate with the API
 import { payload } from '../../services/user'
 import { mapActions } from 'vuex'
+import { rubros } from '../../../enviroment.dev'
 
 export default {
   name: 'AlertAvisos',
@@ -53,7 +53,9 @@ export default {
     title: String,
     btn: String,
     btnColor: String,
+    // category id
     category: String,
+    // the dialog is global or is invoked in documents section
     global: Boolean
   },
   methods: {
@@ -93,16 +95,19 @@ export default {
         }).then(res => {
           this.$q.notify({
             color: 'positive',
-            icon: 'eva-alert-triangle-outline',
+            icon: 'eva-checkmark-circle-outline',
             message: 'Los documentos se subieron con exito'
           })
-          // Update the card points and the total points of the user
-          this.$store.commit('documentos/updatePoints', {
-            mode: 'upload',
-            catId: this.selectedCategory.catId,
-            points: this.selectedCategory.catDocValue,
-            deletedCount: res.data.multipleUpload.length
-          })
+          // if the upload was for pending documents, we not change points state
+          if (this.category !== rubros.pendientes) {
+            // Update the card points and the total points of the user
+            this.$store.commit('documentos/updatePoints', {
+              mode: 'upload',
+              catId: this.selectedCategory.catId,
+              points: this.selectedCategory.catDocValue,
+              deletedCount: res.data.multipleUpload.length
+            })
+          }
         })
       // this.$emit('ok')
       this.hide()
