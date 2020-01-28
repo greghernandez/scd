@@ -70,7 +70,7 @@
 <script>
 import { apolloClient } from '../../boot/vue-apollo'
 import { categoriesQueryTreeMover } from '../../services/graphql/queries'
-import { categoryType } from '../../../enviroment.dev'
+import { categoryType, rubros } from '../../../enviroment.dev'
 import { mapActions } from 'vuex'
 import { payload } from '../../services/user'
 
@@ -136,6 +136,24 @@ export default {
                 icon: 'eva-checkmark-circle-outline',
                 message: 'Se movió correctamente el documento seleccionado'
               })
+              // Update the card points and the total points of the user
+              this.$store.commit('documentos/updatePoints', {
+                mode: 'move',
+                catId: this.SelectedCategory.catId,
+                newCat: this.newCat,
+                points: this.SelectedCategory.catDocValue,
+                movedCount: 1
+              })
+              // update total points
+              this.$store
+                .dispatch('documentos/inspectCategory', {
+                  user: payload.userId,
+                  category: rubros.todos,
+                  reset: false
+                })
+                .then(res => {
+                  this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
+                })
             })
             .catch(err => {
               this.$q.notify({
@@ -151,11 +169,30 @@ export default {
             cat: this.newCat
           })
             .then(res => {
+              console.log(res)
               this.$q.notify({
                 color: 'positive',
                 icon: 'eva-checkmark-circle-outline',
                 message: 'Se movierón correctamente los documentos seleccionados'
               })
+              // Update the card points and the total points of the user
+              this.$store.commit('documentos/updatePoints', {
+                mode: 'move',
+                catId: this.SelectedCategory.catId,
+                newCat: this.newCat,
+                points: this.SelectedCategory.catDocValue,
+                movedCount: res.data.moveMultipleDocuments.qty
+              })
+              // update total points
+              this.$store
+                .dispatch('documentos/inspectCategory', {
+                  user: payload.userId,
+                  category: rubros.todos,
+                  reset: false
+                })
+                .then(res => {
+                  this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
+                })
             })
             .catch(err => {
               this.$q.create({

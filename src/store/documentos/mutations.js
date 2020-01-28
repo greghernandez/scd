@@ -37,6 +37,19 @@ export function resetCatPoints (state) {
 export function updatePoints (state, payload) {
   console.log('UpdatePoints', payload)
   switch (payload.mode) {
+    // When a document is moved
+    case 'move':
+      // Subtract points to document category
+      for (let index = 0; index < state.cardPoints.length; index++) {
+        if (state.cardPoints[index].id === payload.catId) {
+          state.cardPoints[index].totalValue -= (payload.points * payload.movedCount)
+        }
+        // If category card is displayed, update totalValue property
+        if (state.cardPoints[index].id === payload.newCat) {
+          state.cardPoints[index].totalValue += (state.cardPoints[index].value * payload.movedCount)
+        }
+      }
+      break
     // When a document is deleted
     case 'delete':
       // Reset deleted document points to totalPoints state

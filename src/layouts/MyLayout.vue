@@ -285,7 +285,6 @@ export default {
         category: rubros.todos
       })
       .then(res => {
-        console.log('Puntos totales: ', res.data.inspectCategory.totalValue)
         this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
       })
   },

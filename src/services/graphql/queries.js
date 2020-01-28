@@ -181,6 +181,16 @@ export const INSPECT_CATEGORY = gql`query inspectCategory($user: ID!, $category:
   }
 }
 `
+// get a summarize of a category
+export const SUMMARIZE_CATEGORY = gql`query summarizeCategory($user: ID!, $category: ID!){
+  summarizeCategory(user: $user, category: $category) {
+    _id
+    title
+    totalDocs
+    totalValue
+  }
+}
+`
 // get data from mover tree
 export const categoriesQueryTreeMover = gql`query CategoriesTreeMover($page: Int!, $perPage: Int!, $type: Int!){
   categories(page: $page, perPage: $perPage, type: $type){

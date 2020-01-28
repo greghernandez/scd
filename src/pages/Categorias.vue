@@ -120,7 +120,7 @@ export default {
           for (let index = 0; index < this.categoryData.length; index++) {
             if (this.categoryData[index].value !== null) {
               this.categories.push(this.categoryData[index]._id)
-              this.getCatPoints(this.categoryData[index]._id)
+              this.getCatPoints(this.categoryData[index]._id, this.categoryData[index].value)
             }
           }
           console.log('RES-', this.categories)
@@ -150,7 +150,7 @@ export default {
       }
       this.catQuery()
     },
-    async getCatPoints (id) {
+    async getCatPoints (id, value) {
       if (this.$route.params.idCategory) {
         this.userId = this.$route.params.userId
       } else {
@@ -166,6 +166,7 @@ export default {
             this.$store.commit('documentos/addPoints', {
               id: res.data.inspectCategory._id,
               clave: res.data.inspectCategory.clave,
+              value: value,
               totalValue: res.data.inspectCategory.totalValue
             })
           }
