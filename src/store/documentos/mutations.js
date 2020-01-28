@@ -1,3 +1,4 @@
+// Set
 export function setDocumentos (state, documentos) {
   state.documentos = documentos
 }
@@ -28,6 +29,25 @@ export function addPoints (state, payload) {
 export function resetCatPoints (state) {
   state.cardPoints = []
 }
+
+export function updatePoints (state, payload) {
+  console.log('UpdatePoints', payload)
+  switch (payload.mode) {
+    case 'delete':
+      // Reset deleted document points to totalPoints state
+      state.totalPoints -= (payload.points * payload.deletedCount)
+      // Subtract points to document category
+      for (let index = 0; index < state.cardPoints.length; index++) {
+        if (state.cardPoints[index].id === payload.catId) {
+          state.cardPoints[index].totalValue -= (payload.points * payload.deletedCount)
+        }
+      }
+      break
+    default:
+      break
+  }
+}
+
 export function deleteDocumento (state, id) {
   const index = state.documentos.findIndex(e => e._id === id)
   state.documentos.splice(index, 1)

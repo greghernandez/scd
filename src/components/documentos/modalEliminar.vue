@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" persistent>
+  <q-dialog ref="dialog" v-model="alertAviso">
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
@@ -30,18 +30,22 @@ export default {
     }
   },
   props: {
+    // Title of dialog
     title: {
       type: String,
       required: true
     },
+    // Description of dialog
     description: {
       type: String,
       required: true
     },
+    // Document id to delete
     docId: {
       type: [String, Array],
       required: true
     },
+    // The type of delete mode
     multiple: {
       type: Boolean,
       required: true
@@ -64,13 +68,25 @@ export default {
     },
     onOKClick () {
       const id = this.docId
+      /*
+        verify the type of deleted, if it's multiple or individual,
+        to proceed with the corresponsive action
+      */
       if (!this.multiple) {
         this.$store.dispatch('documentos/eliminarDocumento', id)
           .then(res => {
+            console.log(res)
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',
               message: 'Se eliminó correctamente el documento seleccionado'
+            })
+            // Update the card points and the total points of the user
+            this.$store.commit('documentos/updatePoints', {
+              mode: 'delete',
+              catId: this.selectedCategory.catId,
+              points: this.selectedCategory.catDocValue,
+              deletedCount: res.data.deleteDocument.deletedCount
             })
           }).catch(err => {
             console.log(err)
@@ -83,10 +99,18 @@ export default {
       } else {
         this.$store.dispatch('documentos/eliminarDocumentos', id)
           .then(res => {
+            console.log(res)
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',
               message: 'Se eliminarón correctamente ' + res.data.deleteDocuments.deletedCount + ' documentos'
+            })
+            // Update the card points and the total points of the user
+            this.$store.commit('documentos/updatePoints', {
+              mode: 'delete',
+              catId: this.selectedCategory.catId,
+              points: this.selectedCategory.catDocValue,
+              deletedCount: res.data.deleteDocuments.deletedCount
             })
           }).catch(err => {
             console.log(err)
@@ -103,6 +127,11 @@ export default {
     onCancelClick () {
       console.log('Cancel')
       this.hide()
+    }
+  },
+  computed: {
+    selectedCategory () {
+      return this.$store.state.documentos.selectedCat
     }
   }
 }

@@ -46,8 +46,7 @@
       </q-card-section>
     </q-card>
     <div class="q-pa-md">
-      {{ category }}
-      <DocumentsSection :category="category" :catId="catId" :title="catTitle" />
+      <DocumentsSection :category="category" :catId="catId" :catPoint="catPoint" :title="catTitle" />
     </div>
   </div>
 </template>
@@ -76,6 +75,7 @@ export default {
       categoryData: [],
       category: '',
       catId: '',
+      catPoint: 0,
       catTitle: '',
       id: '',
       categories: [],
@@ -136,6 +136,7 @@ export default {
       this.category = clave
       this.catId = id
       this.catTitle = title
+      this.catPoint = value
       // Si es una categoría madre(sin puntos) se resetea la categoria seleccionada
       if (value === null) {
         // Reset selected Category in store
@@ -143,7 +144,8 @@ export default {
       } else {
         this.$store.commit('documentos/setActualCategory', {
           catId: this.catId,
-          title: this.catTitle
+          title: this.catTitle,
+          catDocValue: this.value
         })
       }
       this.catQuery()

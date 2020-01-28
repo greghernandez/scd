@@ -83,6 +83,9 @@ export default {
     catId: {
       type: String
     },
+    catPoint: {
+      type: Number
+    },
     title: {
       type: String
     }
@@ -112,7 +115,8 @@ export default {
         })
       this.$store.commit('documentos/setActualCategory', {
         catId: this.catId,
-        title: this.title
+        title: this.title,
+        catDocValue: this.catPoint
       })
     }
   },
