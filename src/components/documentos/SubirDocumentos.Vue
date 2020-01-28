@@ -96,6 +96,13 @@ export default {
             icon: 'eva-alert-triangle-outline',
             message: 'Los documentos se subieron con exito'
           })
+          // Update the card points and the total points of the user
+          this.$store.commit('documentos/updatePoints', {
+            mode: 'upload',
+            catId: this.selectedCategory.catId,
+            points: this.selectedCategory.catDocValue,
+            deletedCount: res.data.multipleUpload.length
+          })
         })
       // this.$emit('ok')
       this.hide()
@@ -103,6 +110,11 @@ export default {
     onCancelClick () {
       console.log('Cancel')
       this.hide()
+    }
+  },
+  computed: {
+    selectedCategory () {
+      return this.$store.state.documentos.selectedCat
     }
   }
 }
