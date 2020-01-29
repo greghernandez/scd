@@ -11,7 +11,8 @@
         </div>
       </div>
       <div class="row col-12">
-        <div class="col-md-4 col-xs-12 card-info" style="height: 300px">
+        <!-- Donut Chart -->
+        <div class="col-md-4 col-xs-12 card-info">
           <q-card class="my-card">
             <q-card-section>
               <div class="row justify-center items-center text-secondary">
@@ -24,6 +25,7 @@
             </q-card-section>
           </q-card>
         </div>
+        <!-- Bar Chart -->
         <div class="col-md-4 col-xs-12 card-info">
           <q-card class="my-card">
             <q-card-section>
