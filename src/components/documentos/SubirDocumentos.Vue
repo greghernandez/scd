@@ -109,6 +109,14 @@ export default {
             })
           }
         })
+        .catch(err => {
+          this.$q.create({
+            color: 'negative',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Ocurrió un error, intentalo de nuevo'
+          })
+          console.log(err)
+        })
       // this.$emit('ok')
       this.hide()
     },

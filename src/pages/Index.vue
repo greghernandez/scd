@@ -10,24 +10,33 @@
           <cardDocsPen />
         </div>
       </div>
-      <div class="col-md-4 col-xs-12 card-info">
-        <q-card class="my-card">
-          <q-card-section>
-            <div class="row justify-center items-center text-secondary">
-              <q-icon size="sm" name="eva-pie-chart-outline q-mr-sm" />
-              <h5 class="text-weight-medium q-my-none">Puntos por categoría</h5>
-            </div>
-          </q-card-section>
-          <q-card-section>
-            <ChartContainer />
-          </q-card-section>
-        </q-card>
-      </div>
-      <div class="col-md-4 col-xs-6 card-info">
-        <q-card class="my-card">
-          <q-card-section>
-          </q-card-section>
-        </q-card>
+      <div class="row col-12">
+        <div class="col-md-4 col-xs-12 card-info" style="height: 300px">
+          <q-card class="my-card">
+            <q-card-section>
+              <div class="row justify-center items-center text-secondary">
+                <q-icon size="sm" name="eva-pie-chart-outline q-mr-sm" />
+                <h5 class="text-weight-medium q-my-none">Puntos por categoría</h5>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <ChartContainer />
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-md-4 col-xs-12 card-info">
+          <q-card class="my-card">
+            <q-card-section>
+              <div class="row justify-center items-center text-secondary">
+                <q-icon size="sm" name="eva-bar-chart-outline q-mr-sm" />
+                <h5 class="text-weight-medium q-my-none">Documentos por categoría</h5>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <BarChartContainer />
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
     <!--Sección de avisos-->
@@ -39,7 +48,8 @@
 
 <script>
 import InfoCard from 'components/inicio/InfoCard'
-import ChartContainer from 'components/inicio/ChartContainer'
+import ChartContainer from 'components/charts/ChartContainer'
+import BarChartContainer from 'components/charts/BarChartContainer'
 import CardDocsPen from 'components/inicio/cardDocsPendientes'
 import BoardAvisos from 'components/inicio/BoardAvisos'
 
@@ -49,7 +59,8 @@ export default {
     InfoCard,
     BoardAvisos,
     CardDocsPen,
-    ChartContainer
+    ChartContainer,
+    BarChartContainer
   },
   data () {
     return {

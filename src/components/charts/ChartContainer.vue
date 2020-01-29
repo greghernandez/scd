@@ -4,7 +4,7 @@
       <q-spinner v-if="!loaded" color="secondary" size="9em"/>
     </div>
 
-    <Donut-Chart v-if="loaded" :chartdata="chartdata"/>
+    <Donut-Chart :width="80" :height="70" v-if="loaded" :chartdata="chartdata"/>
   </div>
 </template>
 
@@ -69,7 +69,9 @@ export default {
             display: true,
             position: 'bottom'
           },
+          height: '200px',
           responsive: true,
+          maintainAspectRatio: true,
           tooltips: {
             enabled: true
           }
