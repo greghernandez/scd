@@ -1,7 +1,7 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
 import { docentesQueryAdmin, userQueryToolbar } from '../../services/graphql/queries'
-import { DELETE_USER } from '../../services/graphql/mutations'
+import { DELETE_USER, userPhotoUpdate } from '../../services/graphql/mutations'
 
 /**
  * docentesQuery
@@ -31,6 +31,24 @@ export function userData ({ commit }, userId) {
       query: userQueryToolbar,
       variables: {
         id: userId
+      }
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+export function updateUserProfilePic ({ commit }, payload) {
+  return new Promise((resolve, reject) => {
+    apolloClient.mutate({
+      mutation: userPhotoUpdate,
+      variables: {
+        id: payload.userId,
+        photo: payload.photo
       }
     })
       .then(res => {

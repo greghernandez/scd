@@ -74,6 +74,14 @@ export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($input: Update
   }
 }
 `
+// User photo update
+export const userPhotoUpdate = gql`mutation updateProfilePic($id: ID!, $photo: Upload!){
+  updateProfilePic(id: $id, photo: $photo){
+    _id
+    photoURL
+  }
+}
+`
 // User Mutation UpdateMultipleFiles
 export const multipleUpload = gql`
     mutation MultipleUpload($files: [Upload!]!, $input: InputDocument!) {

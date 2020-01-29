@@ -11,7 +11,7 @@ const routes = [
     },
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'mi-perfil', component: () => import('pages/Perfil.vue') },
+      { path: 'mi-cuenta', component: () => import('pages/MiCuenta.vue') },
       { path: 'documentos', component: () => import('pages/Documentos.vue') },
       {
         path: 'documentos/categorias/:id',
