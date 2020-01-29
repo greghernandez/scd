@@ -31,6 +31,9 @@ export function userData ({ commit }, userId) {
       query: userQueryToolbar,
       variables: {
         id: userId
+      },
+      context: {
+        hasUpload: true
       }
     })
       .then(res => {
