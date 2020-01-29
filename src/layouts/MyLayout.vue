@@ -8,7 +8,8 @@
           <q-btn v-if="$q.platform.is.mobile" flat round @click="drawer = !drawer" dense icon="menu" />
           <q-toolbar-title>SCD</q-toolbar-title>
           <q-tabs>
-            <q-btn rounded outline no-caps size="md" color="primary" label="Compartir" icon="ion-share-alt">
+            <q-btn rounded outline no-caps size="md" class="desktop-only" color="primary" label="Compartir"
+              icon="ion-share-alt">
               <q-popup-proxy>
                 <q-banner>
                   <template v-slot:action>
@@ -18,21 +19,32 @@
                     <p class="q-my-none">Este es tu link para compartir</p>
                   </div>
                   <div class="row">
-                    <q-input id="link" dense v-model="linkPerfil"/>
-                    <q-btn flat round icon="eva-copy-outline" v-clipboard:copy="linkPerfil" v-clipboard:success="onCopy">
-                      <q-tooltip
-                        transition-show="rotate"
-                        transition-hide="rotate"
-                      >
+                    <q-input id="link" dense v-model="linkPerfil" />
+                    <q-btn flat round icon="eva-copy-outline" v-clipboard:copy="linkPerfil"
+                      v-clipboard:success="onCopy">
+                      <q-tooltip transition-show="rotate" transition-hide="rotate">
                         Copiar el enlace para compartir
-                    </q-tooltip>
+                      </q-tooltip>
                     </q-btn>
                   </div>
                 </q-banner>
               </q-popup-proxy>
             </q-btn>
-            <q-btn-dropdown class="avatar-img desktop-only"  auto-close flat :label="name"
+            <q-btn-dropdown class="avatar-img desktop-only" auto-close flat :label="name"
               :icon="'img:'+ this.profilePhoto" rounded no-caps>
+              <q-list link>
+                <q-item clickable to="/mi-cuenta">
+                  <q-item-section>Mi cuenta</q-item-section>
+                </q-item>
+
+                <q-item @click="logout()" clickable>
+                  <q-item-section>Cerrar Sesión</q-item-section>
+                </q-item>
+
+              </q-list>
+            </q-btn-dropdown>
+            <q-btn-dropdown class="avatar-img mobile-only" auto-close flat :icon="'img:'+ this.profilePhoto" rounded
+              no-caps>
               <q-list link>
                 <q-item clickable to="/mi-cuenta">
                   <q-item-section>Mi cuenta</q-item-section>
@@ -143,6 +155,32 @@
               </q-item-section>
             </q-item>
 
+            <q-item class="mobile-only">
+              <q-item-section>
+                <q-btn rounded outline no-caps size="sm" color="primary" label="Compartir" icon="ion-share-alt">
+                  <q-popup-proxy>
+                    <q-banner>
+                      <template v-slot:action>
+                        <!-- <q-icon name="eva-link-outline" color="primary" /> -->
+                      </template>
+                      <div class="row">
+                        <p class="q-my-none">Este es tu link para compartir</p>
+                      </div>
+                      <div class="row">
+                        <q-input id="link" dense v-model="linkPerfil" />
+                        <q-btn flat round icon="eva-copy-outline" v-clipboard:copy="linkPerfil"
+                          v-clipboard:success="onCopy">
+                          <q-tooltip transition-show="rotate" transition-hide="rotate">
+                            Copiar el enlace para compartir
+                          </q-tooltip>
+                        </q-btn>
+                      </div>
+                    </q-banner>
+                  </q-popup-proxy>
+                </q-btn>
+              </q-item-section>
+            </q-item>
+
             <q-item>
               <q-item-section>
                 <q-btn outline rounded no-caps size="sm" color="primary" label="Descargar CV"
@@ -153,7 +191,7 @@
             <q-item>
               <q-item-section>
                 <q-btn rounded no-caps size="sm" color="primary" label="Subir Documentos"
-                  icon="eva-cloud-upload-outline" @click="subirDocumentos()"/>
+                  icon="eva-cloud-upload-outline" @click="subirDocumentos()" />
               </q-item-section>
             </q-item>
           </q-list>
