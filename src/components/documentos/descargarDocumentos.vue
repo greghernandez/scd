@@ -28,7 +28,7 @@
             <div class="q-gutter-y-md">
               <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="descargaPdf()"/><br>
               <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
-              <q-btn rounded class="full-width" label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
+              <q-btn rounded class="full-width" label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps  @click="visualizar()"/><br>
             </div>
           </div>
         </div>
@@ -47,6 +47,7 @@ import { apolloClient } from '../../boot/vue-apollo'
 import { treeQuery } from '../../services/graphql/queries'
 import { payload } from '../../services/user'
 import { joinInZip, joinInPdf } from '../../services/downloads'
+import modalDocs from 'components/documentos/modalDocs'
 
 export default {
   name: 'AlertAvisos',
@@ -101,6 +102,13 @@ export default {
             message: 'Ocurrió un error, intentalo de nuevo'
           })
         }
+      })
+    },
+    visualizar () {
+      // Dialog con la vista del documento
+      this.$q.dialog({
+        component: modalDocs,
+        fileId: this.ticked
       })
     },
     show () {

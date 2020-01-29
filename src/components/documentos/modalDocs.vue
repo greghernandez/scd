@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" :maximized="maximizedToggle" transition-show="slide-up"
+  <q-dialog ref="dialog" v-model="modalViewDoc" :maximized="maximizedToggle" transition-show="slide-up"
     transition-hide="slide-down">
     <q-card class="items-center doc-modal">
 
@@ -22,7 +22,7 @@ export default {
   name: 'AlertAvisos',
   data () {
     return {
-      alertAviso: false,
+      modalViewDoc: false,
       visible: true,
       maximizedToggle: true,
       pdfSrc: ''
@@ -36,6 +36,7 @@ export default {
     fileId: String
   },
   mounted () {
+    console.log('Abrir', this.fileId)
     this.$axios({
       method: 'post',
       url: address + '/downloads/getFile',
