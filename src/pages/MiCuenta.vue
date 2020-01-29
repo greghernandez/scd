@@ -7,7 +7,7 @@
             <div class="text-h6">Foto de perfil</div>
             <div class="text-center q-pt-sm">
               <q-avatar class="avatar-img cursor-pointer" size="120px" @click="cambiarImg()">
-                <q-img :src="photoUrl" style="width: 100%">
+                <q-img :src="this.profilePhoto" :ratio="1" style="width: 100%">
                   <div class="absolute-bottom text-subtitle1 text-center change-photo">
                     <q-icon name="eva-edit-outline" size="md" />
                     <span class="text-weight-medium">Cambiar foto</span>
@@ -103,6 +103,11 @@ export default {
       .catch(err => {
         console.log('Error', err)
       })
+  },
+  computed: {
+    profilePhoto () {
+      return this.$store.state.docentes.profilePhoto
+    }
   }
 }
 </script>

@@ -77,13 +77,25 @@ export default {
     onOKClick () {
       // this.$emit('ok')
       const pondFiles = this.$refs.pond.getFiles()
-      console.log(pondFiles)
       this.$store
         .dispatch('docentes/updateUserProfilePic', {
-          photo: pondFiles,
+          photo: pondFiles[0].file,
           userId: payload.userId
         }).then(res => {
-          console.log(res)
+          this.$store.commit('docentes/setProfilePhoto', res.data.updateProfilePic.photoURL)
+          this.$q.notify({
+            color: 'positive',
+            icon: 'eva-checkmark-circle-outline',
+            message: 'La foto de perfil se cambió correctamente'
+          })
+        })
+        .catch(err => {
+          this.$q.create({
+            color: 'negative',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Ocurrió un error, intentalo de nuevo'
+          })
+          console.log(err)
         })
       this.hide()
     },

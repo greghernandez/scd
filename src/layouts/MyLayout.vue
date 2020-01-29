@@ -32,7 +32,7 @@
               </q-popup-proxy>
             </q-btn>
             <q-btn-dropdown class="avatar-img desktop-only"  auto-close flat :label="name"
-              :icon="'img:'+ photoUrl" rounded no-caps>
+              :icon="'img:'+ this.profilePhoto" rounded no-caps>
               <q-list link>
                 <q-item clickable to="/mi-cuenta">
                   <q-item-section>Mi cuenta</q-item-section>
@@ -55,7 +55,7 @@
             <q-item v-if="!miniState">
               <q-item-section class="items-center">
                 <q-avatar class="avatar-img">
-                  <img :src="photoUrl">
+                  <img :src="this.profilePhoto">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
                   <p class="q-my-none text-subtitle2">
@@ -265,6 +265,7 @@ export default {
         this.lastName = res.data.user.lastName
         this.adscription = res.data.user.adscription.name
         this.photoUrl = res.data.user.photoURL
+        this.$store.commit('docentes/setProfilePhoto', this.photoUrl)
         this.linkPerfil += payload.userId
         this.userPermissions = res.data.user.permissions
         this.userPermissions = this.userPermissions.filter(e => {
@@ -292,6 +293,9 @@ export default {
   computed: {
     totalPoints () {
       return this.$store.state.documentos.totalPoints
+    },
+    profilePhoto () {
+      return this.$store.state.docentes.profilePhoto
     }
   }
 }
