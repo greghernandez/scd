@@ -108,6 +108,7 @@ export default {
         })
         .catch(
           err => {
+            this.singIn = false
             console.log(err.message)
             console.log(err)
             this.error = true
