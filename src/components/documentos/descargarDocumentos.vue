@@ -63,8 +63,7 @@ export default {
   props: {
     title: String,
     userId: {
-      type: String,
-      default: payload.userId
+      type: String
     },
     catId: {
       type: String,
@@ -129,6 +128,9 @@ export default {
       this.hide()
     },
     async getTree () {
+      if (this.userId) {
+        this.userId = payload.userId
+      }
       await apolloClient.query({
         query: treeQuery,
         variables: {
