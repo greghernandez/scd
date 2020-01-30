@@ -8,8 +8,8 @@
       </q-card-section>
 
       <q-card-section>
-        <div class="row justify-center items-center content-center">
-          <div class="col-7">
+        <div class="row col-12 col-xs-12 justify-center items-center">
+          <div class="col-md-6 col-xs-12">
             <q-tree class="col-6 col-sm-12"
               :nodes="simple"
               node-key="_id"
@@ -22,9 +22,9 @@
               no-nodes-label="No hay documentos para descargar" />
           </div>
 
-          <q-separator vertical/>
+          <q-separator class="desktop-only" vertical/>
 
-          <div class="row col flex-center">
+          <div class="row col-md-5 col-sm-12 flex-center">
             <div class="q-gutter-y-md">
               <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="descargaPdf()"/><br>
               <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
