@@ -10,7 +10,7 @@
       <q-card-section>
         <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Arrastra los documentos aquí..."
           allow-multiple="true" instantUpload="false" accepted-file-types="application/pdf"
-          v-on:init="handleFilePondInit" />
+          v-on:init="handleFilePondInit" z/>
       </q-card-section>
 
       <q-card-actions align="right">
@@ -83,6 +83,9 @@ export default {
           return e.file
         }
       }).map((e) => { return e.file })
+      if (files.length > 0) {
+        this.$store.commit('documentos/isUploading')
+      }
       this.$store
         .dispatch('documentos/subirDocumentos', {
           files: files,
@@ -91,6 +94,9 @@ export default {
           page: this.$route.name,
           global: this.global
         }).then(res => {
+          if (this.$store.state.documentos.isLoading) {
+            this.$store.commit('documentos/isUploading')
+          }
           this.$q.notify({
             color: 'positive',
             icon: 'eva-checkmark-circle-outline',
