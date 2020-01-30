@@ -101,7 +101,6 @@ export default {
       } else {
         this.$store.dispatch('documentos/eliminarDocumentos', id)
           .then(res => {
-            console.log(res)
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',
@@ -130,7 +129,6 @@ export default {
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
       this.hide()
     }
   },
