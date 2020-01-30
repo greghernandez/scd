@@ -36,7 +36,19 @@
                 <q-checkbox v-model="recordarme" label="Recordarme" />
               </div>-->
               <div class="q-pt-md">
-                <q-btn rounded class="btn-login" label="Entrar" type="submit" color="primary" no-caps />
+                <q-btn
+                  rounded
+                  class="btn-login"
+                  label="Entrar"
+                  type="submit"
+                  color="primary"
+                  :loading="singIn"
+                  no-caps
+                >
+                  <template v-slot:loading>
+                    <q-spinner color="white" />
+                  </template>
+                </q-btn>
               </div>
             </q-form>
           </q-card-section>
@@ -72,7 +84,8 @@ export default {
       loginData: undefined,
       error: false,
       errMsg: undefined,
-      year: undefined
+      year: undefined,
+      singIn: false
     }
   },
   mounted () {
@@ -80,6 +93,7 @@ export default {
   },
   methods: {
     login () {
+      this.singIn = true
       this.loginData = apolloClient.query({
         query: loginQuery,
         variables: {
