@@ -57,7 +57,8 @@ export default {
       selected: 'Pleasant surroundings',
       ticked: [],
       expanded: [],
-      simple: []
+      simple: [],
+      user: undefined
     }
   },
   props: {
@@ -128,14 +129,16 @@ export default {
       this.hide()
     },
     async getTree () {
-      if (this.userId) {
-        this.userId = payload.userId
+      if (this.userId === undefined) {
+        this.user = payload.userId
+      } else {
+        this.user = this.userId
       }
       await apolloClient.query({
         query: treeQuery,
         variables: {
           cat: this.catId,
-          user: this.userId
+          user: this.user
         }
       })
         .then(res => {
