@@ -2,20 +2,22 @@
   <div>
     <q-card class="my-card q-mt-xs q-mb-xs padding-card">
       <q-card-section class="q-px-none q-py-none">
-        <div>
-          <h5 class="q-mt-xs q-mb-xs">Categorías</h5>
-        </div>
-        <div>
-          <q-input class="search search-input q-my-xs" rounded outlined dense clearable
-            clear-icon="eva-close-circle-outline" v-model="search" placeholder="Buscar categorías" type="search">
-            <template v-slot:prepend>
-              <q-icon name="search" />
-            </template>
-          </q-input>
+        <div class="row items-center">
+          <div class="q-mr-md">
+            <h5 class="q-mt-xs q-mb-xs">Categorías</h5>
+          </div>
+          <div class="">
+            <q-input class="search search-input q-my-xs" rounded outlined dense clearable
+              clear-icon="eva-close-circle-outline" v-model="search" placeholder="Buscar categorías" type="search">
+              <template v-slot:prepend>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
         </div>
         <div>
           <!-- Breadcrumbs -->
-          <div class="q-mt-sm q-mb-sm">
+          <div class="q-mt-sm q-mb-xs">
             <q-breadcrumbs style="font-size: 16px">
               <template v-slot:separator>
                 <q-icon size="1.5em" name="chevron_right " color="#575757" />
@@ -27,7 +29,7 @@
             </q-breadcrumbs>
           </div>
           <!-- Carousel -->
-          <div class="q-pa-md">
+          <div class="q-px-md">
             <carousel v-if="this.resultQuery.length != 0" :perPageCustom="[[480, 1], [768, 2]]"
               :navigationEnabled="true" :navigation-next-label="nextLabel" :navigation-prev-label="prevLabel"
               paginationActiveColor="#4A4FF1">
