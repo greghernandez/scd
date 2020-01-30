@@ -38,6 +38,7 @@
                 </div>
               </slide>
             </carousel>
+            <!-- if there are no search results, this div is rendered -->
             <div v-else class="row items-center justify-center">
               <div v-if="this.search != null">
                 <q-banner class="q-pa-md bg-grey-3">No hay resultados que coincidan con la busqueda</q-banner>
@@ -47,6 +48,7 @@
         </div>
       </q-card-section>
     </q-card>
+    <!-- Documents Section -->
     <div class="q-pa-md">
       <DocumentsSection :category="category" :catId="catId" :catPoint="catPoint" :title="catTitle" />
     </div>
@@ -100,8 +102,8 @@ export default {
     number: undefined
   },
   methods: {
+    // Category query
     catQuery () {
-      console.log('- CatQuery -')
       if (this.$route.params.idSub) {
         this.id = this.$route.params.idSub
       } else if (this.$route.params.idCategory) {
@@ -125,7 +127,6 @@ export default {
               this.getCatPoints(this.categoryData[index]._id, this.categoryData[index].value)
             }
           }
-          console.log('RES-', this.categories)
           this.$store.commit('documentos/addCategories', this.categories)
           this.categories = []
         })
@@ -133,6 +134,7 @@ export default {
           console.log(err)
         })
     },
+    // if a card is selected
     selectedCard (id, clave, value, title) {
       this.selected = !this.selected
       this.category = clave
@@ -179,6 +181,7 @@ export default {
     }
   },
   watch: {
+    // if route change, reset data
     $route (to, from) {
       this.catQuery()
       this.category = ''

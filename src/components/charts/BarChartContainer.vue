@@ -30,9 +30,8 @@ export default {
     })
   },
   async mounted () {
+    // set spinner while content is loaded
     this.loaded = false
-    // let this.BarChartData = []
-    // let algo = []
     try {
       for (let index = 0; index < this.categorias.length; index++) {
         await this.$store
@@ -43,15 +42,8 @@ export default {
           .then(res => {
             let item = res.data.inspectCategory.totalDocs
             this.BarChartData.push(item)
-            // console.log(JSON.stringify(this.BarChartData))
-            // algo = JSON.stringify(this.BarChartData)
-            // algo = JSON.parse('[' + algo + ']')
-            if (index === 3) {
-              // ASD
-            }
           })
       }
-      console.log('DONUT:', this.BarChartData)
       this.chartdata = {
         labels: ['Documentos'],
         datasets: [

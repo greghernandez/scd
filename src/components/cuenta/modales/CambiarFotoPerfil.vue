@@ -61,7 +61,7 @@ export default {
       notices: 'docentes/actions'
     }),
     handleFilePondInit: function () {
-      console.log('FilePond has initialized')
+      // console.log('FilePond has initialized')
     },
     show () {
       this.$refs.dialog.show()
@@ -100,7 +100,7 @@ export default {
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
+      // console.log('Cancel')
       this.hide()
     }
   }

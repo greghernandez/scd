@@ -12,6 +12,7 @@
 export default {
   name: 'VerConvocatoria',
   props: {
+    // Notice Link
     link: {
       type: String,
       required: true

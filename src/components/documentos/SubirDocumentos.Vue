@@ -63,7 +63,7 @@ export default {
       notices: 'documentos/actions'
     }),
     handleFilePondInit: function () {
-      console.log('FilePond has initialized')
+      // console.log('FilePond has initialized')
     },
     show () {
       this.$refs.dialog.show()
@@ -80,11 +80,9 @@ export default {
       const pondFiles = this.$refs.pond.getFiles()
       const files = pondFiles.filter((e) => {
         if (e.file.type === 'application/pdf') {
-          console.log(e.file)
           return e.file
         }
       }).map((e) => { return e.file })
-      console.log('ya filtrados', files)
       this.$store
         .dispatch('documentos/subirDocumentos', {
           files: files,

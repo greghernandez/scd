@@ -4,6 +4,9 @@ import { noticesQuery, noticeQuery } from '../../services/graphql/queries'
 import { statusNotices } from '../../../enviroment.dev'
 import { noticeDeleteMutation, noticeCreateMutation, noticeUpdateMutation } from '../../services/graphql/mutations'
 
+/**
+ * Get all notices
+ */
 export function avisosQuery ({ commit }) {
   return new Promise(resolve => {
     apolloClient.query({
@@ -15,16 +18,17 @@ export function avisosQuery ({ commit }) {
       }
     })
       .then(res => {
-        console.log('Avisos:', res.data.notices)
         commit('setAvisos', res.data.notices)
         resolve(res)
       })
   })
 }
-
+/**
+ * get a specific notice
+ * @param {String} idAviso - Id notice
+ */
 export function avisoQuery ({ commit }, idAviso) {
   return new Promise(resolve => {
-    console.log(idAviso)
     apolloClient.query({
       query: noticeQuery,
       variables: {
@@ -32,13 +36,15 @@ export function avisoQuery ({ commit }, idAviso) {
       }
     })
       .then(res => {
-        console.log('Aviso:', res.data.notice)
         commit('setAviso', res.data.notice)
         resolve(res)
       })
   })
 }
-
+/**
+ * Create a new notice
+ * @param {*} aviso - new notice data
+ */
 export function createAviso ({ commit, dispatch }, aviso) {
   return new Promise(resolve => {
     apolloClient.mutate({
@@ -60,19 +66,19 @@ export function createAviso ({ commit, dispatch }, aviso) {
       }
     })
       .then(res => {
-        console.log(res.data.createNotice._id)
         let nuevoAviso = res.data.createNotice
-        console.log(nuevoAviso)
         // dispatch('avisosQuery')
         commit('addAviso', nuevoAviso)
         resolve(res)
       })
   })
 }
-
+/**
+ * update a notice with a specific id
+ * @param {*} aviso - Notice data
+ */
 export function updateAviso ({ commit }, aviso) {
   return new Promise(resolve => {
-    console.log(aviso)
     apolloClient.mutate({
       mutation: noticeUpdateMutation,
       variables: {
@@ -92,16 +98,17 @@ export function updateAviso ({ commit }, aviso) {
       }
     })
       .then(res => {
-        console.log(res.data)
         commit('updateAviso', aviso)
         resolve(res)
       })
   })
 }
-
+/**
+ * deletes a notice
+ * @param {*} idAviso - notice id
+ */
 export function deleteAviso ({ commit }, idAviso) {
   return new Promise(resolve => {
-    console.log(idAviso)
     apolloClient.mutate({
       mutation: noticeDeleteMutation,
       variables: {
@@ -109,7 +116,6 @@ export function deleteAviso ({ commit }, idAviso) {
       }
     })
       .then(res => {
-        console.log(res.data)
         commit('deleteAviso', res.data.deleteNotice._id)
         resolve(res)
       })

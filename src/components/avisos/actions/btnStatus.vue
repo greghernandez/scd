@@ -23,10 +23,12 @@ export default {
     }
   },
   props: {
+    // Notice Id
     id: {
       type: String,
       required: true
     },
+    // Notice status
     status: {
       type: Number,
       required: true
@@ -56,10 +58,9 @@ export default {
         component: AlertAviso,
         title: 'Habilitar aviso',
         message: 'Este aviso se hara visible para los usuarios',
-        btn: 'Habilitar aviso',
+        btn: this.tooltipMsg,
         btnColor: 'primary'
       }).onOk(() => {
-        console.log(this.id)
         apolloClient.mutate({
           mutation: noticeUpdateMutation,
           variables: {
@@ -71,7 +72,6 @@ export default {
         })
           .then(
             res => {
-              console.log(res.data)
               this.verificarStatus(this.newStatus)
               this.$q.notify({
                 color: 'positive',

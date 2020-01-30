@@ -117,7 +117,6 @@ export default {
         })
         this.permissionsData.then(
           res => {
-            console.log(res.data.updateUserRole)
             this.isAdmin = !this.isAdmin
             // const nId = res.data.updateUserRole._id
             // const permiso = this.propPermition

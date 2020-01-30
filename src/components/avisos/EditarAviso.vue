@@ -90,6 +90,7 @@ export default {
     }
   },
   props: {
+    // Notice Id
     id: {
       type: String,
       required: true
@@ -111,7 +112,6 @@ export default {
     })
       .then(res => {
         this.aviso = res.data.notice
-        console.log('Aviso on mounted', this.aviso)
         this.title = this.aviso.title
         this.description = this.aviso.body
         this.link = this.aviso.link

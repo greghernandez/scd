@@ -69,13 +69,12 @@ export default {
     onOKClick () {
       const id = this.docId
       /*
-        verify the type of deleted, if it's multiple or individual,
-        to proceed with the corresponsive action
+      * verify the type of deleted, if it's multiple or individual,
+      * to proceed with the corresponsive action
       */
       if (!this.multiple) {
         this.$store.dispatch('documentos/eliminarDocumento', id)
           .then(res => {
-            console.log(res)
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',

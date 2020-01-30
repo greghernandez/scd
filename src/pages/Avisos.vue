@@ -6,6 +6,7 @@
     <div>
       <q-btn class="my-btn" unelevated rounded dense color="primary" label="Crear aviso" no-caps @click="crearAviso()"/>
     </div>
+    <!-- Notices table -->
     <div class="q-mt-lg">
       <TablaAvisos/>
     </div>

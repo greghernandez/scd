@@ -4,14 +4,12 @@ import { documentsTartaro, DOCUMENTS_QUANTITY, INSPECT_CATEGORY } from '../../se
 import { MOVE_DOCUMENT, DELETE_DOCUMENT, multipleUpload, DELETE_DOCUMENTS, MOVE_DOCUMENTS } from '../../services/graphql/mutations'
 
 /**
- * DocumentosQuery
- * @param commit
- * @param payload
+ * Load documents of a certain category
+ * @param commit - vuex commit function
+ * @param payload - user and category id´s
  */
 export function documentosQuery ({ commit }, payload) {
   return new Promise(resolve => {
-    console.log('----- Query documentos ----')
-    console.log(payload)
     commit('resetStore')
     apolloClient.cache.reset()
     apolloClient.query({
@@ -28,7 +26,6 @@ export function documentosQuery ({ commit }, payload) {
     })
       .then(res => {
         const documentos = res.data.documents
-        console.log('Documentos - QRY', documentos)
         commit('setDocumentos', documentos)
         resolve(res)
       })
@@ -42,7 +39,10 @@ export function documentosQuery ({ commit }, payload) {
       })
   })
 }
-
+/**
+ * Gets information about an specific category
+ * @param {Object} payload - user and category id
+ */
 export function inspectCategory ({ commit }, payload) {
   return new Promise((resolve, reject) => {
     if (payload.reset) {
@@ -65,7 +65,10 @@ export function inspectCategory ({ commit }, payload) {
       })
   })
 }
-
+/**
+ * Gets documents quantity about a specific category
+ * @param {*} payload - User and category id
+ */
 export function documentosQty ({ commit }, payload) {
   return new Promise((resolve, reject) => {
     apolloClient.mutate({
@@ -83,7 +86,10 @@ export function documentosQty ({ commit }, payload) {
       })
   })
 }
-
+/**
+ * Upload documents
+ * @param {*} payload - files, owner and category id to upload
+ */
 export function subirDocumentos ({ commit }, payload) {
   return new Promise(resolve => {
     commit('isUploading')
@@ -102,9 +108,6 @@ export function subirDocumentos ({ commit }, payload) {
       }
     })
       .then(res => {
-        console.log(res.data.multipleUpload)
-        console.log('page', payload.page)
-        console.log('global', payload.global)
         if (payload.global !== true) {
           commit('addDocuments', res.data.multipleUpload)
         } else if (payload.global === true && payload.page === 'pendientes') {
@@ -116,11 +119,13 @@ export function subirDocumentos ({ commit }, payload) {
       .catch(err => console.log(err))
   })
 }
-
+/**
+ * Move a document
+ * @param {*} payload - document ID and category id to move it
+ */
 export function moverDocumento ({ commit, dispatch }, payload) {
   return new Promise((resolve, reject) => {
-    console.log('PAYLOAD:', payload)
-    // Mover Documento
+    // Move Document
     apolloClient.mutate({
       mutation: MOVE_DOCUMENT,
       variables: {
@@ -129,7 +134,6 @@ export function moverDocumento ({ commit, dispatch }, payload) {
       }
     })
       .then(res => {
-        console.log('Respuesta:', res)
         const id = payload.doc
         commit('deleteDocumento', id)
         resolve(res)
@@ -139,11 +143,13 @@ export function moverDocumento ({ commit, dispatch }, payload) {
       })
   })
 }
-
+/**
+ * Moves documents
+ * @param {*} payload - documents ID and category id to move them
+ */
 export function moverDocumentos ({ commit }, payload) {
   return new Promise((resolve, reject) => {
-    console.log('PAYLOAD:', payload)
-    // Mover Documento
+    // Move Document
     apolloClient.mutate({
       mutation: MOVE_DOCUMENTS,
       variables: {
@@ -152,7 +158,6 @@ export function moverDocumentos ({ commit }, payload) {
       }
     })
       .then(res => {
-        console.log('Respuesta:', res)
         const ids = payload.oids
         commit('deleteDocumentos', ids)
         resolve(res)
@@ -162,10 +167,12 @@ export function moverDocumentos ({ commit }, payload) {
       })
   })
 }
-
+/**
+ * Delete a document
+ * @param {Object} id - id of document to delete
+ */
 export function eliminarDocumento ({ commit }, id) {
   return new Promise((resolve, reject) => {
-    console.log('ID a eliminar', id)
     apolloClient.mutate({
       mutation: DELETE_DOCUMENT,
       variables: {
@@ -173,7 +180,6 @@ export function eliminarDocumento ({ commit }, id) {
       }
     })
       .then(res => {
-        console.log('Respuesta:', res)
         const idDoc = id
         commit('deleteDocumento', idDoc)
         resolve(res)
@@ -183,7 +189,10 @@ export function eliminarDocumento ({ commit }, id) {
       })
   })
 }
-
+/**
+ * Delete documents
+ * @param {Object} id - id of documents to delete
+ */
 export function eliminarDocumentos ({ commit }, ids) {
   return new Promise((resolve, reject) => {
     apolloClient.mutate({
@@ -193,7 +202,6 @@ export function eliminarDocumentos ({ commit }, ids) {
       }
     })
       .then(res => {
-        console.log('Respuesta:', res)
         const idDoc = ids
         commit('deleteDocumentos', idDoc)
         resolve(res)

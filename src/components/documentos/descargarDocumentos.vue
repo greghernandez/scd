@@ -81,7 +81,6 @@ export default {
       this.$store.commit('documentos/changeDownloadState')
       joinInPdf(this.ticked, 'download').then(res => {
         this.$store.commit('documentos/changeDownloadState')
-        console.log('DescargarPdf', res)
       })
     },
     descargaZip () {
@@ -123,16 +122,13 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
-      console.log(this.ticked)
       this.$emit('ok')
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
       this.hide()
     },
     async getTree () {
-      console.log(payload.userId)
       await apolloClient.query({
         query: treeQuery,
         variables: {
@@ -142,7 +138,6 @@ export default {
       })
         .then(res => {
           this.simple.push(res.data.getTree)
-          console.log(this.simple)
         })
         .catch(err => {
           console.log(err)

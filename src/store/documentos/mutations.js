@@ -12,7 +12,6 @@ export function changeDownloadState (state) {
 }
 // Add documents to store when user upload files
 export function addDocuments (state, documentos) {
-  console.log('Payload', documentos)
   documentos.filter((item) => {
     state.documentos.push(item)
   })
@@ -35,7 +34,6 @@ export function resetCatPoints (state) {
 }
 // Update points (total and cards) depending on user action
 export function updatePoints (state, payload) {
-  console.log('UpdatePoints', payload)
   switch (payload.mode) {
     // When a document is moved
     case 'move':
@@ -103,7 +101,6 @@ export function check (state, checkBox) {
   if (checkBox.val) {
     state.selected.push(checkBox.objId)
   } else {
-    console.log('del check')
     const index = state.selected.findIndex(e => e === checkBox.objId)
     state.selected.splice(index, 1)
   }

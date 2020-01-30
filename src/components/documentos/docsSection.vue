@@ -1,7 +1,5 @@
 <template>
   <div>
-    selected {{ this.selected }}
-    idcat {{ this.SelectedCategory }}
     <div v-if="this.category !== ''">
       <div>
         <q-input class="search search-input q-my-xs" bg-color="white" rounded outlined dense clearable
@@ -17,6 +15,8 @@
             :createdAt="documents.createdAt" />
         </div>
       </div>
+
+      <!-- Render if user not have documents or if no search results -->
       <div v-else class="row items-center justify-center q-ma-lg">
         <q-banner class="q-pa-md bg-grey-3">
           <div v-if="this.documentosData.length === 0 && (this.search === null || this.search === '')">
@@ -28,6 +28,8 @@
         </q-banner>
       </div>
     </div>
+
+    <!-- render if no selected category -->
     <div v-else class="row items-center justify-center q-ma-lg">
       <q-banner class="q-pa-md bg-grey-3">
         <div class="col-12 text-center q-pb-sm">
@@ -38,9 +40,13 @@
         </div>
       </q-banner>
     </div>
+
+    <!-- Floating buttons-->
     <floating-menu v-if="this.selected.length > 0 && !this.$route.matched.some(record => record.meta.isVisitant)"/>
     <floating-download v-if="this.SelectedCategory.length != 0" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
     <floating-upload v-if="(this.SelectedCategory.length != 0 || this.category === '999') && !this.$route.matched.some(record => record.meta.isVisitant)" :catId="this.SelectedCategory.catId" :catTitle="this.SelectedCategory.title"/>
+
+    <!-- Upload and download progress -->
     <div>
       <UploadingDialog :uploading="isLoading" />
       <DownloadingDialog :downloading="isDownloading" />
@@ -76,24 +82,28 @@ export default {
     }
   },
   props: {
+    // Category of documents
     category: {
       type: String,
       required: true
     },
+    // id of category
     catId: {
       type: String
     },
+    // Category point
     catPoint: {
       type: Number
     },
+    // title
     title: {
       type: String
     }
   },
   watch: {
+    // wath if category selected change for make a new query and change displayed data
     category: function (newVal, oldVal) {
-      console.log('render')
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      // console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       try {
         var newElement = document.getElementById(newVal)
         newElement.classList.add('selected-card')
@@ -107,12 +117,12 @@ export default {
       // const userId = payload.userId
       const category = this.category
       const user = this.userId
-      console.log('category', this.category)
       this.$store
         .dispatch('documentos/documentosQuery', { user, category })
         .then(res => {
-          console.log(res)
+          // console.log(res)
         })
+      // Set actual category in store
       this.$store.commit('documentos/setActualCategory', {
         catId: this.catId,
         title: this.title,

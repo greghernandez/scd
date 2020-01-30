@@ -1,6 +1,6 @@
 <template>
   <q-page class="">
-    <!--Sección cartas informativas-->
+    <!--Info cards-->
     <div class="row">
       <div class="row col-12">
         <div class="col-md-2 col-xs-6 card-info">

@@ -29,9 +29,8 @@ export default {
     })
   },
   async mounted () {
+    // set spinner while content is loaded
     this.loaded = false
-    // let this.donutData = []
-    // let algo = []
     try {
       for (let index = 0; index < this.categoriasDonut.length; index++) {
         await this.$store
@@ -42,15 +41,8 @@ export default {
           .then(res => {
             let item = res.data.inspectCategory.totalValue
             this.donutData.push(item)
-            // console.log(JSON.stringify(this.donutData))
-            // algo = JSON.stringify(this.donutData)
-            // algo = JSON.parse('[' + algo + ']')
-            if (index === 3) {
-              // ASD
-            }
           })
       }
-      console.log('DONUT:', this.donutData)
       this.chartdata = {
         labels: ['100', '200', '300', '400'],
         datasets: [

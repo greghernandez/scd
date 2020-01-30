@@ -260,6 +260,7 @@ export default {
         e.stopPropagation()
       }
     },
+    // Download user CV
     descargarCV () {
       this.$q.dialog({
         component: descargarDocumentos,
@@ -268,7 +269,7 @@ export default {
         btnColor: 'negative'
       })
     },
-    // Subir documentos
+    // Upload Documents
     subirDocumentos () {
       this.$q.dialog({
         component: SubirDocumentos,
@@ -281,14 +282,14 @@ export default {
         btnColor: 'primary'
       })
     },
-    // Copiar link de perfil
+    // Copy profile link
     onCopy: function () {
       this.$q.notify({
         message: 'Se copio el link para compartir',
         position: 'top-right'
       })
     },
-    // Cerrar Sesión
+    // Log out
     logout: function () {
       localStorage.removeItem('scd-at')
       window.location.href = 'login'

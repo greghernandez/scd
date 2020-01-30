@@ -54,9 +54,6 @@ export default {
   components: {
     RubroCard
   },
-  props: {
-    rubro: String
-  },
   data () {
     return {
       search: null,
@@ -74,7 +71,6 @@ export default {
     })
       .then(res => {
         this.categoriesData = res.data.categories
-        console.log(this.categoriesData)
       })
       .catch(err => {
         console.log(err)
