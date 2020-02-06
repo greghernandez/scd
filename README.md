@@ -29,6 +29,13 @@ Go to dist/spa
 quasar serve
 ```
 
+### Component Documentation website
+go to src/website
+```bash
+vuese serve --open
+```
+
+
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 
