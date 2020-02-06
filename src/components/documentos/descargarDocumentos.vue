@@ -107,7 +107,7 @@ export default {
       // Dialog con la vista del documento
       this.$q.dialog({
         component: modalDocs,
-        fileId: this.ticked
+        fileIds: this.ticked
       })
     },
     show () {

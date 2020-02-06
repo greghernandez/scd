@@ -90,7 +90,7 @@ export const joinInPdf = async (files, mode) => {
 }
 
 function getFileNameFromHttpResponse (httpResponse) {
-  console.log(httpResponse)
+  // console.log(httpResponse)
   const contentDispositionHeader = httpResponse.headers['content-disposition']
   const result = contentDispositionHeader.split(';')[1].trim().split('=')[1]
   return result.replace(/"/g, '')

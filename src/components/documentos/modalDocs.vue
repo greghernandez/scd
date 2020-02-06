@@ -16,7 +16,7 @@
 
 <script>
 import { address } from '../../../enviroment.dev'
-// import { getFile } from '../../services/downloads'
+// import { joinInPdf } from '../../services/downloads'
 
 export default {
   name: 'AlertAvisos',
@@ -33,29 +33,56 @@ export default {
     message: String,
     btn: String,
     btnColor: String,
-    fileId: String
+    fileId: {
+      type: String,
+      default: null
+    },
+    fileIds: {
+      type: Array,
+      default: null
+    }
   },
-  mounted () {
-    console.log('Abrir', this.fileId)
-    this.$axios({
-      method: 'post',
-      url: address + '/downloads/getFile',
-      data: {
-        id: this.fileId,
+  async mounted () {
+    // Check if document is multiple
+    if (this.fileId !== null) {
+      this.$axios({
+        method: 'post',
+        url: address + '/downloads/getFile',
+        data: {
+          id: this.fileId,
+          mode: 'download'
+        },
+        responseType: 'blob',
+        headers: { 'content-type': 'application/json' }
+      })
+        .then(res => {
+          const blob = new Blob([res.data], { type: res.data.type })
+          this.pdfSrc = window.URL.createObjectURL(blob)
+          console.log(blob)
+          console.log(this.pdfSrc)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      // Document view is multiple
+      // this.pdfSrc = joinInPdf(this.fileIds, 'download')
+      await this.$axios.post(address + '/downloads/joinInPdf', {
+        files: this.fileIds,
         mode: 'download'
-      },
-      responseType: 'blob',
-      headers: { 'content-type': 'application/json' }
-    })
-      .then(res => {
-        const blob = new Blob([res.data], { type: res.data.type })
-        this.pdfSrc = window.URL.createObjectURL(blob)
-        console.log(this.pdfSrc)
+      }, {
+        responseType: 'blob',
+        observe: 'response',
+        headers: { 'content-type': 'application/json' }
       })
-      .catch(err => {
-        console.log(err)
-      })
-    console.log(this.pdfSrc)
+        .then(res => {
+          const blob = new Blob([res.data], { type: res.data.type })
+          this.pdfSrc = window.URL.createObjectURL(blob)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
   },
   methods: {
     show () {
