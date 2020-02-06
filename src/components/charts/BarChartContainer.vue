@@ -4,7 +4,15 @@
       <q-spinner v-if="!loaded" color="secondary" size="9em"/>
     </div>
 
-    <Bar-Chart :width="80" :height="70" v-if="loaded" :chartdata="chartdata"/>
+    <div v-if="!isEmpty">
+      <Bar-Chart :width="80" :height="70" v-if="loaded" :chartdata="chartdata"/>
+    </div>
+
+    <div v-else>
+      <q-banner rounded class="bg-grey-3 text-center">
+        Aún no tienes información para mostrar
+      </q-banner>
+    </div>
   </div>
 </template>
 
@@ -22,6 +30,7 @@ export default {
     chartdata: null,
     BarChartData: [],
     barLabels: ['100', '200', '300', '400'],
+    isEmpty: false,
     categorias: [rubros.uno, rubros.dos, rubros.tres, rubros.cuatro]
   }),
   methods: {
@@ -43,6 +52,9 @@ export default {
             let item = res.data.inspectCategory.totalDocs
             this.BarChartData.push(item)
           })
+      }
+      if (this.$store.state.documentos.totalPoints === 0) {
+        this.isEmpty = true
       }
       this.chartdata = {
         labels: ['Documentos'],

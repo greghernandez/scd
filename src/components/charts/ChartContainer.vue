@@ -4,7 +4,15 @@
       <q-spinner v-if="!loaded" color="secondary" size="9em"/>
     </div>
 
-    <Donut-Chart :width="80" :height="70" v-if="loaded" :chartdata="chartdata"/>
+    <div v-if="!isEmpty">
+      <Donut-Chart :width="80" :height="70" v-if="loaded" :chartdata="chartdata"/>
+    </div>
+
+    <div v-else>
+      <q-banner rounded class="bg-grey-3 text-center">
+        Aún no tienes información para mostrar
+      </q-banner>
+    </div>
   </div>
 </template>
 
@@ -21,6 +29,7 @@ export default {
     loaded: false,
     chartdata: null,
     donutData: [],
+    isEmpty: false,
     categoriasDonut: [rubros.uno, rubros.dos, rubros.tres, rubros.cuatro]
   }),
   methods: {
@@ -42,6 +51,9 @@ export default {
             let item = res.data.inspectCategory.totalValue
             this.donutData.push(item)
           })
+      }
+      if (this.$store.state.documentos.totalPoints === 0) {
+        this.isEmpty = true
       }
       this.chartdata = {
         labels: ['100', '200', '300', '400'],
