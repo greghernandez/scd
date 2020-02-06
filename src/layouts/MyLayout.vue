@@ -311,8 +311,10 @@ export default {
           for (let index = 0; index < this.userPermissions.length; index++) {
             if (permissions.admin === e.rank) {
               this.admin = true
+              this.$store.commit('docentes/setPermisoAdmin', this.admin)
             } else if (permissions.superAdmin === e.rank) {
               this.superAdmin = true
+              this.$store.commit('docentes/setPermisoSuper', this.superAdmin)
             }
           }
         })
