@@ -16,6 +16,13 @@ export default {
   name: 'PageADocentes',
   components: {
     TablaDocentes
+  },
+  // verify if user have permmissions to view page
+  beforeMount () {
+    let permiso = this.$store.state.docentes.userPermissions
+    if (permiso.admin === false) {
+      this.$router.push('/')
+    }
   }
 }
 </script>
