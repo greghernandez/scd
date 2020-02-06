@@ -32,9 +32,9 @@
 
           <div class="row col-md-5 col-sm-12 flex-center">
             <div class="q-gutter-y-md">
-              <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="eva-download-outline" color="negative" :disabled="!(this.ticked.length > 0)" no-caps @click="descargaPdf()"/><br>
-              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="eva-download-outline" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
-              <q-btn rounded class="full-width" label="Visualizar en linea" icon="eva-download-outline" :disabled="!(this.ticked.length > 0)" color="primary" no-caps  @click="visualizar()"/><br>
+              <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="img:statics/icons/pdf.png" color="negative" :disabled="!(this.ticked.length > 0)" no-caps @click="descargaPdf()"/><br>
+              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="img:statics/icons/zip.png" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
+              <q-btn rounded class="full-width" label="Visualizar en linea" icon="img:statics/icons/file.png" :disabled="!(this.ticked.length > 0)" color="primary" no-caps  @click="visualizar()"/><br>
             </div>
           </div>
         </div>
