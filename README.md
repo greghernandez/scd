@@ -21,6 +21,7 @@ npm run lint
 ```bash
 quasar build
 ```
+Move assets to dist/spa
 
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
