@@ -210,7 +210,6 @@ export default {
             })
         }
         // send
-        console.log('Ok')
         this.$emit('ok')
         this.hide()
       } else {
@@ -218,7 +217,6 @@ export default {
       }
     },
     onCancelClick () {
-      console.log('Cancel')
       this.hide()
     }
   },
@@ -233,7 +231,6 @@ export default {
     })
       .then(res => {
         this.categorias = res.data.categories
-        console.log(res.data)
       })
   },
   computed: {
