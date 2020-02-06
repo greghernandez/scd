@@ -31,7 +31,7 @@
               </q-popup-proxy>
             </q-btn>
             <q-btn-dropdown class="avatar-img desktop-only" auto-close flat :label="name"
-              :icon="'img:'+ this.profilePhoto" rounded no-caps>
+              :icon="'img:'+ this.baseAdress + this.profilePhoto" rounded no-caps>
               <q-list link>
                 <q-item clickable to="/mi-cuenta">
                   <q-item-section>Mi cuenta</q-item-section>
@@ -67,7 +67,7 @@
             <q-item v-if="!miniState">
               <q-item-section class="items-center">
                 <q-avatar class="avatar-img">
-                  <img :src="this.profilePhoto">
+                  <img :src="this.baseAdress + this.profilePhoto">
                 </q-avatar>
                 <div v-if="!miniState" class="text-center">
                   <p class="q-my-none text-subtitle2">
@@ -219,7 +219,7 @@ import SubirDocumentos from 'components/documentos/subirDocumentos'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
 import { mapActions } from 'vuex'
 import { payload } from '../services/user'
-import { permissions, rubros } from '../../enviroment.dev'
+import { permissions, rubros, address } from '../../enviroment.dev'
 
 export default {
   name: 'MyLayout',
@@ -238,7 +238,8 @@ export default {
       adscription: undefined,
       userPermissions: null,
       admin: false,
-      superAdmin: false
+      superAdmin: false,
+      baseAdress: address
     }
   },
   methods: {

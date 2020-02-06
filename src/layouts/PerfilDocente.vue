@@ -6,7 +6,7 @@
           <div class="col-md-4 col-sm-12 row justify-betwen items-center">
             <div class="col-4">
               <q-avatar class="avatar-img" size="80px">
-                <img :src="photoUrl">
+                <img :src="this.baseAdress + photoUrl">
               </q-avatar>
             </div>
             <div class="col-8">
@@ -54,8 +54,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { rubros } from '../../enviroment.dev'
 import descargarDocumentos from 'components/documentos/descargarDocumentos'
+import { rubros, address } from '../../enviroment.dev'
 // import PageDocumento from './Documentos'
 // import { payload } from '../services/user'
 
@@ -73,7 +73,8 @@ export default {
       adscription: undefined,
       photoUrl: undefined,
       totalDocs: 0,
-      totalPoints: 0
+      totalPoints: 0,
+      baseAdress: address
     }
   },
   methods: {
