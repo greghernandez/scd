@@ -19,7 +19,13 @@
               :selected.sync="selected"
               :ticked.sync="ticked"
               :expanded.sync="expanded"
-              no-nodes-label="No hay documentos para descargar" />
+              no-nodes-label="No hay documentos para descargar" >
+                <template v-slot:default-header="prop">
+                  <div class="row items-center">
+                    <div class="text-weight-bold text-primary">{{ prop.node.label | capitalize}}</div>
+                  </div>
+                </template>
+            </q-tree>
           </div>
 
           <q-separator class="desktop-only" vertical/>
@@ -153,6 +159,16 @@ export default {
     this.getTree()
     if (this.preTicket != null) {
       this.ticked = this.preTicket
+    }
+  },
+  filters: {
+    capitalize: function (value) {
+      console.log(value)
+      if (value === '000 - Olympus') {
+        return 'Documentos'
+      } else {
+        return value
+      }
     }
   }
 }
