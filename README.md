@@ -23,6 +23,12 @@ quasar build
 ```
 Move assets to dist/spa
 
+### Serve Build app for production
+Go to dist/spa
+```bash
+quasar serve
+```
+
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 
