@@ -29,7 +29,13 @@ Go to dist/spa
 quasar serve
 ```
 
+
 ### Component Documentation website
+Generate website documentation
+```bash
+vuese gen
+```
+Serve website documentation
 ```bash
 vuese serve --open
 ```
