@@ -30,7 +30,6 @@ quasar serve
 ```
 
 ### Component Documentation website
-go to src/website
 ```bash
 vuese serve --open
 ```
