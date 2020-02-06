@@ -22,7 +22,7 @@
               no-nodes-label="No hay documentos para descargar" >
                 <template v-slot:default-header="prop">
                   <div class="row items-center">
-                    <div class="text-weight-bold text-primary">{{ prop.node.label | capitalize}}</div>
+                    <div class="">{{ prop.node.label | capitalize}}</div>
                   </div>
                 </template>
             </q-tree>
