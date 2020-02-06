@@ -14,7 +14,7 @@
             <q-form @submit="login" class="q-gutter-xs">
               <div v-if="error">
                 <q-banner inline-actions class="text-white bg-red-7">
-                  Ocurrió un error, intentalo de nuevo
+                  {{ this.errMsg.msg }}
                 </q-banner>
               </div>
 
@@ -73,6 +73,7 @@
 <script>
 import { loginQuery } from '../services/graphql/queries'
 import { apolloClient } from '../boot/vue-apollo'
+import { errorHandler } from '../services/error-handler'
 
 export default {
   name: 'PageLogin',
@@ -106,14 +107,11 @@ export default {
           localStorage.setItem('scd-at', res.data.login.token)
           window.location.href = '/'
         })
-        .catch(
-          err => {
-            this.singIn = false
-            console.log(err.message)
-            console.log(err)
-            this.error = true
-            this.errMsg = err
-          })
+        .catch(err => {
+          this.singIn = false
+          this.error = true
+          this.errMsg = errorHandler(err.message)
+        })
     }
   }
 }
