@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card rubro-content row justify-center flex-center" @click="seleccionada(clave)">
+  <q-card class="my-card rubro-content row justify-center flex-center cursor-pointer" @click="seleccionada(clave)">
     <q-card-section class="row justify-center items-center content-center">
       <div class="col full-with">
         <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
@@ -23,7 +23,11 @@ export default {
   },
   methods: {
     seleccionada (clave) {
-      this.$router.push({ name: 'categorias', params: { id: clave } })
+      if (this.$route.name === 'rubrosDocente') {
+        this.$router.push({ name: 'categoriasDeDocente', params: { idCategory: clave } })
+      } else {
+        this.$router.push({ name: 'categorias', params: { id: clave } })
+      }
     }
   }
 }

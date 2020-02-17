@@ -17,9 +17,8 @@
 </template>
 
 <script>
-import { DOCUMENTS_QUANTITY } from '../../services/graphql/queries'
-import { apolloClient } from '../../boot/vue-apollo'
 import { payload } from '../../services/user'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'InfoCard',
@@ -29,16 +28,18 @@ export default {
       numDocPendientes: ''
     }
   },
+  methods: {
+    ...mapActions({
+      documentosQuery: 'documentos/actions'
+    })
+  },
   mounted () {
-    apolloClient.mutate({
-      mutation: DOCUMENTS_QUANTITY,
-      variables: {
+    this.$store
+      .dispatch('documentos/documentosQty', {
         userId: payload.userId,
         category: '000'
-      }
-    })
+      })
       .then(res => {
-        console.log(res.data)
         this.numDocumentos = res.data.documentsQuantity
       })
       .catch(err => {

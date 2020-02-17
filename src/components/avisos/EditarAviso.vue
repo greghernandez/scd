@@ -61,9 +61,8 @@
 </template>
 
 <script>
-// vuex
-import { mapActions } from 'vuex'
-// import { payload } from '../../services/user'
+import { apolloClient } from '../../boot/vue-apollo'
+import { noticeQuery } from '../../services/graphql/queries'
 import { date } from 'quasar'
 
 export default {
@@ -79,6 +78,7 @@ export default {
       confirm: false,
       newNotice: undefined,
       timeStamp: 'null',
+      aviso: {},
       myLocale: {
         /* starting with Sunday */
         days: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
@@ -90,6 +90,7 @@ export default {
     }
   },
   props: {
+    // Notice Id
     id: {
       type: String,
       required: true
@@ -103,25 +104,22 @@ export default {
     }
   },
   mounted () {
-    console.log('id', this.id)
-    this.$store
-      .dispatch('avisos/avisoQuery', this.id)
-    this.title = this.aviso.title
-    this.description = this.aviso.body
-    this.link = this.aviso.link
-    this.fromDate = date.formatDate(this.aviso.fromDate, 'YYYY-MM-DD')
-    this.toDate = date.formatDate(this.aviso.toDate, 'YYYY-MM-DD')
-  },
-  computed: {
-    aviso () {
-      return this.$store.state.avisos.aviso
-    }
+    apolloClient.query({
+      query: noticeQuery,
+      variables: {
+        id: this.id
+      }
+    })
+      .then(res => {
+        this.aviso = res.data.notice
+        this.title = this.aviso.title
+        this.description = this.aviso.body
+        this.link = this.aviso.link
+        this.fromDate = date.formatDate(this.aviso.fromDate, 'YYYY-MM-DD')
+        this.toDate = date.formatDate(this.aviso.toDate, 'YYYY-MM-DD')
+      })
   },
   methods: {
-    ...mapActions({
-      notices: 'avisos/actions',
-      updateNotice: 'avisos/updateAviso'
-    }),
     loadPhoto (file) {
       this.file = file
     },
@@ -134,7 +132,6 @@ export default {
           link: this.link,
           fromDate: parseFloat(date.formatDate(this.fromDate, 'x')),
           toDate: parseFloat(date.formatDate(this.toDate, 'x')),
-          // createdBy: payload.userId,
           _index: this.index,
           id: this.id,
           file: this.file
@@ -145,8 +142,6 @@ export default {
             icon: 'eva-checkmark-circle-outline',
             message: 'Se editó correctamente el aviso'
           })
-          this.$store
-            .dispatch('avisos/avisoQuery', this.id)
         })
         .catch(err => {
           console.log(err)

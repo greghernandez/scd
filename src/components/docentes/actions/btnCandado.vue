@@ -26,10 +26,12 @@ export default {
     }
   },
   props: {
+    // status
     status: {
       type: String,
       required: true
     },
+    // user id
     userId: {
       type: String,
       required: true
@@ -59,8 +61,6 @@ export default {
       }
     },
     cambiarStatus () {
-      console.log(this.userId)
-      console.log(this.status)
       this.$q.dialog({
         component: AlertAviso,
         title: this.propTitle,
@@ -77,7 +77,6 @@ export default {
         })
           .then(
             res => {
-              console.log(res.data)
               this.verificarStatus(this.newStatus)
               this.$q.notify({
                 color: 'positive',

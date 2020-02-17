@@ -21,6 +21,28 @@ npm run lint
 ```bash
 quasar build
 ```
+Move assets to dist/spa
+
+### Serve Build app for production
+Go to dist/spa
+```bash
+quasar serve
+```
+
+
+### Component Documentation website
+Generate website documentation
+```bash
+vuese gen
+```
+Serve website documentation
+```bash
+vuese serve --open
+```
+
 
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+
+### Used dependencies
+Vue-Caroussel: https://ssense.github.io/vue-carousel/

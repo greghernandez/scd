@@ -6,7 +6,7 @@
           <q-icon size="sm" name="eva-alert-triangle-outline q-mr-sm" />
           <h5 class="text-weight-bold q-my-none">Avisos</h5>
         </div>
-        <!-- cards con los avisos -->
+        <!-- Notice Cards -->
         <q-card v-for="(notices, index) in noticesData" :key="index" class="my-card q-my-md">
           <NoticeCard :title="notices.title" :body="notices.body" :img="notices.imgLnk" :link="notices.link" />
         </q-card>
@@ -42,15 +42,13 @@ export default {
           query: noticesQuery,
           variables: {
             page: 0,
-            perPage: 3,
+            perPage: 0,
             status: 1
           }
         })
           .then(
             res => {
               this.noticesData = res.data.notices
-              console.log(this.noticesData)
-              console.log('------------')
               done(true)
             })
       }, 1000)

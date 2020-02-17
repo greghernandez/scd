@@ -2,7 +2,7 @@
   <div class="column">
     <!-- si tiene un valor RIPAUAQ se renderiza una tarjeta con los puntos -->
     <div v-if="value != 0">
-      <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card">
+      <q-card :id="clave" class="justify-center flex-center my-card card-cat cat-card cursor-pointer">
         <q-card-section class="row justify-center items-center content-center">
           <div class="row justify-center flex-center">
             <div class="col-3 full-with">
@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="column text-center padding-card-sm">
-              <div class="col-6 text-weight-bolder">1</div>
+              <div class="col-6 text-weight-bolder">{{ points }}</div>
               <div class="col-6 txt-card-points text-weight-medium">Puntos <br> obtenidos</div>
             </div>
           </div>
@@ -45,7 +45,7 @@
     </div>
     <!-- si tiene no tiene un valor RIPAUAQ se renderiza esta tarjeta -->
     <div v-else>
-      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center" @click="seleccionada(clave)">
+      <q-card :id="clave" class="my-card row justify-center card-cat cat-card flex-center cursor-pointer" @click="seleccionada(clave)">
         <q-card-section class="row justify-center items-center content-center">
           <div class="col-3 full-with">
             <q-avatar color="secondary" text-color="white">{{ clave }}</q-avatar>
@@ -60,30 +60,72 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+// import { payload } from '../../services/user'
+
 export default {
   name: 'CatCard',
   data () {
     return {
-      selected: false
+      selected: false, // state of category card
+      catPoints: 0, // points in category
+      userId: null
     }
   },
   props: {
+    // Category Id
+    catId: {
+      type: String,
+      required: true
+    },
+    // Category key
     clave: {
       type: String,
       required: true
     },
+    // Category title
     title: {
       type: String,
       required: true
     },
+    // Value of documents of a category
     value: {
       type: Number,
       required: true
     }
   },
   methods: {
+    ...mapActions({
+      documentosQuery: 'documentos/actions'
+    }),
+    ...mapGetters({
+      documentosGetters: 'documentos/getters'
+    }),
     seleccionada (clave) {
-      this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
+      // If user is visitant we assign a special link subcategory view
+      if (this.$route.matched.some(record => record.meta.isVisitant)) {
+        this.$router.push({ name: 'subcategoriaDeDocente', params: { idSub: clave } })
+      } else {
+        this.$router.push({ name: 'subcategoria', params: { idSub: clave } })
+      }
+    }
+  },
+  mounted () {
+    // this.getCatPoints(this.catId)
+  },
+  computed: {
+    points () {
+      if (this.value !== 0) {
+        const index = this.$store.state.documentos.cardPoints.findIndex(e => e.id === this.catId)
+        if (this.$store.state.documentos.cardPoints[index]) {
+          // console.log('PUNTOS:', this.$store.state.documentos.cardPoints)
+          return this.$store.state.documentos.cardPoints[index].totalValue
+        } else {
+          return 0
+        }
+      } else {
+        return 0
+      }
     }
   }
 }

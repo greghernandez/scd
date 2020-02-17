@@ -28,6 +28,7 @@ export default {
     }
   },
   mounted () {
+    // Get documents quantity
     apolloClient.mutate({
       mutation: DOCUMENTS_QUANTITY,
       variables: {
@@ -36,7 +37,6 @@ export default {
       }
     })
       .then(res => {
-        console.log(res.data)
         this.numDocPendientes = res.data.documentsQuantity
       })
       .catch(err => {

@@ -7,6 +7,7 @@ export const noticeCreateMutation = gql`mutation CreateNotice($file: Upload!, $i
         title
         status
         fromDate
+        toDate
         link
     }
 }
@@ -16,6 +17,9 @@ export const noticeUpdateMutation = gql`mutation UpdateNotice($id: ID!, $input: 
   updateNotice(id: $id, input: $input, file: $file)
   {
     _id
+    title
+    body
+    fromDate
   }
 }
 `
@@ -39,6 +43,12 @@ export const userRoleMutation = gql`mutation ChangeRoleUser($userId: ID!, $permi
   updateUserRole( userId: $userId, permissionId: $permissionId, action: $action){
     _id
     name
+    lastName
+    status
+    permissions{
+      _id
+      rank
+    }
   }
 }
 `
@@ -55,6 +65,20 @@ export const userUpdateRoleMutation = gql`mutation UpdateRoleUser($input: Update
   updateUserRole(input: $input){
     _id
     name
+    lastName
+    status
+    permissions{
+      _id
+      rank
+    }
+  }
+}
+`
+// User photo update
+export const userPhotoUpdate = gql`mutation updateProfilePic($id: ID!, $photo: Upload!){
+  updateProfilePic(id: $id, photo: $photo){
+    _id
+    photoURL
   }
 }
 `
@@ -68,6 +92,7 @@ export const multipleUpload = gql`
             mimetype
             size
             path
+            createdAt
         }
     }
 `
@@ -75,6 +100,14 @@ export const multipleUpload = gql`
 export const MOVE_DOCUMENT = gql`mutation MoveDocument($doc: ID!, $cat: ID!){
   moveDocument(doc: $doc, cat: $cat){
     _id
+  }
+}
+`
+// User Mutation MoveDocument
+export const MOVE_DOCUMENTS = gql`mutation moveMultipleDocuments($cat: ID!, $oids: [ID!]!){
+  moveMultipleDocuments(cat: $cat, oids: $oids){
+    qty
+    errors
   }
 }
 `

@@ -1,10 +1,6 @@
 <template>
   <q-page class="">
-    <!--Sección de bienvenida-->
-    <div>
-      <h5 class="q-mt-md q-mb-md">Hola Nombre docente!</h5>
-    </div>
-    <!--Sección cartas informativas-->
+    <!--Info cards-->
     <div class="row">
       <div class="row col-12">
         <div class="col-md-2 col-xs-6 card-info">
@@ -14,19 +10,35 @@
           <cardDocsPen />
         </div>
       </div>
-      <div class="col-md-4 col-xs-6 card-info">
-        <q-card class="my-card">
-          <q-card-section>
-            <DonutChart />
-          </q-card-section>
-        </q-card>
-      </div>
-      <div class="col-md-4 col-xs-6 card-info">
-        <q-card class="my-card">
-          <q-card-section>
-            <DonutChart />
-          </q-card-section>
-        </q-card>
+      <div class="row col-12">
+        <!-- Donut Chart -->
+        <div class="col-md-4 col-xs-12 card-info">
+          <q-card class="my-card">
+            <q-card-section>
+              <div class="row justify-center items-center text-secondary">
+                <q-icon size="sm" name="eva-pie-chart-outline q-mr-sm" />
+                <h5 class="text-weight-medium q-my-none">Puntos por categoría</h5>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <ChartContainer />
+            </q-card-section>
+          </q-card>
+        </div>
+        <!-- Bar Chart -->
+        <div class="col-md-4 col-xs-12 card-info">
+          <q-card class="my-card">
+            <q-card-section>
+              <div class="row justify-center items-center text-secondary">
+                <q-icon size="sm" name="eva-bar-chart-outline q-mr-sm" />
+                <h5 class="text-weight-medium q-my-none">Documentos por categoría</h5>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <BarChartContainer />
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
     <!--Sección de avisos-->
@@ -36,12 +48,10 @@
   </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
 import InfoCard from 'components/inicio/InfoCard'
-import DonutChart from 'components/inicio/DonutChart'
+import ChartContainer from 'components/charts/ChartContainer'
+import BarChartContainer from 'components/charts/BarChartContainer'
 import CardDocsPen from 'components/inicio/cardDocsPendientes'
 import BoardAvisos from 'components/inicio/BoardAvisos'
 
@@ -51,7 +61,8 @@ export default {
     InfoCard,
     BoardAvisos,
     CardDocsPen,
-    DonutChart
+    ChartContainer,
+    BarChartContainer
   },
   data () {
     return {

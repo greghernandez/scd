@@ -12,7 +12,7 @@
         <div class="col text-weight-medium">
           {{ body | truncate(250) }}
         </div>
-        <div class="col">
+        <div class="col" position="bottom">
           <q-btn outline rounded color="primary" class="q-px-lg" label="Ver más" no-caps @click="verConvocatoria"/>
         </div>
       </div>

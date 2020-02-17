@@ -6,7 +6,6 @@
           <div class="text-h6">{{ title }}</div>
         </div>
       </q-card-section>
-
       <q-card-section>
         <div>
           Rubros
@@ -24,7 +23,7 @@
                       <q-card-section>
                         <q-item v-for="(children, index) in children.children" :key="index" tag="label" v-ripple>
                           <q-item-section side top>
-                            <q-radio v-model="newCat" :val="children._id"/>
+                            <q-radio v-model="newCat" :val="children._id" :disable="(children._id === SelectedCategory.catId)" />
                           </q-item-section>
 
                           <q-item-section>
@@ -39,7 +38,7 @@
                   </q-expansion-item>
                   <q-item v-else tag="label" v-ripple>
                     <q-item-section side top>
-                      <q-radio v-model="newCat" :val="children._id" />
+                      <q-radio v-model="newCat" :val="children._id" :disable="(children._id === SelectedCategory.catId)" />
                     </q-item-section>
 
                     <q-item-section>
@@ -62,7 +61,7 @@
       <q-card-actions align="right">
         <q-btn rounded unelevated outline dense label="Cancelar" color="" v-close-popup @click="onCancelClick()"
           no-caps />
-        <q-btn rounded unelevated dense label="Mover aquí" color="primary" v-close-popup @click="onOKClick()" no-caps />
+        <q-btn rounded unelevated dense :disable="(newCat == '')" label="Mover aquí" color="primary" v-close-popup @click="onOKClick()" no-caps />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -71,9 +70,9 @@
 <script>
 import { apolloClient } from '../../boot/vue-apollo'
 import { categoriesQueryTreeMover } from '../../services/graphql/queries'
-import { categoryType } from '../../../enviroment.dev'
+import { categoryType, rubros } from '../../../enviroment.dev'
 import { mapActions } from 'vuex'
-// import { MOVE_DOCUMENT } from '../../services/graphql/mutations'
+import { payload } from '../../services/user'
 
 export default {
   name: 'AlertAvisos',
@@ -90,14 +89,27 @@ export default {
       required: true
     },
     objId: {
-      type: String,
-      required: true
+      type: String
+    },
+    oids: {
+      type: Array
+    },
+    isMultiple: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     ...mapActions({
       documentos: 'documentos/actions'
     }),
+    isActive (id) {
+      if (id === this.objId) {
+        return true
+      } else {
+        return false
+      }
+    },
     show () {
       this.$refs.dialog.show()
     },
@@ -111,16 +123,100 @@ export default {
     },
     onOKClick () {
       // MoveDocument action
-      this.$store.dispatch('documentos/moverDocumento', {
-        doc: this.objId,
-        cat: this.newCat
-      })
-      console.log('Ok')
-      this.$emit('ok')
-      this.hide()
+      if (this.newCat) {
+        if (!this.isMultiple) {
+          this.$store.dispatch('documentos/moverDocumento', {
+            doc: this.objId,
+            cat: this.newCat,
+            user: payload.userId
+          })
+            .then(res => {
+              this.$q.notify({
+                color: 'positive',
+                icon: 'eva-checkmark-circle-outline',
+                message: 'Se movió correctamente el documento seleccionado'
+              })
+              // if the document is in pending documents, we not change points state
+              if (this.$route.name !== 'pendientes') {
+                // Update the card points and the total points of the user
+                this.$store.commit('documentos/updatePoints', {
+                  mode: 'move',
+                  catId: this.SelectedCategory.catId,
+                  newCat: this.newCat,
+                  points: this.SelectedCategory.catDocValue,
+                  movedCount: 1
+                })
+              }
+              // update total points
+              this.$store
+                .dispatch('documentos/inspectCategory', {
+                  user: payload.userId,
+                  category: rubros.todos,
+                  reset: false
+                })
+                .then(res => {
+                  this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
+                })
+            })
+            .catch(err => {
+              this.$q.notify({
+                color: 'negative',
+                icon: 'eva-alert-triangle-outline',
+                message: 'Ocurrió un error, intentalo de nuevo'
+              })
+              console.log(err)
+            })
+        } else {
+          this.$store.dispatch('documentos/moverDocumentos', {
+            oids: this.oids,
+            cat: this.newCat
+          })
+            .then(res => {
+              console.log(res)
+              this.$q.notify({
+                color: 'positive',
+                icon: 'eva-checkmark-circle-outline',
+                message: 'Se movierón correctamente los documentos seleccionados'
+              })
+              // if the document is in pending documents, we not change points state
+              if (this.$route.name !== 'pendientes') {
+                // Update the card points and the total points of the user
+                this.$store.commit('documentos/updatePoints', {
+                  mode: 'move',
+                  catId: this.SelectedCategory.catId,
+                  newCat: this.newCat,
+                  points: this.SelectedCategory.catDocValue,
+                  movedCount: res.data.moveMultipleDocuments.qty
+                })
+              }
+              // update total points
+              this.$store
+                .dispatch('documentos/inspectCategory', {
+                  user: payload.userId,
+                  category: rubros.todos,
+                  reset: false
+                })
+                .then(res => {
+                  this.$store.commit('documentos/setTotalPoints', res.data.inspectCategory.totalValue)
+                })
+            })
+            .catch(err => {
+              this.$q.create({
+                color: 'negative',
+                icon: 'eva-alert-triangle-outline',
+                message: 'Ocurrió un error, intentalo de nuevo'
+              })
+              console.log(err)
+            })
+        }
+        // send
+        this.$emit('ok')
+        this.hide()
+      } else {
+        alert('Tienes que seleccionar una categoría para poder mover tus archivos')
+      }
     },
     onCancelClick () {
-      console.log('Cancel')
       this.hide()
     }
   },
@@ -135,8 +231,12 @@ export default {
     })
       .then(res => {
         this.categorias = res.data.categories
-        console.log(res.data)
       })
+  },
+  computed: {
+    SelectedCategory () {
+      return this.$store.state.documentos.selectedCat
+    }
   }
 }
 </script>

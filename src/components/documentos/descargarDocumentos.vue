@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" v-model="alertAviso" persistent>
+  <q-dialog ref="dialog" v-model="alertAviso">
     <q-card class="my-modal items-center">
       <q-card-section class="vertical-middle">
         <div class="row">
@@ -8,25 +8,33 @@
       </q-card-section>
 
       <q-card-section>
-        <div class="row justify-center items-center content-center">
-          <div class="column">
+        <div class="row col-12 col-xs-12 justify-center items-center">
+          <div class="col-md-6 col-xs-12">
             <q-tree class="col-6 col-sm-12"
               :nodes="simple"
-              node-key="label"
+              node-key="_id"
               tick-strategy="leaf"
-              ref="tree"
+              default-expand-all
+              accordion
               :selected.sync="selected"
               :ticked.sync="ticked"
-              :expanded.sync="expanded" />
+              :expanded.sync="expanded"
+              no-nodes-label="No hay documentos para descargar" >
+                <template v-slot:default-header="prop">
+                  <div class="row items-center">
+                    <div class="">{{ prop.node.label | capitalize}}</div>
+                  </div>
+                </template>
+            </q-tree>
           </div>
 
-          <q-separator vertical/>
+          <q-separator class="desktop-only" vertical/>
 
-          <div class="column justify-center flex-center">
-            <div class="col-6 col-sm-12 q-gutter-y-md">
-              <q-btn rounded label="Descarga en PDF" icon="eva-download-outline" color="negative" no-caps @click="seleccionados()"/><br>
-              <q-btn rounded label="Descarga en ZIP" icon="eva-download-outline" color="warning" no-caps /><br>
-              <q-btn rounded label="Visualizar en linea" icon="eva-download-outline" color="primary" no-caps /><br>
+          <div class="row col-md-5 col-sm-12 flex-center">
+            <div class="q-gutter-y-md">
+              <q-btn rounded class="text-caption full-width" label="Descarga en PDF" icon="img:statics/icons/pdf.png" color="negative" :disabled="!(this.ticked.length > 0)" no-caps @click="descargaPdf()"/><br>
+              <q-btn rounded class="full-width" label="Descarga en ZIP" icon="img:statics/icons/zip.png" :disabled="!(this.ticked.length > 0)" color="warning" no-caps @click="descargaZip()" /><br>
+              <q-btn rounded class="full-width" label="Visualizar en linea" icon="img:statics/icons/file.png" :disabled="!(this.ticked.length > 0)" color="primary" no-caps  @click="visualizar()"/><br>
             </div>
           </div>
         </div>
@@ -43,6 +51,9 @@
 <script>
 import { apolloClient } from '../../boot/vue-apollo'
 import { treeQuery } from '../../services/graphql/queries'
+import { payload } from '../../services/user'
+import { joinInZip, joinInPdf } from '../../services/downloads'
+import modalDocs from 'components/documentos/modalDocs'
 
 export default {
   name: 'AlertAvisos',
@@ -52,19 +63,58 @@ export default {
       selected: 'Pleasant surroundings',
       ticked: [],
       expanded: [],
-      simple: []
+      simple: [],
+      user: undefined
     }
   },
   props: {
-    title: String
+    title: String,
+    userId: {
+      type: String
+    },
+    catId: {
+      type: String,
+      default: '5db33a684dc61d2260e5c505'
+    },
+    preTicket: {
+      type: Array,
+      default: null
+    }
   },
   methods: {
-    seleccionados () {
-      const treeNodes = this.$refs.tree.getTickedNodes()
-      const ids = treeNodes.map(e => {
-        return e.id
+    descargaPdf () {
+      this.hide()
+      this.$store.commit('documentos/changeDownloadState')
+      joinInPdf(this.ticked, 'download').then(res => {
+        this.$store.commit('documentos/changeDownloadState')
       })
-      console.log(ids)
+    },
+    descargaZip () {
+      this.hide()
+      this.$store.commit('documentos/changeDownloadState')
+      joinInZip('scd.zip', this.ticked).then(res => {
+        this.$store.commit('documentos/changeDownloadState')
+        if (res === 200) {
+          this.$q.notify({
+            color: 'positive',
+            icon: 'eva-checkmark-circle-outline',
+            message: 'Tu archivo se descargó correctamente'
+          })
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            icon: 'eva-alert-triangle-outline',
+            message: 'Ocurrió un error, intentalo de nuevo'
+          })
+        }
+      })
+    },
+    visualizar () {
+      // Dialog con la vista del documento
+      this.$q.dialog({
+        component: modalDocs,
+        fileIds: this.ticked
+      })
     },
     show () {
       this.$refs.dialog.show()
@@ -78,25 +128,27 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
-      console.log(this.ticked)
       this.$emit('ok')
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
       this.hide()
     },
-    getTree () {
-      apolloClient.query({
+    async getTree () {
+      if (this.userId === undefined) {
+        this.user = payload.userId
+      } else {
+        this.user = this.userId
+      }
+      await apolloClient.query({
         query: treeQuery,
         variables: {
-          cat: '5db33a684dc61d2260e5c505',
-          user: '5da4dca3377d68341c67575d'
+          cat: this.catId,
+          user: this.user
         }
       })
         .then(res => {
           this.simple.push(res.data.getTree)
-          console.log(this.simple)
         })
         .catch(err => {
           console.log(err)
@@ -105,6 +157,19 @@ export default {
   },
   mounted () {
     this.getTree()
+    if (this.preTicket != null) {
+      this.ticked = this.preTicket
+    }
+  },
+  filters: {
+    capitalize: function (value) {
+      console.log(value)
+      if (value === '000 - Olympus') {
+        return 'Documentos'
+      } else {
+        return value
+      }
+    }
   }
 }
 </script>

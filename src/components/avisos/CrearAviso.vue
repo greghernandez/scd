@@ -91,7 +91,6 @@ export default {
   },
   mounted () {
     let timeStamp = Date.now()
-    console.log('timeStamp', timeStamp)
     this.fromDate = date.formatDate(timeStamp, 'YYYY-MM-DD')
     this.toDate = this.fromDate
   },
@@ -149,7 +148,7 @@ export default {
     },
 
     onOKClick () {
-      console.log('Ok')
+      // console.log('Ok')
       // on OK, it is REQUIRED to
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
@@ -159,7 +158,7 @@ export default {
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
+      // console.log('Cancel')
       // we just need to hide dialog
       this.hide()
     }

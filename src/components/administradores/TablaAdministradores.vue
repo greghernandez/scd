@@ -37,7 +37,7 @@
               {{ props.row.clave }}
             </q-td>
             <q-td key="verDocente" align="center">
-              <BtnAdministradores :rango="props.row.permissions" :userId="props.row._id" />
+              <BtnAdministradores :key="props.row._id" :rango="props.row.permissions" :userId="props.row._id" />
             </q-td>
           </q-tr>
         </template>

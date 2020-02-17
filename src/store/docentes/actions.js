@@ -1,10 +1,10 @@
 import { Notify } from 'quasar'
 import { apolloClient } from '../../boot/vue-apollo'
-import { docentesQueryAdmin } from '../../services/graphql/queries'
-import { DELETE_USER } from '../../services/graphql/mutations'
+import { docentesQueryAdmin, userQueryToolbar } from '../../services/graphql/queries'
+import { DELETE_USER, userPhotoUpdate } from '../../services/graphql/mutations'
 
 /**
- * docentesQuery
+ * Query for docentes
  * @param { commit }
  */
 export function docentesQuery ({ commit }) {
@@ -18,9 +18,52 @@ export function docentesQuery ({ commit }) {
     })
       .then(res => {
         const docentesData = res.data.users
-        console.log('DOCENTES:', res.data.users)
         commit('setDocentes', docentesData)
         resolve(res)
+      })
+  })
+}
+/**
+ * Gets user data
+ * @param {*} userId - user id
+ */
+export function userData ({ commit }, userId) {
+  return new Promise((resolve, reject) => {
+    apolloClient.query({
+      query: userQueryToolbar,
+      variables: {
+        id: userId
+      },
+      context: {
+        hasUpload: true
+      }
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+/**
+ * Update user profile photo
+ * @param {*} payload - user id and photo file
+ */
+export function updateUserProfilePic ({ commit }, payload) {
+  return new Promise((resolve, reject) => {
+    apolloClient.mutate({
+      mutation: userPhotoUpdate,
+      variables: {
+        id: payload.userId,
+        photo: payload.photo
+      }
+    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
       })
   })
 }

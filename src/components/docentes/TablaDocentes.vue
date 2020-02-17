@@ -30,7 +30,7 @@
               {{ props.row.clave}}
             </q-td>
             <q-td key="verDocente">
-              <BtnVer :clave="props.row.clave" />
+              <BtnVer :id="props.row._id" />
             </q-td>
             <q-td key="habilitarDocente">
               <BtnCandado :status="props.row.status" :userId="props.row._id" />

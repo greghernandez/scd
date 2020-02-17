@@ -41,7 +41,7 @@ export default {
             this.$q.notify({
               color: 'positive',
               icon: 'eva-checkmark-circle-outline',
-              message: 'Se elimino correctamente a este usuario'
+              message: 'Se eliminó correctamente a este usuario'
             })
           })
       })

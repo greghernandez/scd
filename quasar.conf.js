@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'vue-apollo',
       'vue-glide',
       'vue-clipboard',
-      'vue-truncate-filter'
+      'vue-truncate-filter',
+      'router-auth'
     ],
 
     css: [
@@ -82,9 +83,13 @@ module.exports = function (ctx) {
         'QExpansionItem',
         'QInfiniteScroll',
         'QSpinnerDots',
+        'QSpinner',
         'QTree',
         'QBar',
-        'QRadio'
+        'QRadio',
+        'QFab',
+        'QFabAction',
+        'QPageSticky'
       ],
 
       directives: [
@@ -103,7 +108,7 @@ module.exports = function (ctx) {
 
     build: {
       scopeHoisting: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'history',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,

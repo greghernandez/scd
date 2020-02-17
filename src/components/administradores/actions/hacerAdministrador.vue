@@ -117,10 +117,10 @@ export default {
         })
         this.permissionsData.then(
           res => {
-            console.log(res.data)
             this.isAdmin = !this.isAdmin
-            // const nId = this.id
+            // const nId = res.data.updateUserRole._id
             // const permiso = this.propPermition
+            // console.log('New Perm', nId, permiso)
             // this.$store.commit('docentes/cambiarPermisos', { nId, permiso })
             this.$store.dispatch('docentes/docentesQuery')
             this.$q.notify({

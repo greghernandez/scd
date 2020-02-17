@@ -15,12 +15,15 @@ import ModalEditarAviso from 'components/avisos/EditarAviso'
 import { mapActions } from 'vuex'
 
 export default {
+  // Btn to edit a notice
   name: 'BtnEditar',
   props: {
+    // ID of notice
     id: {
       type: String,
       required: true
     },
+    //
     title: {
       type: String,
       required: true

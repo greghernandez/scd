@@ -46,12 +46,12 @@ export default {
       this.$emit('hide')
     },
     onOKClick () {
-      console.log('Ok')
+      // console.log('Ok')
       this.$emit('ok')
       this.hide()
     },
     onCancelClick () {
-      console.log('Cancel')
+      // console.log('Cancel')
       this.hide()
     }
   }
